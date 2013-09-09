@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ice="http://www.icesoft.com/icefaces/component"
+    xmlns:fn="http://www.primeinformatica.com.br/functions">
+
+			
+	<img src ="../../images/consertos_imagem.gif" 
+             style="height: 235px; width: 375px; border: 0px;"  
+             usemap ="#planetmap" />
+
+	<map name="planetmap">
+		<area id="registro" shape="rect" coords="80,110,125,90" href="#{facesContext.externalContext.requestContextPath}/pages/consertos/consertoregistro.iface"/>
+
+		<area id="nomeRegistro" shape="rect" coords="25,85,80,100" href="#{facesContext.externalContext.requestContextPath}/pages/consertos/consertoregistro.iface"/>
+
+		<area id="hidrometro" shape="rect" coords="155,15,245,90" href="#{facesContext.externalContext.requestContextPath}/pages/consertos/consertohidrometro.iface"/>
+								  
+	  	<area id="nomeHidrometro" shape="rect" coords="242,6,306,20" href="#{facesContext.externalContext.requestContextPath}/pages/consertos/consertohidrometro.iface"/>
+
+		<area id="cavaleteLadoEsquerdoSuperior" shape="rect" coords="85,40,155,90" href="#{facesContext.externalContext.requestContextPath}/pages/consertos/consertocavalete.iface"/>
+
+		<area id="cavaleteLadoEsquerdoInferior" shape="rect" coords="60,110,145,200" href="#{facesContext.externalContext.requestContextPath}/pages/consertos/consertocavalete.iface"/>
+
+		<area id="cavaleteLadoDireitoSuperior" shape="rect" coords="240,35,310,130" href="#{facesContext.externalContext.requestContextPath}/pages/consertos/consertocavalete.iface"/>
+
+		<area id="cavaleteLadoDireitoInferior" shape="rect" coords="255,129,335,200" href="#{facesContext.externalContext.requestContextPath}/pages/consertos/consertocavaletepeinferior.iface"/>
+
+		<area id="ramalSabespNome" shape="rect" coords="65,200,120,235" href="#{facesContext.externalContext.requestContextPath}/pages/consertos/consertocavalete.iface"/>
+
+		<area id="instalacoesInternasNome" shape="rect" coords="270,200,340,235" href="#{facesContext.externalContext.requestContextPath}/pages/consertos/consertocavaletepeinferior.iface"/>
+	</map>		
+	
+</ui:composition>	

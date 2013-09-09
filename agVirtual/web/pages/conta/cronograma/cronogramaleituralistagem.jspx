@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ice="http://www.icesoft.com/icefaces/component"
+    xmlns:fn="http://www.primeinformatica.com.br/functions" template="../../template/template.jspx">
+
+	<ui:define name="conteudo">
+
+		<ice:panelGroup styleClass="wrapper">
+
+			<!-- panel Tabela SegundaVia -->			
+			<ice:panelGroup styleClass="contaContent">
+				<h3><h:outputText value="#{migalhaPaoBBean.dsSubMenu}"/></h3>
+				<p></p>
+
+				<ice:panelGroup>
+					<ice:dataTable rows="13"
+					        	   var="row" style="width: 100%;"
+					        	   value="#{cronogramaLeituraBBean.listaCronogramaLeitura}"
+							       rowClasses="row1, row2"
+								   id="table" 
+								   rendered="#{cronogramaLeituraBBean.rolEspecial == false}"> 
+						<ice:column style="padding: 10px 15px; text-align: left;">
+		                    <f:facet name="header">
+								<ice:outputText value="#{msg['suaconta.txt.consultedataproximaleituras.pesquisa.mesref']}" style="text-align: left; float: left;"/>
+							</f:facet>
+							<h:outputText value="#{row.mesReferencia}">
+								<f:convertDateTime pattern="MMMM/yyyy"/>
+							</h:outputText>
+						</ice:column>
+		                <ice:column style="padding: 10px 15px;">
+		                    <f:facet name="header">
+		                        #{msg['suaconta.txt.consultedataproximaleituras.pesquisa.leit.mensal']}
+		                    </f:facet>
+							<h:outputText value="#{row.dataLeituraMensal}">
+								<f:convertDateTime pattern="dd/MM/yyyy"/>
+							</h:outputText>
+						</ice:column>
+						<ice:column style="padding: 10px 15px;">
+		                    <f:facet name="header">
+								#{msg['suaconta.txt.consultedataproximaleituras.pesquisa.venc']}
+							</f:facet>
+							<h:outputText value="#{row.dataVencimento}">
+								<f:convertDateTime pattern="dd/MM/yyyy"/>
+							</h:outputText>
+		                   </ice:column>
+					</ice:dataTable>
+		
+					<ice:dataTable rows="13"
+					        	   var="row" style="width: 100%;"
+					        	   value="#{cronogramaLeituraBBean.listaCronogramaLeitura}"
+							       rowClasses="row1, row2"
+							       id="table"
+							       rendered="#{cronogramaLeituraBBean.rolEspecial == true}"> 
+		 				<ice:column style="padding: 10px 15px; text-align: left;">
+		                    <f:facet name="header">
+								<ice:outputText value="#{msg['suaconta.txt.consultedataproximaleituras.pesquisa.mesref']}" style="text-align: left; float: left;"/>
+							</f:facet>
+							<h:outputText value="#{row.mesReferencia}">
+								<f:convertDateTime pattern="MMMM/yyyy"/>
+							</h:outputText>
+						</ice:column>
+				        <ice:column style="padding: 10px 15px;">
+		                    <f:facet name="header">
+								#{msg['suaconta.txt.consultedataproximaleituras.pesquisa.leit.inter']}
+							</f:facet>
+							<h:outputText value="#{row.dataLeituraIntermediaria}">
+								<f:convertDateTime pattern="dd/MM/yyyy"/>
+							</h:outputText>
+						</ice:column>
+		                <ice:column style="padding: 10px 15px;">
+		                    <f:facet name="header">
+		                        #{msg['suaconta.txt.consultedataproximaleituras.pesquisa.leit.mensal']}
+		                    </f:facet>
+							<h:outputText value="#{row.dataLeituraMensal}">
+								<f:convertDateTime pattern="dd/MM/yyyy"/>
+							</h:outputText>
+						</ice:column>
+						<ice:column style="padding: 10px 15px;">
+		                    <f:facet name="header">
+								#{msg['suaconta.txt.consultedataproximaleituras.pesquisa.venc']}
+							</f:facet>
+							<h:outputText value="#{row.dataVencimento}">
+								<f:convertDateTime pattern="dd/MM/yyyy"/>
+							</h:outputText>
+		                   </ice:column>
+					</ice:dataTable>
+				</ice:panelGroup>
+			</ice:panelGroup>
+
+			<table border="0" width="100%">
+				<tr>
+					<td align="center">			
+						<ice:panelGroup styleClass="botoes" style="clear: both;">
+							<br />
+							<ul style="float:center;">
+								<li class="claro">
+									<ice:commandLink action="#{cronogramaLeituraBBean.paginaInicial}" ><b><span>#{msg['cronogramaleitura.botao.continuaratendimento']}</span></b></ice:commandLink>
+								</li>	
+								<li class="escuro">
+									<ice:commandLink action="#{cronogramaLeituraBBean.concluir}" ><b><span>#{msg['cronogramaleitura.botao.concluir']}</span></b></ice:commandLink>
+								</li>	
+							</ul>					
+						</ice:panelGroup>	
+					</td>
+				</tr>
+			</table>
+		</ice:panelGroup>
+	</ui:define>
+</ui:composition>				

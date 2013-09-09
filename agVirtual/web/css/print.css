@@ -1,0 +1,107 @@
+*{
+margin:0;
+padding:0;
+}
+BODY
+{
+    MARGIN: 0px;
+    width: 800px
+}
+TABLE
+{
+    MARGIN-BOTTOM: 0px;
+    WIDTH: 100%;
+}
+TD TABLE
+{
+    WIDTH: 100%;
+}
+TD
+{
+    PADDING-RIGHT: 0px;
+    PADDING-LEFT: 0px;
+    PADDING-BOTTOM: 0px;
+    MARGIN: 0px;
+    PADDING-TOP: 0px;
+}
+.t_b_margim
+{
+    MARGIN-TOP: 1px;
+    MARGIN-BOTTOM: 1px;
+}
+.label
+{
+    FONT-SIZE: 9px;
+}
+.texto
+{
+    FONT-SIZE: 11px;
+}
+.texto_menor
+{
+    FONT-SIZE: 10px;
+}
+#conteudo
+{
+    WIDTH: 690px;
+}
+#linhaCabec
+{
+    WIDTH: 630px;
+}
+#logoSabesp
+{
+    WIDTH: 49px;
+}
+#OCR
+{
+    WIDTH: 480px;
+}
+#mesref
+{
+    WIDTH: 199px;
+}
+#codrgi
+{
+    WIDTH: 150px;
+}
+#codcliente
+{
+    WIDTH: 270px;
+}
+#nrconta
+{
+    WIDTH: 257px;
+}
+#atencao
+{
+    WIDTH: 130px;
+}
+#textoatencao
+{
+    WIDTH: 100px;
+}
+#obs
+{
+    WIDTH: 549px;
+}
+#viaSabesp
+{
+    WIDTH: 130px;
+}
+#vencto
+{
+    WIDTH: 260px;
+}
+#valor
+{
+    WIDTH: 287px;
+}
+#trans
+{
+    WIDTH: 680px;
+}
+#barras
+{
+    WIDTH: 681px;
+}

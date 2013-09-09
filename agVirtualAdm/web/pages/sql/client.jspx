@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:fn="http://www.primeinformatica.com.br/functions"
+	template="../templates/template.jspx">
+
+	<ui:define name="content">
+
+		<ice:form styleClass="common" id="formConteudo">
+			<h2>SQL Client</h2>
+			<ice:panelGroup rendered="#{true}">
+				<input jsfc="h:inputTextarea"
+				onblur="desfocaliza(this)" onfocus="focaliza(this);" 
+				size="1024" maxlength="2048" type="text" class="texto"
+				style="width: 840px; height: 50px;"
+				value="#{sqlBBean.query}" required="false" /> <h:message
+				for="subTitulo" errorClass="error" fatalClass="error"
+				warnClass="error" />
+			<ice:commandButton id="botaoExecute"
+				image="/images/pesquisar_registro.gif" partialSubmit="true"
+				title="Pesquisar" styleClass="btnPesquisar"
+				actionListener="#{sqlBBean.runQuery}" />	
+	 			
+			</ice:panelGroup>
+			 <br/>		
+			
+			<ice:panelGroup rendered="#{sqlBBean.exibeSQL}">
+				<ui:repeat value="${sqlBBean.resultList}" var="tupla">
+					<ice:panelGroup rendered="#{true}" style="border: 1px solid #D2D7D7; background-color: #EDF2F2; font: normal 8pt Verdana!important;">
+							<h:outputText value="#{tupla}"/>
+					</ice:panelGroup>
+				</ui:repeat>				
+			</ice:panelGroup>
+				
+		</ice:form>
+	</ui:define>
+
+</ui:composition>

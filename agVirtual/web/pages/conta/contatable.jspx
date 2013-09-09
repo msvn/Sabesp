@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ice="http://www.icesoft.com/icefaces/component"
+    xmlns:fn="http://www.primeinformatica.com.br/functions" template="../template/template.jspx">
+
+	<link href="#{facesContext.externalContext.requestContextPath}/css/agvt.css" rel="stylesheet" type="text/css" />
+	
+<ui:define name="conteudo">
+<ice:panelGroup styleClass="wrapper">
+		<ice:panelGroup styleClass="contaContent">
+
+		<!-- panel Tabela SegundaVia -->			
+		<ice:panelGroup>
+			<h3 id="titulo"><h:outputText value="#{migalhaPaoBBean.dsSubMenu}"/></h3>
+			<p>Selecione a opção desejada:</p>
+		</ice:panelGroup>
+
+		<ice:panelGroup>
+			<table class="headertable" cellpadding="0" cellspacing="0" border="0">
+				<thead class="msg">
+					<tr>
+						<td colspan="8" class="msgTopo">
+							Exibindo de 6 a 10 contas - do total de 12
+						</td>
+					</tr>
+				</thead>
+				<thead>
+					<tr>
+						<th width="105" colspan="2">Mês de<br />referência</th>
+						<th width="125">Vencimento</th>
+						<th width="125">Valor<BR />(em R$)</th>
+						<th width="400">Imprimir 2ª via<BR />(gratuita)</th>
+						<th width="400">Receber pelo<br />correio (R$ 1,43 / conta)</th>
+						<th width="125">Pagamento<br />eletrônico</th>
+						<th width="400" class="txtC">Situação</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr class="bgTr">
+						<td colspan="4"> </td>
+						<td valign="center">
+							<label for="imprimirTodas">Selecionar todas</label> <input type="checkbox" name="imprimirTodas" id="imprimirTodas" onclick="selTodasImprimir();" />
+						</td>
+						<td>
+							<label for="correioTodas"> Selecionar todas</label> <input type="checkbox" name="correioTodas" id="correioTodas" onclick="selTodasCorreio();" />
+						</td>
+						<td class="txtC direita" colspan="2"> </td>
+					</tr>
+			</tbody>
+</table>
+
+				
+			<ice:dataTable
+					rows="5"
+			        var="conta"
+			        value="#{contaBBean.imovel.contaList}"
+					rowClasses="row1,row2"
+					id="table"> 
+			  
+			        <ice:column styleClass="td1">
+							<ice:outputLabel value="*" />
+							<ice:outputLabel value="#{conta.dtReferencia}" >
+								<f:convertDateTime pattern="dd/MM/yyyy"/> 
+							</ice:outputLabel>
+			        </ice:column>
+	  
+	        		<ice:column styleClass="td2">               
+	                	<ice:outputLabel value="#{conta.dtVencimento}">
+							<f:convertDateTime pattern="dd/MM/yyyy"/>
+						</ice:outputLabel>
+	        		</ice:column>
+
+			        <ice:column styleClass="td3">
+		                <ice:outputLabel value="#{conta.vlTotal}" />
+			        </ice:column>
+
+			        <ice:column styleClass="td4">
+							<ice:selectBooleanCheckbox value="#{conta.imprimirSegundaVia}" />
+			        </ice:column>
+
+			        <ice:column styleClass="td5">
+							<ice:selectBooleanCheckbox value="#{conta.receberPeloCorreio}" />
+			        </ice:column>
+
+			        <ice:column styleClass="td6">
+		                <ice:outputLabel value="Pagar" />
+			        </ice:column>
+
+			        <ice:column styleClass="tdultimo">
+		                <ice:outputLabel value="#{conta.dsSituacao}" />
+			        </ice:column>
+
+					<!--  -->
+			</ice:dataTable>
+
+			<ui:include src="../template/paginator.jspx">
+				<ui:param name="tabela" value="table" />
+			</ui:include>
+
+				
+		</ice:panelGroup>
+
+				<table border="0" width="100%">
+				<tr>
+					<td align="center">
+						<ice:panelGroup styleClass="botoes" style="clear: both;">
+							<br />
+
+							<ul>	
+								<li class="claro"><ice:commandLink action="#{contaBBean.retornar}" ><b><span>RETORNAR</span></b></ice:commandLink></li>
+
+								<li class="claro"><ice:commandLink action="#{contaBBean.prosseguirTabela}" ><b><span>PROSSEGUIR</span></b></ice:commandLink></li>
+							</ul>
+
+						</ice:panelGroup>
+					</td>
+				</tr>
+				</table>						
+
+
+		</ice:panelGroup>
+
+</ice:panelGroup>
+	
+</ui:define>
+</ui:composition>				

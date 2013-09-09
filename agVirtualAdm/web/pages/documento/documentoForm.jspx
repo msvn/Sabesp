@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ice="http://www.icesoft.com/icefaces/component"
+    template="../templates/template.jspx">
+    
+	<ui:define name="content" >
+		<div id="geral">
+	    <div class="tituloGeral" style="margin-top: 25px;">
+	         <h2><span id="Titulo">#{msg['av.documento.alterar']}</span></h2>
+	    </div>
+		</div>    
+        <form jsfc="h:form" action="" id="documento">
+
+		<h:messages errorStyle="color: red" infoStyle="color: green" layout="table" 
+            				showSummary="true" showDetail="false" globalOnly="true"/>
+		
+		<input type="hidden" id="cdDocumento" jsfc="h:inputHidden" value="#{documentosBBean.documento.cdDocumento}" />
+        
+		<!-- CORPO DA PAGINA -->
+		<div id="conteudo">	
+			<div id="formulario">
+				<br class="clear" />
+				<div class="obrigatorios"><b class="asterisco">*</b> campos obrigatórios</div>
+				<span><b class="asterisco">*</b>Nome</span> 
+				
+				 <input jsfc="h:inputText" onblur="desfocaliza(this)" onfocus="focaliza(this);"
+		          id="nmDocumento" size="120" maxlength="65" type="text" class="texto" style="width: 250px;"
+		          value="#{documentosBBean.documento.nmDocumento}"  required="true"/> <h:message
+		          for="nmDocumento" errorClass="error" fatalClass="error" warnClass="error" />
+	
+				<br class="clear" />
+				
+				<br class="clear" />
+				<span><b class="asterisco">*</b>Descrição</span>
+				<div id="textarea">
+					   <input jsfc="h:inputTextarea" onblur="desfocaliza(this)" onfocus="focaliza(this);"
+			           id="dsDocumento" size="100" maxlength="100" type="text" class="texto" style="width:360px;height:50px;"
+			           value="#{documentosBBean.documento.dsDocumento}" required="true"/> <h:message
+			           for="dsDocumento" errorClass="error" fatalClass="error" warnClass="error" />
+				</div>				
+				<br class="clear" />
+
+				<br class="clear" />
+                <span><b class="asterisco">*</b>Pessoa</span>
+                	<ice:panelGroup styleClass="selectionRadioGroup">
+	                    <ice:selectOneRadio id="tipoPessoa" required="true"
+	                            value="#{documentosBBean.documento.tipoPessoa}"
+	                            partialSubmit="true" >
+	                        <f:selectItems  id="itensTipoPessoa"
+	                                        value="#{documentosBBean.listTipoPessoa}"/>
+	                    </ice:selectOneRadio>
+	                </ice:panelGroup>
+ 				<h:message for="tipoPessoa" errorClass="error" fatalClass="error" warnClass="error" />
+				
+				<br class="clear" />
+				<span><b class="asterisco">*</b>Referência</span>
+					<ice:panelGroup styleClass="selectionRadioGroup">
+	                    <ice:selectOneRadio id="tipoDocumento" required="true"
+	                            value="#{documentosBBean.documento.tipoDocumento}"
+								valueChangeListener="#{documentosBBean.tipoChanged}"
+ 								partialSubmit="true" 
+	                            >
+	                        <f:selectItems  id="itensTipoDocumento" 
+	                                        value="#{documentosBBean.listTipoDocumento}"/>
+	                    </ice:selectOneRadio>
+						<h:message for="tipoDocumento" errorClass="error" fatalClass="error" warnClass="error" />
+	                </ice:panelGroup>
+				<br class="clear" />
+
+				<h:outputText rendered="${documentosBBean.flagLinkDoc eq true}">	
+				<span><b class="asterisco">*</b>Link</span>
+				<div id="textarea">
+						<!-- textarea cols="70" rows="3" name="subtitulo" onfocus="focaliza(this);" onblur="desfocaliza(this)" maxlength="100"></textarea-->
+					   <input jsfc="h:inputTextarea" onblur="desfocaliza(this)" onfocus="focaliza(this);"
+			           id="dsLink" size="100" maxlength="100" type="text" class="texto" style="width:380px;height:50px;"
+			           value="#{documentosBBean.documento.dsLink}" required="false"/> <h:message
+			           for="dsLink" errorClass="error" fatalClass="error" warnClass="error" style="align:left" />
+				</div>		
+				</h:outputText>
+
+				<br class="clear" />
+				<h:outputText rendered="${documentosBBean.flagLinkDoc eq false}">	
+					<span><b class="asterisco">*</b>Documento</span>
+				        <ice:inputFile id="nmFisicoDocumento" width="600" autoUpload="true"
+				                       progressListener="#{documentosBBean.fileUploadProgress}"
+				                       actionListener="#{documentosBBean.uploadFile}"
+									    >
+						<h:message for="nmFisicoDocumento" errorClass="error" fatalClass="error" warnClass="error" style="align:left" />
+						</ice:inputFile>
+						<br class="clear" />
+						<span></span>
+								<ice:outputProgress value="#{documentosBBean.fileProgress}"
+	                            	styleClass="uploadProgressBar"/>
+						<br class="clear" />
+
+						<span><ice:outputText
+				                value="#{msg['av.noticia.form.arquivo.titulo']}"/></span>
+						<ice:outputText value="#{documentosBBean.documento.realName}" /> 
+				        
+			
+				</h:outputText>
+				<br class="clear" />
+				<div id="botoes">
+					<h:commandButton styleClass="botaoSabesp" action="#{documentosBBean.atualizar}" value="Voltar" />
+					<h:commandButton styleClass="botaoSabesp" action="#{documentosBBean.novoDocumento}" value="Limpar" />
+					<h:commandButton styleClass="botaoSabesp" action="#{documentosBBean.excluir}" rendered="${documentosBBean.mostraBotaoExcluir}" value="Excluir" />
+					<h:commandButton styleClass="botaoSabesp" action="#{documentosBBean.salvar}" value="Salvar" />
+				</div>
+			</div>
+		</div>
+		<!-- CORPO DA PAGINA -->
+	</form>
+</ui:define>
+</ui:composition>
+

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ice="http://www.icesoft.com/icefaces/component"
+    xmlns:fn="http://www.primeinformatica.com.br/functions" template="template.jspx">
+
+<ui:define name="conteudo">
+	<ice:panelGroup styleClass="wrapper">
+			<ice:panelGroup styleClass="contaContent">	
+
+				<!-- erro sistemico, causado por execao nao esperada -->
+				<ice:panelGroup styleClass="box_msg_validacao">	
+					<p><span class="naoconcluido"></span><h:outputText value="#{msg['erro.sistemico.descricao']}"/>.</p>
+					<p style="margin-left: 30px;" ><h:outputText value="#{erroBBean.dsErro}"/></p>
+					<!--<p style="margin-left: 30px;visibility: none" ><h:outputText value="#{erroBBean.dsErro}"/></p>-->
+				</ice:panelGroup>
+			
+				<!-- exibe botoes -->
+				<ice:panelGroup styleClass="botoes">
+				<div class="center">
+					<ul class="" style="float:center;">	
+						<li class="claro">
+							<ice:commandLink action="#{auditoriaAcessoBBean.paginaInicial}" actionListener="#{migalhaPaoBBean.limpaCampos}">
+								<b><span>Tentar Novamente</span></b>
+							</ice:commandLink>
+						</li>
+						<li class="escuro">
+							<ice:commandLink action="#{auditoriaAcessoBBean.redirectConcluirAtendimento}" >
+								<b><span>Concluir</span></b>
+							</ice:commandLink>
+						</li>
+					</ul>				
+				</div>
+				</ice:panelGroup>
+
+				<!-- 
+					<div class="center">
+						<ice:panelGroup styleClass="botoes">
+							<ul class="" style="float:center;">	
+								<li class="claro">
+									<ice:commandLink action="#{auditoriaAcessoBBean.paginaInicial}" actionListener="#{migalhaPaoBBean.limpaCampos}">
+										<b><span>Página Inicial</span></b>
+									</ice:commandLink>
+								</li>
+							</ul>		
+						</ice:panelGroup>
+					</div>
+				 -->
+			</ice:panelGroup>
+	</ice:panelGroup>
+</ui:define>
+
+</ui:composition>

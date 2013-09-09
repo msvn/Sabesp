@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ice="http://www.icesoft.com/icefaces/component">
+
+	<!-- exibe tela de erro -->
+	<ui:include src="../template/errorgiinvalido.jspx">
+		<ui:param name="backbean" value="#{backbean}" />
+	</ui:include>
+
+	<!-- exibe tela de pesquisa -->
+	<ice:panelGroup rendered="${backbean.rgiinvalido eq false}">
+			<ice:panelGroup styleClass="boxrgiresultadopesquisa">
+					<ice:panelGrid border="0" columns="2" style="font-size: 12px;clear: both;">
+						<ice:outputLabel style="font-weight:bold;padding:5px;"><h:outputText value="#{msg['pesquisa.txt.titulo.rgi']}" /></ice:outputLabel>
+						<h:outputText value="#{backbean.dadosImoveisTO.imovel.dsRgi}"/>
+
+						<ice:outputLabel style="font-weight:bold;padding:5px;"><h:outputText value="#{msg['pesquisa.txt.titulo.nome']}" /></ice:outputLabel>
+						<h:outputText value="#{backbean.dadosImoveisTO.cliente.nmCLiente}"/>
+
+						<ice:outputLabel style="font-weight:bold;padding:5px;"><h:outputText value="#{msg['pesquisa.txt.titulo.rua']}" /></ice:outputLabel>
+						<h:outputText value="#{backbean.dadosImoveisTO.nomeEndereco}"/>
+
+						<ice:outputLabel style="font-weight:bold;padding:5px;"><h:outputText value="#{msg['pesquisa.txt.titulo.municipio']}" /></ice:outputLabel>
+						<h:outputText value="#{backbean.dadosImoveisTO.endereco.nmMunicipio}"/>
+<!-- 
+							<ice:outputLabel style="font-weight:bold;padding:5px;"><h:outputText value="#{msg['pesquisa.txt.titulo.cep']}" /></ice:outputLabel>
+							<h:outputText value="#{backbean.dadosImoveisTO.imovel.dsCep}"/>
+ -->							
+						</ice:panelGrid>
+				</ice:panelGroup>
+
+				<ice:panelGroup styleClass="boxrgipesquisa">
+					
+						<table border="0" style="font-size: 12px;clear: both;width:280px;">
+							<tr>
+								<td colspan="2"><h2><h:outputText value="#{msg['pesquisa.txt.titulo.novapesquisa']}" /></h2></td>
+							</tr>
+							<tr>
+								<td>RGI:</td>
+								<td><ice:inputText value="#{backbean.imovel.dsRgiParte1}" disabled="false" maxlength="8" style="width: 70px; margin-right: 10px;"/>	
+									<ice:inputText value="#{backbean.imovel.dsRgiParte2}" disabled="false" style="width: 18px;" maxlength="2"/></td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									<ice:panelGroup styleClass="botoes">
+													<ul style="float:left;">
+														<li class="claro"><ice:commandLink title="Pesquisar RGI" actionListener="#{backbean.pesquisarRGI}" ><b><span>PESQUISAR RGI</span></b></ice:commandLink></li>
+													</ul>						
+									</ice:panelGroup>
+								</td>
+							</tr>
+						</table>
+					
+				</ice:panelGroup>	
+	
+	</ice:panelGroup>		
+
+	<!-- exibe botoes -->
+	<ice:panelGroup styleClass="botoes" style="clear: both;">
+		<br />
+		<ul>
+			<!-- exibe botoes rgi OK -->
+			<ice:panelGroup rendered="${backbean.rgiinvalido eq false}">
+				<li class="claro">
+					<ui:param name="" value=""></ui:param>
+					<ice:commandLink title="RETORNAR" action="#{backbean.retornar}">
+						<f:param name="retornoparam" value="#{retornoparam}" />
+						<b><span>RETORNAR</span></b>
+					</ice:commandLink>
+				</li>
+				
+				<li class="claro">
+					<ice:commandLink title="PROSSEGUIR" action="#{backbean.prosseguir}"  actionListener="#{backbean.confirmarRgi}">
+						<f:param name="outcomeparam" value="#{outcomeparam}" />
+						<b><span>PROSSEGUIR</span></b>
+					</ice:commandLink>
+				</li>
+			</ice:panelGroup>					
+			
+			<!-- exibe botoes rgi INVALIDO -->
+			<ice:panelGroup rendered="#{backbean.rgiinvalido}">
+				<li class="claro">
+					<ui:param name="" value=""></ui:param>
+					<ice:commandLink  title="VOLTAR" action="#{backbean.retornar}">
+						<f:param name="retornoparam" value="#{retornoparam}" />
+						<b><span>VOLTAR</span></b>
+					</ice:commandLink>
+				</li>								
+			</ice:panelGroup>
+		</ul>			
+	</ice:panelGroup>
+
+	
+</ui:composition>  

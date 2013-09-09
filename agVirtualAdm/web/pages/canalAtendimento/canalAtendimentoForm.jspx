@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ice="http://www.icesoft.com/icefaces/component"
+    xmlns:fn="http://www.primeinformatica.com.br/functions" template="../templates/template.jspx">
+<ui:define name="content" >
+	 <form jsfc="h:form" action="" id="canal" >
+        <input type="hidden" id="cdCanalAtend" jsfc="h:inputHidden" value="#{canaisAtendimentoBBean.canalAtendimento.cdCanalAtend}" />
+
+		<!-- CORPO DA PAGINA -->
+		<div id="conteudo">	
+			<div id="formulario">
+				<br class="clear" />
+
+				<h:panelGrid><h2><label>#{msg['av.canal.atendimento.alterar']}</label></h2></h:panelGrid>
+				
+				<br /><br />
+				<div class="obrigatorios"><b class="asterisco">*</b> campos obrigatórios</div>
+
+				<span><b class="asterisco">*</b>Nome</span> 
+					<input jsfc="h:inputText"  readonly="false"
+			          id="nmCanalAtend" size="60" maxlength="60" type="text" class="desfocaliza" 
+			          value="#{canaisAtendimentoBBean.canalAtendimento.nmCanalAtend}" required="true" /> <h:message
+			          for="nmCanalAtend" errorClass="error" fatalClass="error" warnClass="error" />
+		
+				<br class="clear" />
+					<span>Descrição</span> 
+					<input jsfc="h:inputTextarea" onblur="desfocaliza(this)" onfocus="focaliza(this);"
+			           id="dsInfoCanalAtend" size="100" maxlength="100" type="text" class="desfocaliza" style="width:380px;height:50px;"
+			           value="#{canaisAtendimentoBBean.canalAtendimento.dsInfoCanalAtend}" required="false" /> <h:message
+			           for="dsInfoCanalAtend" errorClass="error" fatalClass="error" warnClass="error" />
+				<br class="clear" />
+
+				<br class="clear" />
+					<span class="descricao"><b class="asterisco">*</b>Diretoria</span> 
+					<select  class="desfocaliza" onblur="desfocaliza(this)" onfocus="focaliza(this);" 
+						id="codDiretoria" jsfc="h:selectOneMenu" partialSubmit="true"
+						value="#{canaisAtendimentoBBean.codDiretoria}" required="false" >
+						<f:selectItems  id="codDiretoriaItens"  value="#{canaisAtendimentoBBean.listDiretorias}"/>
+					</select>
+					<h:message for="codDiretoria" errorClass="error" fatalClass="error" warnClass="error" />
+				<br class="clear" /><br />	
+				
+				<br class="clear" />
+					<span>Telefone</span>
+					<input jsfc="h:inputText"  readonly="false"
+			          id="dsTelefone" size="30" maxlength="30" type="text" class="desfocaliza" style="width:130px;"
+			          value="#{canaisAtendimentoBBean.canalAtendimento.dsTelefone}" required="false" /> <h:message
+			          for="dsTelefone" errorClass="error" fatalClass="error"  warnClass="error" />
+				<br class="clear" />
+
+				<br class="clear" />
+					<span>Descrição do link</span>
+					<input jsfc="h:inputText"  readonly="false"
+			          id="dsLink" size="30" maxlength="30" type="text" class="desfocaliza" 
+			          value="#{canaisAtendimentoBBean.canalAtendimento.dsLink}" required="false" /> <h:message
+			          for="dsLink" errorClass="error" fatalClass="error" warnClass="error" />
+				<br class="clear" />
+
+				<br class="clear" />
+					<span>Link(URL)</span>
+					<input jsfc="h:inputTextarea" onblur="desfocaliza(this)" onfocus="focaliza(this);"
+			           id="dsLinkUrl" size="100" maxlength="100" type="text" class="desfocaliza" style="width:380px;height:50px;"
+			           value="#{canaisAtendimentoBBean.canalAtendimento.dsLinkUrl}" required="false" /> <h:message
+			           for="dsLinkUrl" errorClass="error" fatalClass="error" warnClass="error" />
+				<br class="clear" />
+				<br class="clear" />
+					<span class="descricao">Dias e Horários de Atendimento</span>  
+ 					   <input jsfc="h:inputTextarea" onblur="desfocaliza(this)"  onfocus="focaliza(this);" id="dsDiaHorarioAtend"
+			        	size="100" maxlength="100" type="text" class="desfocaliza" style="width:380px;height:50px;"
+			           value="#{canaisAtendimentoBBean.canalAtendimento.dsDiaHorarioAtend}" required="false" /> <h:message
+			           for="dsDiaHorarioAtend" errorClass="error" fatalClass="error" warnClass="error" />
+				<br class="clear" />
+				
+				<br class="clear" />
+				<div id="botoes">
+					<ice:commandButton styleClass="botaoSabesp" action="#{canaisAtendimentoBBean.atualizar}" value="Voltar" />
+					<ice:commandButton styleClass="botaoSabesp" panelConfirmation="limparConfirmPanel"  action="#{canaisAtendimentoBBean.novoCanalAtendimento}" value="Limpar" />
+					<ice:commandButton styleClass="botaoSabesp" panelConfirmation="deleteConfirmPanel"  rendered="${canaisAtendimentoBBean.mostraBotaoExcluir}"  action="#{canaisAtendimentoBBean.excluir}" value="Excluir" />
+					<ice:commandButton styleClass="botaoSabesp" action="#{canaisAtendimentoBBean.salvar}" value="Salvar" />
+					<ice:panelConfirmation id="limparConfirmPanel"  title="#{msg['tela.confirmacao.titulo']}"   message="#{msg['tela.confirmacao.texto.limpar']}"
+                     acceptLabel="#{msg['tela.confirmacao.acao.limpar']}" cancelLabel="#{msg['tela.confirmacao.acao.cancelar']}" />
+					<ice:panelConfirmation id="deleteConfirmPanel"  title="#{msg['tela.confirmacao.titulo']}"   message="#{msg['av.noticia.add.canal.excluir']}"
+                     acceptLabel="#{msg['tela.confirmacao.acao.excluir']}" cancelLabel="#{msg['tela.confirmacao.acao.cancelar']}" />
+				</div>
+				<br class="clear" />
+			</div>
+		</div>
+		
+		<!-- CORPO DA PAGINA -->
+	 </form>
+</ui:define>
+</ui:composition>

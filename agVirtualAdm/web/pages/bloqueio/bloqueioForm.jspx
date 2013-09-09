@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ice="http://www.icesoft.com/icefaces/component"
+    template="../templates/template.jspx">
+    
+	<ui:define name="content" >
+		<h2>#{msg['av.canal.documento.incluir.bloqueio']}</h2>    
+
+        <form jsfc="h:form" action="" name="form" style="background:#ffffff;margin:0px;padding:0px;">
+
+		<ice:panelGroup rendered="${bloqueioBBean.existeMsgErro eq true}" style="border: 1px solid #D2D7D7; width: 95%; background-color: #EDF2F2; padding: 7px 7px 7px 7px; text-align: left; align: center; font: normal 8pt Verdana!important; height: auto;">
+				<ice:graphicImage style="float:left; border: 0px; padding-right: 10px;" url="#{bloqueioBBean.caminhoImagemErroSucesso}"/> 
+				<h:messages errorStyle="color: red; font: normal 8pt Verdana!important;" infoStyle="color: green; font: normal 8pt Verdana!important;" layout="table" 
+						showSummary="true" showDetail="false" globalOnly="true"/>
+		</ice:panelGroup>
+		
+		<input type="hidden" id="cdBloqueio" jsfc="h:inputHidden" value="#{bloqueioBBean.bloqueioTO.cdBloqueio}"/>
+		<input type="hidden" id="edit" jsfc="h:inputHidden" value="#{bloqueioBBean.edit}"/>
+		
+		<div id="tables" style="width: 45%; float: left; backgroudcolor:red;padding-left:20px;" >
+			<br class="clear" />
+			
+			<span style="float: left; margin: 0px 0px 0px 0px"><b>#{msg['av.bloqueio.form.municipio']}<ice:outputText value=" " style="padding-left: 5px;"/></b></span>
+			
+				
+				        <ice:selectInputText id="AutoCmpTxtFace" required="false"  rendered="${bloqueioBBean.flagTodosMunicipos eq false}"
+				                             rows="#{bloqueioBBean.ufListLength}"
+				                             value="#{bloqueioBBean.selectedUf.nome}"
+				                             valueChangeListener="#{bloqueioBBean.selectInputValueChanged}"
+				                             listVar="uf"
+											 autocomplete="true"
+											 partialSubmit="false"
+				                             listValue="#{bloqueioBBean.ufMatchPossibilities}" 
+											>
+				            <f:facet name="selectInputText">
+				                <ice:panelGrid columns="2"
+				                               columnClasses="cityCol,stateCol" rendered="${bloqueioBBean.municipioSelecionado eq null}">
+				                    <ice:outputText id="AutoCmpCty" value="#{uf.nome}"/>
+					                </ice:panelGrid>
+				            </f:facet>
+				        </ice:selectInputText>
+				
+						<ice:commandButton  rendered="#{bloqueioBBean.selectedUf.codUf != null}" style="margin-top: 0px;!important; margin-left:160px;"
+		 					 image="/images/incluir_registro.gif"    
+								 actionListener="#{bloqueioBBean.adicionarUf}" > 
+						</ice:commandButton>
+
+			
+			<br class="clear" />
+			<br class="clear" />
+			<ice:panelGroup  rendered="${bloqueioBBean.flagTodosMunicipos eq false}">
+					<ice:outputText
+		                value="#{msgs['av.subservicos.form.listagem.canal']}"/>
+			        <ice:dataTable style="float: left; margin: 0px 0px 0px 0px"
+			                width="350px"  var="row"
+			                value="#{bloqueioBBean.listaUfsAdicionados}"
+			               	>
+			            <ice:column>
+							<f:facet name="header">
+			                            Município
+			                </f:facet>
+							#{row.nome}			
+			            </ice:column>
+			            <ice:column>
+							<ice:commandLink  style="text-align: center;" actionListener="#{bloqueioBBean.excluirUf}" >
+								<ice:graphicImage style="border: 0px;" url="/images/excluir_registro.gif"></ice:graphicImage>
+								 <f:param id="codUfParam" name="codUfParam" value="#{row.codUf}"/>
+			                </ice:commandLink>
+			            </ice:column>
+			        </ice:dataTable>
+
+			</ice:panelGroup>
+
+			<br class="clear" />
+ 			<br class="clear" />
+			<ice:selectBooleanCheckbox id="flagTodosMunicipos" style="float: left; margin: 0px 0px 0px 0px" 
+				valueChangeListener="#{bloqueioBBean.tipoChanged}" 
+	            value="#{bloqueioBBean.flagTodosMunicipos}" required="false" 
+				partialSubmit="true"
+			/>
+			<span style="float: left; margin: 3px 0px 0px 0px"><b>Todos os municípios</b></span> 
+			<br class="clear" />
+			<br class="clear" />	
+		</div>
+
+		<div id="tables" style="width: 45%; float: right">
+			<br class="clear" />
+			<span style="float: left; margin: 0px 0px 0px 0px"><b>Serviço:<h:outputText value="&#160;&#160;"/></b></span>
+			<div id="formulario">
+					<ice:selectOneMenu id="documentos" onblur="desfocaliza(this);" onfocus="focaliza(this);" rendered="${bloqueioBBean.flagTodasFuncionalidades eq false}" 
+						value="#{bloqueioBBean.cdServico}" styleClass="texto" style="width:200px">
+						<f:selectItems value="#{bloqueioBBean.listaServicos}"/>
+					</ice:selectOneMenu>
+					<ice:commandButton  rendered="${bloqueioBBean.flagTodasFuncionalidades eq false}"
+ 					 image="/images/incluir_registro.gif"  style="margin-top: 0px;!important"
+					 actionListener="#{bloqueioBBean.adicionarServico}" />
+				<br class="clear" />
+			</div>	
+			<br class="clear" />	
+			<ice:panelGroup  >
+			        <ice:dataTable  
+			                width="350px"  var="row" rendered="${bloqueioBBean.flagTodasFuncionalidades eq false}"
+			                value="#{bloqueioBBean.listaServicosAdicionados}" style="float: left; margin: 0px 0px 0px 0px"
+			               	>
+			            <ice:column>
+							<f:facet name="header">
+			                            Serviço
+			                </f:facet>
+							#{row.dsItemMenu}			
+			            </ice:column>
+			            <ice:column>
+							<ice:commandLink  style="text-align: center;" actionListener="#{bloqueioBBean.excluirServico}" >
+								<ice:graphicImage style="border: 0px;" url="/images/excluir_registro.gif"></ice:graphicImage>
+								<f:param id="cdServicoParam" name="cdServicoParam" value="#{row.cdItemMenu}"/>
+			                </ice:commandLink>
+			            </ice:column>
+			        </ice:dataTable>
+			</ice:panelGroup>	
+			<br class="clear" />
+			<br class="clear" />
+			<ice:selectBooleanCheckbox id="flagTodasFuncionalidades"  style="float: left; margin: 0px 0px 0px 0px" 
+				valueChangeListener="#{bloqueioBBean.tipoChangedFunciona}" 
+	            value="#{bloqueioBBean.flagTodasFuncionalidades}" required="false" 
+				partialSubmit="true"
+			/> 
+			<span style="float: left; margin: 3px 0px 0px 0px"><b>Todas as funcionalidades</b></span> 
+			<br class="clear" />
+			<br class="clear" />			
+		</div>					 
+		<br class="clear" />
+		<div id="formulario">
+			<br class="clear" />
+			<br class="clear" />
+			<br class="clear" />
+			
+			<div class="divch">Título</div>
+			
+			<ice:inputText
+				onblur="desfocaliza(this);" 
+				onfocus="focaliza(this);"
+				id="descricao"
+				size="40"
+				maxlength="40"
+				styleClass="texto"
+				style="width: 250px;"
+				value="#{bloqueioBBean.bloqueioTO.descricao}"/>
+
+
+			<br class="clear" />
+			<br class="clear" />
+			
+			<div class="divch">Mensagem</div>
+			<div id="textarea">
+			
+			<ice:inputTextarea 
+				id="mensagem"
+                onblur="desfocaliza(this);" 
+                onfocus="focaliza(this);" 
+                maxlength="200"	                    
+                styleClass="texto" 
+                style="width:380px;height:50px;"
+                value="#{bloqueioBBean.bloqueioTO.mensagem}"/>
+ 
+				<h:message   for="mensagem" errorClass="error" fatalClass="error" warnClass="error" />
+
+			</div>				
+		</div>
+
+			<br class="clear" />
+			<br class="clear" />
+			<div class="new_footer_form">			
+				<h:commandButton styleClass="botaoSabesp" action="#{bloqueioBBean.atualizar}" value="Voltar" />
+				<h:commandButton styleClass="botaoSabesp" action="#{bloqueioBBean.salvar}" value="Salvar" />
+			</div>
+			<!-- CORPO DA PAGINA -->
+		</form>
+
+
+	 </ui:define>
+
+</ui:composition>
+

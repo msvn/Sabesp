@@ -1,0 +1,461 @@
+<?xml version="1.0"?>
+
+<project name="agvirtualadm" default="dist" basedir=".">
+
+    <property file="build.properties"/>
+ 
+    <!-- =========================================================================================================== -->
+    <!-- Internal settings                                                                                           -->
+    <!-- =========================================================================================================== -->
+
+    <tstamp>
+        <format property="build.time" pattern="yyyy/MM/dd HH:mm"/>
+    </tstamp>
+
+    <property file="src/META-INF/config/application.properties"/>
+    <property name="component.name" value="${application.name}"/>
+    <property name="component.version" value="${application.version}"/>
+    <property name="component.title" value="${application.title}"/>
+    <property name="component.vendor" value="${application.vendor}"/>
+    <property name="web.context" value="${application.web.context}"/>
+
+    <property name="dist.dir" value="dist"/>
+    <property name="temp.dir" value="../temp"/>
+
+    <!-- =========================================================================================================== -->
+    <!-- Cleaning tasks                                                                                              -->
+    <!-- =========================================================================================================== -->
+
+    <path id="classpath.compile"/>
+    <path id="classpath.bundle"/>
+    <path id="classpath.provided"/>
+
+    <target name="clean" description="Clean">
+        <delete dir="${temp.dir}"/>
+        <!-- delete dir="${dist.dir}"/ -->
+    </target>
+
+    <!-- =========================================================================================================== -->
+    <!-- Compilation tasks                                                                                           -->
+    <!-- =========================================================================================================== -->
+
+    <available file="src-ejb" type="dir" property="ejb-src-exists"/>
+    <available file="src-published" type="dir" property="published-src-exists"/>
+    <available file="src-test" type="dir" property="test-src-exists"/>
+    <available file="web" type="dir" property="web-dir-exists"/>
+
+    <target name="prepare" depends="prepare-compile-libs,prepare-provided-libs,prepare-bundle-libs">
+        <mkdir dir="${temp.dir}/src"/>
+        <copy todir="${temp.dir}/src" filtering="true">
+            <fileset dir="src"/>
+        </copy>
+
+        <path id="classpath.all">
+            <path refid="classpath.bundle"/>
+            <path refid="classpath.compile"/>
+            <path refid="classpath.provided"/>
+        </path>
+
+        <path id="classpath.bundled">
+            <path refid="classpath.bundle"/>
+            <path refid="classpath.compile"/>
+        </path>
+
+        <mkdir dir="${temp.dir}/classes"/>
+        <mkdir dir="${temp.dir}/classes-published"/>
+    </target>
+
+    <target name="prepare-published" if="published-src-exists">
+        <echo level="info">Preparing published sources</echo>
+
+        <mkdir dir="${temp.dir}/src-published"/>
+
+        <copy todir="${temp.dir}/src-published" filtering="true">
+            <fileset dir="src-published"/>
+        </copy>
+
+        <path id="classpath.bundled">
+            <path refid="classpath.bundle"/>
+            <path refid="classpath.compile"/>
+            <path location="${dist.dir}/${component.name}-api.jar"/>
+        </path>
+
+        <path id="classpath.component.api" location="${dist.dir}/${component.name}-api.jar"/>
+
+    </target>
+
+    <target name="prepare-ejbs" if="ejb-src-exists">
+        <echo level="info">Preparing EJB's</echo>
+
+        <mkdir dir="${temp.dir}/src-ejb"/>
+
+        <copy todir="${temp.dir}/src-ejb" filtering="true">
+            <fileset dir="src-ejb"/>
+        </copy>
+
+        <path id="classpath.all">
+            <path refid="classpath.bundle"/>
+            <path refid="classpath.compile"/>
+            <path refid="classpath.provided"/>
+            <path location="${temp.dir}/classes-ejb"/>
+        </path>
+
+        <mkdir dir="${temp.dir}/classes-ejb"/>
+    </target>
+
+    <target name="prepare-tests" depends="prepare">
+        <echo level="debug">Checando a existencia do diretorio src-test...</echo>
+
+        <fail unless="test-src-exists">Nao ha testes a serem executados.</fail>
+
+        <mkdir dir="${temp.dir}/classes-test"/>
+
+        <delete dir="${temp.dir}/tests-reports"/>
+        <mkdir dir="${temp.dir}/tests-reports"/>
+        <mkdir dir="${temp.dir}/tests-reports/xml"/>
+
+        <copy todir="${temp.dir}/classes-test">
+            <fileset dir="src-test">
+                <include name="**/**"/>
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="prepare-provided-libs">
+        <copy todir="${temp.dir}/lib/provided" flatten="true" failonerror="false">
+            <fileset dir="${shared-lib.dir}/provided">
+                <include name="**/*.jar"/>
+            </fileset>
+            <fileset dir="lib/provided">
+                <include name="**/*.jar"/>
+            </fileset>
+        </copy>
+
+        <path id="classpath.provided">
+            <fileset dir="${temp.dir}/lib/provided">
+                <include name="*.jar"/>
+            </fileset>
+        </path>
+    </target>
+
+    <target name="prepare-compile-libs">
+        <mkdir dir="${temp.dir}/lib/compile"/>
+        <copy todir="${temp.dir}/lib/compile" flatten="true" failonerror="false">
+            <fileset dir="${shared-lib.dir}/compile">
+                <include name="**/*.jar"/>
+            </fileset>
+            <fileset dir="lib/compile">
+                <include name="**/*.jar"/>
+            </fileset>
+        </copy>
+
+        <path id="classpath.compile">
+            <fileset dir="${temp.dir}/lib/compile">
+                <include name="*.jar"/>
+            </fileset>
+        </path>
+    </target>
+
+    <target name="prepare-bundle-libs">
+        <mkdir dir="${temp.dir}/lib/bundle"/>
+        <copy todir="${temp.dir}/lib/bundle" flatten="true" failonerror="false">
+            <fileset dir="${shared-lib.dir}/bundle">
+                <include name="**/*.jar"/>
+            </fileset>
+            <fileset dir="lib/bundle">
+                <include name="**/*.jar"/>
+            </fileset>
+        </copy>
+
+        <path id="classpath.bundle">
+            <fileset dir="${temp.dir}/lib/bundle">
+                <include name="*.jar"/>
+            </fileset>
+        </path>
+    </target>
+
+    <target name="compile-published" depends="prepare-published" if="published-src-exists">
+        <javac srcdir="${temp.dir}/src-published" destdir="${temp.dir}/classes-published" source="1.5" target="1.5"
+               debug="true" deprecation="false">
+            <classpath refid="classpath.all"/>
+        </javac>
+    </target>
+
+    <target name="compile" description="Compile" depends="prepare, compile-published">
+        <javac srcdir="${temp.dir}/src" destdir="${temp.dir}/classes" source="1.5" target="1.5"
+               debug="true" deprecation="false">
+            <classpath refid="classpath.all"/>
+            <classpath path="${temp.dir}/classes-published"/>
+        </javac>
+    </target>
+
+    <target name="compile-ejb" depends="prepare-ejbs, compile" if="ejb-src-exists">
+        <echo level="info">Compiling EJB's</echo>
+        <javac srcdir="${temp.dir}/src-ejb" destdir="${temp.dir}/classes-ejb" source="1.5" target="1.5"
+               debug="true" deprecation="false">
+            <classpath refid="classpath.all"/>
+            <classpath path="${temp.dir}/classes-published"/>
+            <classpath path="${temp.dir}/classes"/>
+        </javac>
+    </target>
+
+    <target name="compile-tests" depends="compile,prepare-tests">
+        <javac srcdir="src-test" destdir="${temp.dir}/classes-test" source="1.5" target="1.5"
+               debug="true" deprecation="false">
+            <classpath refid="classpath.all"/>
+            <classpath path="${temp.dir}/classes-published"/>
+            <classpath path="${temp.dir}/classes"/>
+        </javac>
+    </target>
+
+    <!-- =========================================================================================================== -->
+    <!-- Packaging tasks                                                                                             -->
+    <!-- =========================================================================================================== -->
+
+    <target name="prepare-dist" depends="bundle">
+        <mkdir dir="${dist.dir}"/>
+    </target>
+
+    <target name="bundle" depends="compile-ejb">
+        <mkdir dir="${temp.dir}/classes-bundle"/>
+        <unzip dest="${temp.dir}/classes-bundle">
+            <fileset dir="${temp.dir}/lib/bundle">
+                <include name="*.jar"/>
+            </fileset>
+        </unzip>
+    </target>
+
+    <target name="create-published-jars" depends="prepare-dist" if="published-src-exists">
+        <jar destfile="${dist.dir}/${component.name}-api.jar">
+            <fileset dir="${temp.dir}/classes-published"/>
+        </jar>
+    </target>
+
+    <target name="gen-path-ejb-ear">
+        <echo>GEN</echo>
+
+        <path id="rep.compile.temp" location="${temp.dir}/lib/compile"/>
+        <pathconvert property="rep.compile" refid="rep.compile.temp"/>
+        <path id="rep.dist.temp" location="${dist.dir}"/>
+        <pathconvert property="rep.dist" refid="rep.dist.temp"/>
+
+        <path id="ear.classpath">
+            <path refid="classpath.compile"/>
+        </path>
+
+        <pathconvert property="bundled.path" refid="ear.classpath" pathsep=" ">
+            <map from="${rep.compile}/" to="libs/"/>
+            <map from="${rep.dist}/" to=""/>
+        </pathconvert>
+
+        <echo>${rep.compile}</echo>
+        <echo>${rep.dist}</echo>
+        <echo>${bundled.path}</echo>
+    </target>
+
+    <target name="create-published-ejbs" depends="gen-path-ejb-ear">
+        <echo>PATH: ${bundled.path}</echo>
+
+        <jar destfile="${dist.dir}/${component.name}.jar">
+            <manifest>
+                <attribute name="Built-By" value="${user.name}"/>
+                <attribute name="Built-At" value="${build.time}"/>
+                <attribute name="Implementation-Title" value="${component.title}"/>
+                <attribute name="Implementation-Version" value="${component.version}"/>
+                <attribute name="Implementation-Vendor" value="${component.vendor}"/>
+                <attribute name="Class-Path" value="${bundled.path}"/>
+            </manifest>
+            <fileset dir="${temp.dir}/src-ejb/" includes="**/*.properties **/*.xml"/>
+            <fileset dir="${temp.dir}/src" includes="**/*.properties **/*.xml"/>
+            <fileset dir="${temp.dir}/classes"/>
+            <fileset dir="${temp.dir}/classes-ejb"/>
+            <fileset dir="${temp.dir}/classes-bundle"/>
+            <fileset dir="${temp.dir}/classes-published"/>
+        </jar>
+    </target>
+
+    <target name="gen-ear-descriptor">
+        <condition property="application.xml" value="application_ejb.xml" else="application_war.xml">
+            <istrue value="${ejb-src-exists}"/>
+        </condition>
+        <condition property="add-file" value="add-ejb" else="add-war">
+            <istrue value="${ejb-src-exists}"/>
+        </condition>
+
+        <copy file="ear/templates/${application.xml}" tofile="${temp.dir}/ear/META-INF/application.xml"
+              overwrite="true"/>
+        <replace file="${temp.dir}/ear/META-INF/application.xml" token="$APP_TITLE" value="${component.title}"/>
+        <antcall target="${add-file}"/>
+    </target>
+
+    <target name="add-war">
+        <replace file="${temp.dir}/ear/META-INF/application.xml" token="$WEB_CONTEXT" value="${web.context}"/>
+        <replace file="${temp.dir}/ear/META-INF/application.xml" token="$WAR_NAME" value="${component.name}.war"/>
+    </target>
+
+    <target name="add-ejb">
+        <replace file="${temp.dir}/ear/META-INF/application.xml" token="$EJB_JAR_NAME" value="${component.name}.jar"/>
+    </target>
+
+    <target name="create-full-war" depends="create-published-jars">
+        <war destfile="${dist.dir}/${component.name}.war" webxml="web/WEB-INF/web.xml" duplicate="preserve">
+            <manifest>
+                <attribute name="Built-By" value="${user.name}"/>
+                <attribute name="Built-At" value="${build.time}"/>
+                <attribute name="Implementation-Title" value="${component.title}"/>
+                <attribute name="Implementation-Version" value="${component.version}"/>
+                <attribute name="Implementation-Vendor" value="${component.vendor}"/>
+            </manifest>
+
+            <classes dir="${temp.dir}/classes"/>
+            <classes dir="${temp.dir}/classes-bundle"/>
+            <classes dir="${temp.dir}/classes-published"/>
+            <classes dir="${temp.dir}/src">
+                <exclude name="**/*.java"/>
+            </classes>
+
+            <lib dir="${temp.dir}/lib/compile" includes="*.jar"/>
+
+            <fileset dir="web">
+                <include name="**/*"/>
+				<exclude name="**/*.jar"/>
+            </fileset>
+        </war>
+    </target>
+
+    <target name="create-ear-without-ejb" if="web-dir-exists">
+        <antcall target="create-full-war" inheritall="true" inheritrefs="true"/>
+        <antcall target="gen-ear-descriptor" inheritall="true" inheritrefs="true"/>
+
+        <ear destfile="${dist.dir}/${component.name}.ear" appxml="${temp.dir}/ear/META-INF/application.xml"
+             duplicate="fail">
+            <fileset dir="${dist.dir}" includes="*.jar,*.war" excludes="*-api.jar"/>
+        </ear>
+    </target>
+
+    <target name="create-ear-without-web" if="ejb-src-exists">
+        <antcall target="prep-ear" inheritall="true" inheritrefs="true"/>
+
+        <ear destfile="${dist.dir}/${component.name}.ear" appxml="${temp.dir}/ear/META-INF/application.xml"
+             duplicate="fail">
+            <fileset dir="${dist.dir}" includes="*.jar" excludes="*-api.jar"/>
+            <zipfileset dir="${temp.dir}/lib/compile" prefix="libs" includes="*.jar"/>
+        </ear>
+    </target>
+
+    <target name="prep-ear" depends="create-published-jars, create-published-ejbs, gen-ear-descriptor"/>
+
+    <target name="create-ear">
+        <condition property="task.name"
+                   value="create-ear-without-web"
+                   else="create-ear-without-ejb">
+            <isset property="ejb-src-exists"/>
+        </condition>
+
+        <antcall target="${task.name}" inheritall="true" inheritrefs="true"/>
+    </target>
+
+    <target name="package" description="Package" depends="create-ear">
+    </target>
+
+    <target name="dist" description="Dist" depends="clean,package">
+    </target>
+
+    <!-- =========================================================================================================== -->
+    <!-- Documentation tasks                                                                                         -->
+    <!-- =========================================================================================================== -->
+
+    <target name="javadoc" depends="compile">
+        <mkdir dir="${dist.dir}/docs/api"/>
+        <javadoc destdir="${dist.dir}/docs/api" sourcepath="${temp.dir}/src" classpathref="classpath.all" source="1.5"
+                 access="public" author="true" version="true" doctitle="${component.title}" bottom="${component.vendor}"
+                 windowtitle="${component.title} - Version ${component.version}"/>
+    </target>
+
+    <!-- =========================================================================================================== -->
+    <!-- Testing tasks                                                                                               -->
+    <!-- =========================================================================================================== -->
+
+    <target name="test" depends="compile-tests" description="Executar testes unitarios">
+        <junit printsummary="yes"
+               fork="yes"
+               haltonfailure="yes"
+               showoutput="true"
+            >
+
+            <classpath>
+                <path refid="classpath.all"/>
+                <pathelement location="${temp.dir}/classes-test"/>
+                <pathelement path="${temp.dir}/classes-published"/>
+                <pathelement path="${temp.dir}/classes"/>
+            </classpath>
+
+            <formatter type="xml"/>
+
+            <batchtest fork="yes" todir="${temp.dir}/tests-reports/xml">
+                <fileset dir="src-test">
+                    <include name="**/*Test*.java"/>
+                </fileset>
+            </batchtest>
+        </junit>
+    </target>
+
+    <target name="test-html" depends="test" description="Executar testes unitarios com relatorio HTML">
+        <delete dir="${temp.dir}/tests-reports/html"/>
+        <mkdir dir="${temp.dir}/tests-reports/html"/>
+
+        <junitreport todir="${temp.dir}/tests-reports/xml">
+            <fileset dir="${temp.dir}/tests-reports/xml">
+                <include name="TEST-*.xml"/>
+            </fileset>
+            <report format="frames" todir="${temp.dir}/tests-reports/html">
+                <param name="TITLE" expression="Resultados dos testes da aplicacao ${application.name}"/>
+            </report>
+        </junitreport>
+    </target>
+
+    <!-- =========================================================================================================== -->
+    <!-- Style tasks                                                                                                 -->
+    <!-- =========================================================================================================== -->
+
+    <taskdef resource="checkstyletask.properties"
+             classpath="${shared-lib.dir}/checkstyle/checkstyle-all-4.4.jar"/>
+
+    <target name="checkstyle">
+        <mkdir dir="${temp.dir}/checkstyle"/>
+
+        <checkstyle config="${shared-lib.dir}/checkstyle/altec-checkstyle.xml">
+            <fileset dir="./" includes="**/*.java"/>
+            <formatter type="xml" tofile="${temp.dir}/checkstyle/checkstyle_report.xml"/>
+        </checkstyle>
+
+        <xslt style="${shared-lib.dir}/checkstyle/checkstyle-altec.xsl"
+              in="${temp.dir}/checkstyle/checkstyle_report.xml"
+              out="${temp.dir}/checkstyle/checkstyle_report.html"/>
+    </target>
+	
+    <target name="adjust-environment">
+    	<delete dir="src-fw"/>
+        <mkdir dir="src-fw"/>
+   	
+        <copy todir="src-fw" filtering="true">
+            <fileset dir="../prime-infra/src-fw"/>
+        </copy>
+    	
+    	<delete dir="web/WEB-INF/lib"/>
+        <mkdir dir="web/WEB-INF/lib"/>
+        <copy todir="web/WEB-INF/lib" flatten="true" failonerror="false">
+            <fileset dir="../websphere_libs/compile">
+                <include name="**/*.jar"/>
+            </fileset>
+            <fileset dir="../websphere_libs/provided">
+                <include name="**/*.jar"/>
+            </fileset>
+            <fileset dir="../tomcat_libs">
+                <include name="**/*.jar"/>
+            </fileset>          	
+        </copy>
+    </target>
+
+</project>

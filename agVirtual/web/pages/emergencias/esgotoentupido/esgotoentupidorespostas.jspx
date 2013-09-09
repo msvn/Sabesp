@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ice="http://www.icesoft.com/icefaces/component"
+    xmlns:fn="http://www.primeinformatica.com.br/functions" template="../../template/template.jspx">
+
+<ui:define name="conteudo"> 
+<ice:panelGroup styleClass="wrapper">
+		<ice:panelGroup styleClass="contaContent"  style="padding-left: 0px;">
+			
+		<ice:panelGroup style="padding-left: 19px;">
+			<h3><h:outputText value="#{migalhaPaoBBean.dsSubMenu}"/> </h3>
+
+			<h:panelGrid>   
+				<!-- mensagem erro validacao -->
+				<ui:include src="../../template/errovalidacao.jspx" >
+					<ui:param name="backbean" value="#{ligacaoAguaBBean}"/>
+				</ui:include>
+			</h:panelGrid>
+
+			<p><h:outputText value="#{msg['autoatendimento.esgotoentupido.titulo.paraprosseguir']}" /></p>
+
+		</ice:panelGroup>
+		
+		<ui:repeat value="#{esgotoEntupidoBBean.listaPerguntasRespondidas}"  var="pergunta">	
+			<ice:panelGroup rendered="#{pergunta.codRespostaSelecionado != null}" styleClass="contaContent" style="padding-left:19px; border-top:0px !important; border-bottom:1px solid #B5E0F3 !important;">
+				<div class="questionario">
+					<label><span class="info"></span><h:outputText value="#{pergunta.dsPergunta}" /></label>
+				</div>
+				<p id="maisresidencias">R:<h:outputText value=" " /><h:outputText value="#{pergunta.dsRespostaSelecionada}" /></p>
+			</ice:panelGroup>		
+		</ui:repeat>
+
+		<h:outputText rendered="#{esgotoEntupidoBBean.exibirAcatamento}" >
+			<ui:include src="../../template/parcelamentoSolicitacao.jspx">
+				<ui:param name="backbean" value="#{esgotoEntupidoBBean}" />
+			</ui:include>
+		</h:outputText>
+		
+		<ice:panelGroup rendered="#{esgotoEntupidoBBean.exibirAcatamento}" style="padding-left: 19px;" >
+		
+			<p>
+				<h:outputText value="#{msg['autoatendimento.aprovarorcamento.maioridade']}" />
+				<br/><br/>
+				 <ice:selectBooleanCheckbox 
+				 	partialSubmit="true"
+			        value="#{esgotoEntupidoBBean.checkAprovarOrcamento}"/>
+			     <ice:outputText value=" " />Sim, sou maior de 18 anos.   	
+			</p>
+
+
+		</ice:panelGroup>	
+
+	<table border="0" width="100%">
+			<tr>
+			<td align="center">			
+				<ice:panelGroup styleClass="botoes" style="clear: both;">
+					<br />
+					<ul style="float:center;">
+						<li class="claro">
+							<ice:commandLink action="#{esgotoEntupidoBBean.retornar}">
+								<f:param name="retornoparam" value="VOLTAR" />
+								<b><span>VOLTAR</span></b>
+							</ice:commandLink>
+						</li>
+						<li class="claro">
+							<ice:commandLink action="#{esgotoEntupidoBBean.prosseguir}" actionListener="#{esgotoEntupidoBBean.confirmaAcatamento}">
+								<f:param name="outcomeparam" value="PROSSEGUIR" />
+								<b><span>PROSSEGUIR</span></b>
+							</ice:commandLink>
+						</li>
+					</ul>					
+			</ice:panelGroup>	
+		</td>
+		</tr>
+	</table>
+	</ice:panelGroup>
+</ice:panelGroup>	
+</ui:define>	
+</ui:composition>	

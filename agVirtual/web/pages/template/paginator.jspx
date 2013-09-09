@@ -1,0 +1,28 @@
+
+<ui:composition xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ice="http://www.icesoft.com/icefaces/component">
+
+			<ice:dataPaginator id="dataScroll_3"
+                                  for="#{tabela}"
+                                  paginator="true"
+                                  fastStep="3"
+                                  paginatorMaxPages="4">
+                   <f:facet name="previous">
+                       <ice:graphicImage
+                           url="/images/anterior.JPG"
+                           style="border:none;"
+                           title="Pagina Anterior"/>
+                   </f:facet>
+                   <f:facet name="next">
+                       <ice:graphicImage
+                           url="/images/proximo.JPG"
+                           style="border:none;"
+						   styleClass="stlnext"
+                           title="Proxima Pagina"/>
+                   </f:facet>
+         </ice:dataPaginator>
+         
+</ui:composition>
+   

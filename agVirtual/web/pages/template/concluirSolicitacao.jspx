@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ice="http://www.icesoft.com/icefaces/component">
+
+<link href="#{facesContext.externalContext.requestContextPath}/css/agvt.css" rel="stylesheet" type="text/css" />
+			
+			<h:outputText rendered="#{backbean.msgErroAcatamento == ''}">
+			<div class="status">
+				<p><span class="concluida"></span><h:outputText value="#{msg['solicitacao.concluida']}"/></p>
+			</div>
+			<br />
+			<div class="questionario">
+				<p><span class="info"></span><h:outputText value="#{msg['concluir.solicitacao.txt']}"/> </p>
+			</div>
+			</h:outputText>
+
+			<h:outputText rendered="#{backbean.msgErroAcatamento != ''}">
+				<div class="questionario">
+					<p class="numeroSolicitacao"><span class="naoconcluido"></span><h:outputText value="#{backbean.msgErroAcatamento}"/></p>
+				</div>
+			</h:outputText>
+
+			<h:outputText rendered="#{backbean.numeroSolicitacao != ''}">
+				<p class="numeroSolicitacao">Número da solicitação: <span><h:outputText value="#{backbean.numeroSolicitacao}"/></span></p>
+			</h:outputText>
+			<BR />
+			<p>Se preferir obter mais informações, entre em contato com um de nossos  
+				<h:commandLink id="canaisatendimento" action="#{canaisAtendimentoBBean.carregar}">
+					<f:param name="dsMenu" value="#{msg['menu.superior.link.canaisatendimento']}" />
+					<f:param name="outcomeMenu" value="CANAISATENDIMENTO" />
+					<h:outputText value=" #{msg['menu.superior.link.canaisatendimento']}" />
+				</h:commandLink>.</p>			
+			<p><h:outputText rendered="${not empty backbean.listaCorrelacao}" value="Ir para:" style="font-weight: bold;"/></p>
+
+			<!-- -->
+			<ice:panelGroup>
+				<h:dataTable rendered="${not empty backbean.listaCorrelacao}" var="subMenu" value="#{backbean.listaCorrelacao}"
+								 styleClass="subMenuTabela" headerClass="subMenuTabelaTitulo" cellpadding="2" cellspacing="2">
+						<h:column>
+							<!-- Caso seja site externo executa outra ação -->
+							<h:commandLink onclick="javascript:window.open('#{subMenu.itemMenuAcesso.dsLink}', '_blank');" rendered="${subMenu.itemMenuAcesso.siteExterno eq true}">
+								<h:outputText styleClass="subMenuTabelaItem" value="#{subMenu.itemMenuAcesso.dsItemMenu}"/>
+							</h:commandLink>
+
+							<!-- Caso não seja site externo a navegação deve ser feita pelo faces -->
+							<h:commandLink action="#{backbean.redirectConcluirSolicitacao}" rendered="${subMenu.itemMenuAcesso.siteExterno eq false}">
+								<h:outputText styleClass="subMenuTabelaItem" value="#{subMenu.itemMenuAcesso.dsItemMenu}"/>
+								<f:param name="cdSubMenu" value="#{subMenu.itemMenuAcesso.cdItemMenu}"/>
+								<f:param name="dsSubMenu" value="#{subMenu.itemMenuAcesso.dsItemMenu}"/>
+								<f:param name="outcomeSubMenu" value="#{subMenu.itemMenuAcesso.dsLink}"/>
+								<f:param name="cdAutoAtendimento" value="#{subMenu.itemMenuAcesso.autoAtendimento.cdAutoatendimento}"/>
+							</h:commandLink>
+			            </h:column>
+				</h:dataTable>
+			</ice:panelGroup>
+
+			<ice:panelGroup styleClass="botoes">
+				<table border="0" width="100%">
+				<tr>
+				<td align="center">
+				<ul class="" style="float:center;">
+					<h:outputText rendered="#{backbean.msgErroAcatamento != ''}">
+						<li class="claro">
+							<ice:commandLink action="#{auditoriaAcessoBBean.paginaInicial}" actionListener="#{migalhaPaoBBean.limpaCampos}">
+								<b><span>#{msg['tace.botao.tentarnovamente']}</span></b>
+							</ice:commandLink>
+						</li>
+					</h:outputText>
+					<h:outputText rendered="#{backbean.msgErroAcatamento == ''}">
+						<li class="claro">
+							<ice:commandLink action="#{auditoriaAcessoBBean.paginaInicial}" actionListener="#{migalhaPaoBBean.limpaCampos}">
+								<b><span>#{msg['cronogramaleitura.botao.continuaratendimento']}</span></b>
+							</ice:commandLink>
+						</li>
+					</h:outputText>
+					<li class="escuro">
+						<ice:commandLink action="#{auditoriaAcessoBBean.redirectConcluirAtendimento}" >
+							<b><span>#{msg['cronogramaleitura.botao.concluir']}</span></b>
+						</ice:commandLink>
+					</li>
+				</ul>		
+				</td>
+			</tr>
+		</table>	
+		</ice:panelGroup>
+
+</ui:composition>			

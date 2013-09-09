@@ -1,0 +1,44 @@
+<f:view xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:ice="http://www.icesoft.com/icefaces/component">
+
+    <ice:outputDeclaration doctypeRoot="HTML"
+          doctypePublic="-//W3C//DTD XHTML 1.0 Transitional//EN"
+          doctypeSystem="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+    <html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta>
+        <title>InputFile Component Tutorial</title>
+        <link href="./xmlhttp/css/xp/xp.css" rel="stylesheet" type="text/css"/>
+    </head>
+
+    <body>
+    <h2>Basic InputFile Component</h2>
+    
+    <ice:form id="form">
+
+		<h:messages errorStyle="color: red" infoStyle="color: green" layout="table" 
+       					showSummary="false" showDetail="false" globalOnly="false"/>
+        <ice:inputFile id="inputFileComponent" 
+                       actionListener="#{user.uploadActionListener}"  />
+        <ice:message for="inputFileComponent" />
+        
+        <ice:outputText value="#{user.currentFile.physicalPath}" />
+		<h:message for="teste" errorClass="error" fatalClass="error" warnClass="error" />
+
+		<ice:inputFile id="caminhoImagem" width="600" autoUpload="false"
+				                       progressListener="#{noticiasBBean.fileUploadProgress}"
+				                       actionListener="#{noticiasBBean.uploadFile}"
+									   >
+
+						</ice:inputFile>
+				        <ice:outputText value="#{msgs['page.inputFile.messages.label']}"/>
+						<br class="clear" />
+				        <ice:outputText  value="#{noticiasBBean.noticia.caminhoImagem}"  />      
+		 
+    </ice:form>
+
+    </body>
+    </html>
+</f:view>

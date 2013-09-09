@@ -1,0 +1,561 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE faces-config PUBLIC
+    "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.1//EN"
+    "http://java.sun.com/dtd/web-facesconfig_1_1.dtd">
+<faces-config>
+	
+	<navigation-rule>
+		
+		<from-view-id>/pages/*</from-view-id>
+		
+		<navigation-case>
+			<from-outcome>ERRO_SISTEMICO</from-outcome>
+			<to-view-id>/pages/template/errosistemico.jspx</to-view-id>
+		</navigation-case>
+		
+		
+		<navigation-case>
+			<from-outcome>FUNCIONALIDADE_BLOQUEADA</from-outcome>
+			<to-view-id>/pages/template/bloqueio.jspx</to-view-id>
+		</navigation-case>		
+		
+		<navigation-case>
+            <from-outcome>SUA_CONTA_SEGUNDA_VIA</from-outcome>
+            <to-view-id>/pages/conta/contatabelasegundavia.iface</to-view-id>			
+		</navigation-case>
+		<navigation-case>
+            <from-outcome>SUA_CONTA_SEGUNDA_VIA_IDENTIFICAR</from-outcome>
+            <to-view-id>/pages/conta/contapesquisargiendereco.iface</to-view-id>			
+		</navigation-case>		
+		
+		<navigation-case>
+			<from-outcome>RELATORIOATENDIMENTO</from-outcome>
+			<to-view-id>/pages/atendimento/concluiratendimento.jspx</to-view-id>
+		</navigation-case>		
+		
+		<navigation-case>
+			<from-outcome>RELATORIOATENDIMENTOIMPR</from-outcome>
+			<to-view-id>/pages/atendimento/concluiratendimentoimpr.jspx</to-view-id>
+		</navigation-case>				
+	</navigation-rule>
+	
+	<!-- Atendimento - Menu Superior -->
+	<!-- Fim Atendimento -->
+	
+	<!-- 2 via de conta -->
+	
+	<navigation-rule>
+		<from-view-id>/pages/conta/contapesquisaaviso.jspx</from-view-id>
+		<navigation-case>
+			<from-outcome>CONTA_PESQUISA_NUMERO_ENDERECO</from-outcome>
+			<to-view-id>/pages/conta/contapesquisanumeroendereco.iface</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>CONTA_TABELA_SEGUNDAVIA_ENDERECO</from-outcome>
+			<to-view-id>/pages/conta/contatabelasegundaviaendereco.iface</to-view-id>
+		</navigation-case>		
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/pages/conta/contatabelasegundaviaendereco.jspx</from-view-id>
+		<navigation-case>
+			<from-outcome>PGTO_ELETRONICO</from-outcome>
+			<to-view-id>/pages/conta/pgtoeletronico.iface</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/pages/conta/pgtoeletronico.jspx</from-view-id>				
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/pages/conta/contapesquisargiendereco.jspx</from-view-id>
+		<navigation-case>
+			<from-outcome>PROSSEGUIR_RGI</from-outcome>
+			<to-view-id>/pages/conta/contapesquisargi.iface</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>PROSSEGUIR_ENDERECO</from-outcome>
+			<to-view-id>/pages/conta/contaPesquisaEndereco.iface</to-view-id>
+		</navigation-case>				
+	</navigation-rule>
+	
+		
+	<navigation-rule>
+		<from-view-id>/pages/conta/contaPesquisaEndereco.jspx</from-view-id>
+		<navigation-case>
+			<from-outcome>CONTA_PESQUISA_RGI_ENDERECO</from-outcome>
+			<to-view-id>/pages/conta/contapesquisargiendereco.iface</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>CONTA_PESQUISA_NUMERO_ENDERECO</from-outcome>
+			<to-view-id>/pages/conta/contapesquisanumeroendereco.iface</to-view-id>
+		</navigation-case>						
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/pages/conta/contapesquisanumeroendereco.jspx</from-view-id>
+		<navigation-case>
+			<from-outcome>VOLTAR_ENDERECO</from-outcome>
+			<to-view-id>/pages/conta/contaPesquisaEndereco.iface</to-view-id>
+		</navigation-case>		
+		<navigation-case>
+			<from-outcome>PROSSEGUIR_CONTA_PESQUISA_AVISO</from-outcome>
+			<to-view-id>/pages/conta/contapesquisaaviso.iface</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+		
+	
+	<navigation-rule>
+		<from-view-id>/pages/conta/contapesquisargi.jspx</from-view-id>
+		<navigation-case>
+			<from-outcome>CONTA_PESQUISA_RGI_ENDERECO</from-outcome>
+			<to-view-id>/pages/conta/contapesquisargiendereco.iface</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>CONTA_TABELA_SEGUNDAVIA</from-outcome>
+			<to-view-id>/pages/conta/contatabelasegundavia.iface</to-view-id>
+		</navigation-case>		
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/pages/conta/contatabelasegundavia.jspx</from-view-id>
+		<navigation-case>
+			<from-outcome>CONTA_PESQUISA_RGI</from-outcome>
+			<to-view-id>/pages/conta/contapesquisargi.jspx</to-view-id>
+		</navigation-case>		
+		<navigation-case>
+			<from-outcome>CONTA_ENDERECO_2VIA_CORREIO</from-outcome>
+			<to-view-id>/pages/conta/contaendereco2via.jspx</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>CONTA_PAGAMENTO_ELETRONICO</from-outcome>
+			<to-view-id>/pages/conta/contapagamentoeletronico.jspx</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>CONTA_SEGUNDAVIA_BOLETO</from-outcome>
+			<to-view-id>/pages/suaconta/imprimesegundavia.jspx</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>CONTA_SEGUNDAVIA_BOLETO_ROL_ESPECIAL</from-outcome>
+			<to-view-id>/pages/suaconta/imprimirsegundaviaespecial.jspx</to-view-id >
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>ERRO</from-outcome>
+			<to-view-id>/pages/conta/contatabelasegundavia.jspx</to-view-id >
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>CONCLUIR</from-outcome>
+			<to-view-id>/pages/conta/contaconcluir.jspx</to-view-id>
+		</navigation-case>
+			
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/pages/conta/contapagamentoeletronico.jspx</from-view-id>
+		<navigation-case>
+			<from-outcome>CONCLUIR</from-outcome>
+			<to-view-id>/pages/conta/contaconcluir.jspx</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>ERRO</from-outcome>
+			<to-view-id>/pages/conta/contapagamentoeletronico.jspx</to-view-id>
+		</navigation-case>
+	</navigation-rule>	
+	
+	<navigation-rule>
+		<from-view-id>/pages/conta/contaendereco2via.jspx</from-view-id>
+		<navigation-case>
+			<from-outcome>SOLICITACAO_SUCESSO</from-outcome>
+			<to-view-id>/pages/conta/contaconcluir.jspx</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>VOLTAR_LISTAGEM</from-outcome>
+			<to-view-id>/pages/conta/contatabelasegundavia.jspx</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>CONTA_ENDERECO_2VIA_CORREIO</from-outcome>
+			<to-view-id>/pages/conta/contaendereco2via.jspx</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/pages/conta/contaconcluir.jspx</from-view-id>
+		<navigation-case>
+			<from-outcome>PAGINAINICIAL</from-outcome>
+			<to-view-id>/pages/home/paginainicial.iface</to-view-id>
+		</navigation-case>	
+		<navigation-case>
+			<from-outcome>RELATORIOATENDIMENTO</from-outcome>
+			<to-view-id>/pages/atendimento/concluiratendimento.iface</to-view-id>
+		</navigation-case>		
+	</navigation-rule>
+	
+	<!-- 2 via de conta -->
+	
+	
+	
+	<navigation-rule>
+		<from-view-id>/pages/suaconta/historicocontaspesquisa.jspx</from-view-id>
+		<navigation-case>
+			<from-outcome>PROSSEGUIR</from-outcome>
+			<to-view-id>/pages/suaconta/historicocontaspesquisargi.jspx</to-view-id>
+		</navigation-case>		
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/pages/suaconta/historicocontaspesquisargi.jspx</from-view-id>
+		<navigation-case>
+			<from-outcome>VOLTAR</from-outcome>
+			<to-view-id>/pages/suaconta/historicocontaspesquisa.jspx</to-view-id>
+		</navigation-case>		
+		<navigation-case>
+			<from-outcome>LISTA</from-outcome>
+			<to-view-id>/pages/suaconta/historicocontaslista.jspx</to-view-id>
+		</navigation-case>
+		
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/pages/suaconta/historicocontaslista.jspx</from-view-id>
+		<navigation-case>
+			<from-outcome>VOLTAR</from-outcome>
+			<to-view-id>/pages/suaconta/historicocontaspesquisa.jspx</to-view-id>
+		</navigation-case>		
+		<navigation-case>
+			<from-outcome>RELATORIOATENDIMENTO</from-outcome>
+			<to-view-id>/pages/atendimento/concluiratendimento.jspx</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>CONTAESPECIAL</from-outcome>
+			<to-view-id>/pages/suaconta/historicocontasespecial.jspx</to-view-id>
+		</navigation-case>		
+	</navigation-rule>
+	
+		<navigation-rule>
+		<from-view-id>/pages/suaconta/historicocontasespecial.jspx</from-view-id>
+		<navigation-case>
+			<from-outcome>VOLTAR</from-outcome>
+			<to-view-id>/pages/suaconta/historicocontaslista.jspx</to-view-id>
+		</navigation-case>		
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/pages/conta/cronograma/cronogramaleitura.jspx</from-view-id>
+		<navigation-case>
+			<from-outcome>CRONOGRAMA_PESQUISA_RGI</from-outcome>
+			<to-view-id>/pages/conta/cronograma/cronogramapesquisargi.iface</to-view-id>
+		</navigation-case>		
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/pages/template/pesquisaCliente.jspx</from-view-id>
+		<navigation-case>
+			<from-outcome>ERRO</from-outcome>
+			<to-view-id>/pages/template/pesquisaCliente.jspx</to-view-id>
+		</navigation-case>		
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/pages/conta/cronograma/cronogramapesquisargi.jspx</from-view-id>
+		<navigation-case>
+			<from-outcome>CronogramaLeitura</from-outcome>
+			<to-view-id>/pages/conta/cronograma/cronogramaleitura.iface</to-view-id>
+		</navigation-case>
+		<navigation-case>
+        	<from-outcome>CronogramaLeituraListagem</from-outcome>
+            <to-view-id>/pages/conta/cronograma/cronogramaleituralistagem.iface</to-view-id>
+        </navigation-case>		
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/pages/conta/cronograma/cronogramaleituralistagem.jspx</from-view-id>
+		<navigation-case>
+			<from-outcome>PAGINAINICIAL</from-outcome>
+			<to-view-id>/pages/home/paginainicial.iface</to-view-id>
+		</navigation-case>	
+		<navigation-case>
+			<from-outcome>RELATORIOATENDIMENTO</from-outcome>
+			<to-view-id>/pages/atendimento/concluiratendimento.iface</to-view-id>
+		</navigation-case>			
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/pages/suaconta/suaconta.jspx</from-view-id>
+		<navigation-case>
+			<from-outcome>SUA_CONTA_BANCO_CONVENIADO</from-outcome>
+			<to-view-id>/pages/suaconta/bancoconveniado.iface</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>SUA_CONTA_CONSULTA_DADOS_LEITURA</from-outcome>
+			<to-view-id>/pages/conta/cronograma/cronogramaleituralistagem.iface</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>SUA_CONTA_CONSULTA_DADOS_LEITURA_IDENTIFICAR</from-outcome>
+			<to-view-id>/pages/conta/cronograma/cronogramaleitura.iface</to-view-id>
+		</navigation-case>
+		
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/pages/suaconta/bancoconveniado.jspx</from-view-id>
+		<navigation-case>
+        	<from-outcome>PAGINAINICIAL</from-outcome>
+            <to-view-id>/pages/home/paginainicial.iface</to-view-id>
+        </navigation-case>
+        <navigation-case>
+        	<from-outcome>RELATORIOATENDIMENTO</from-outcome>
+			<to-view-id>/pages/atendimento/concluiratendimento.iface</to-view-id>
+        </navigation-case>		
+	</navigation-rule>
+	
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>TACE</from-outcome>
+			<to-view-id>/pages/canaisatendimento/tace.iface</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>RELATORIOATENDIMENTO</from-outcome>
+			<to-view-id>/pages/atendimento/concluiratendimento.iface</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+  <navigation-rule>
+        <navigation-case>
+        	<from-outcome>PAGINAINICIAL</from-outcome>
+            <to-view-id>/pages/home/paginainicial.iface</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>SUBMENUSUACONTA</from-outcome>
+            <to-view-id>/pages/suaconta/suaconta.iface</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>SUBMENULIGACOESAGUAESGOTO</from-outcome>
+            <to-view-id>/pages/ligacoesaguaesgoto/ligacoesaguaesgoto.iface</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>SUBMENUCONSERTOS</from-outcome>
+            <to-view-id>/pages/consertos/consertos.iface</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>SUBMENUEMERGENCIAS</from-outcome>
+            <to-view-id>/pages/emergencias/emergencias.iface</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>SUBMENUCORPORATIVO</from-outcome>
+            <to-view-id>/pages/corporativo/corporativo.iface</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>SUBMENUDICASINFORMACOES</from-outcome>
+            <to-view-id>/pages/dicasinformacoes/dicasinformacoes.iface</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>SUBMENUTARIFAS</from-outcome>
+            <to-view-id>/pages/tarifas/tarifas.iface</to-view-id>
+        </navigation-case>
+        <navigation-case>
+        	<from-outcome>NOTICIA</from-outcome>
+            <to-view-id>/pages/noticias/noticia.iface</to-view-id>
+        </navigation-case>
+         <navigation-case>
+        	<from-outcome>CANAISATENDIMENTO</from-outcome>
+            <to-view-id>/pages/canaisatendimento/canaisatendimento.iface</to-view-id>
+        </navigation-case>
+        <navigation-case>
+			<from-outcome>IDENTIFICA_RGI</from-outcome>
+			<to-view-id>/pages/atendimento/alterarrgi.iface</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>CONCLUIR_ATENDIMENTO</from-outcome>
+			<to-view-id>/pages/atendimento/concluiratendimento.iface</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>AGENCIASATENDIMENTO</from-outcome>
+			<to-view-id>/pages/canaisatendimento/agenciasatendimento.iface</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>SUA_CONTA_DEBITO_AUTOMATICO</from-outcome>
+			<to-view-id>/pages/suaconta/formdebitoautomatico.iface</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>SUA_CONTA_CONSULTA_TARIFA</from-outcome>
+			<to-view-id>/pages/suaconta/consultatarifa.iface</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>SUA_CONTA_CONSULTA_HISTORICO_CONTAS</from-outcome>
+			<to-view-id>/pages/suaconta/historicocontaslista.iface</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>SUA_CONTA_CONSULTA_HISTORICO_CONTAS_IDENTIFICAR</from-outcome>
+			<to-view-id>/pages/suaconta/historicocontaspesquisa.iface</to-view-id>
+		</navigation-case>		
+		<navigation-case>
+			<from-outcome>LIGACOES_MUDANCA_LIGACAO_ESGOTO</from-outcome>
+			<to-view-id>/pages/ligacoesaguaesgoto/esgoto/mudancaligacaoesgotoperguntas.iface</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>LIGACOES_MUDANCA_LIGACAO_ESGOTO_IDENTIFICACAO</from-outcome>
+			<to-view-id>/pages/ligacoesaguaesgoto/esgoto/mudancaligacaoesgotopesquisargi.iface</to-view-id>
+		</navigation-case>				
+		<navigation-case>
+			<from-outcome>LIGACOES_MUDANCA_LIGACAO_AGUA</from-outcome>
+			<to-view-id>/pages/ligacoesaguaesgoto/agua/mudancaligacaoaguaperguntas.iface</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>LIGACOES_MUDANCA_LIGACAO_AGUA_IDENTIFICAR</from-outcome>
+			<to-view-id>/pages/ligacoesaguaesgoto/agua/mudancaligacaoaguapesquisargi.iface</to-view-id>
+		</navigation-case>				
+		<navigation-case>
+			<from-outcome>CONSERTO_HIDROMETRO</from-outcome>
+			<to-view-id>/pages/consertos/consertoescolhaproblema.iface</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>CONSERTO_HIDROMETRO_IMOVEL_IDENTIFICADO</from-outcome>
+			<to-view-id>/pages/consertos/hidrometro/consertohidrometroperguntasrespostas.iface</to-view-id>
+		</navigation-case>				
+		<navigation-case>
+			<from-outcome>CONSERTO_CAVALETE</from-outcome>
+			<to-view-id>/pages/consertos/consertoescolhaproblema.iface</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>CONSERTO_CAVALETE_IMOVEL_IDENTIFICADO</from-outcome>
+			<to-view-id>/pages/consertos/cavalete/consertocavaletepesquisacliente.iface</to-view-id>
+		</navigation-case>		
+		<navigation-case>
+			<from-outcome>CONSERTO_CAVALETE_RETOMADA</from-outcome>
+			<to-view-id>/pages/consertos/cavalete/consertocavaletepergunta.iface</to-view-id>
+		</navigation-case>
+		
+		
+		<navigation-case>
+			<from-outcome>EMERGENCIA_ESGOTO_ENTUPIDO_RETOMADA</from-outcome>
+			<to-view-id>/pages/emergencias/esgotoentupido/esgotoentupidoperguntas.iface</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>CONSERTO_HIDROMETRO_RETOMADA</from-outcome>
+			<to-view-id>/pages/consertos/hidrometro/consertohidrometroperguntas.iface</to-view-id>
+		</navigation-case>		
+				
+		<navigation-case>
+			<from-outcome>CONSERTO_REGISTRO</from-outcome>
+			<to-view-id>/pages/consertos/consertoescolhaproblema.iface</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>CONSERTO_REGISTRO_IMOVEL_IDENTIFICADO</from-outcome>
+			<to-view-id>/pages/consertos/registro/consertoregistropesquisacliente.iface</to-view-id>
+		</navigation-case>		
+		
+		<navigation-case>
+			<from-outcome>EMERGENCIA_POUCA_PRESSAO</from-outcome>
+			<to-view-id>/pages/emergencias/poucapressao/poucapressaoinfo.iface</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>EMERGENCIA_POUCA_PRESSAO_IDENTIFICADO</from-outcome>
+			<to-view-id>/pages/emergencias/poucapressao/poucapressaopesquisacliente.iface</to-view-id>
+		</navigation-case>		
+		<navigation-case>
+			<from-outcome>EMERGENCIA_ESGOTO_ENTUPIDO</from-outcome>
+			<to-view-id>/pages/emergencias/esgotoentupido/esgotoentupidoperguntas.iface</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>EMERGENCIA_ESGOTO_ENTUPIDO_IDENTIFICADO</from-outcome>
+			<to-view-id>/pages/emergencias/esgotoentupido/esgotoentupidorespostas.iface</to-view-id>
+		</navigation-case>		
+		<navigation-case>
+			<from-outcome>EMERGENCIA_VAZAMENTO_REDE</from-outcome>
+			<to-view-id>/pages/emergencias/vazamento/vazamentoperguntas.jspx</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>EMERGENCIA_VAZAMENTO_REDE_IDENTIFICADO</from-outcome>
+			<to-view-id>/pages/emergencias/vazamento/vazamentopesquisacliente.jspx</to-view-id>
+		</navigation-case>		
+		<navigation-case>
+			<from-outcome>TARIFAS_TABELA_PRECOS_SERVICOS</from-outcome>
+			<to-view-id>/pages/tarifas/tabelaprecosservicos.iface</to-view-id>
+		</navigation-case>
+    </navigation-rule>
+    
+    <!--  ALterar RGI -->
+    
+	<navigation-rule>
+		<from-view-id>/pages/atendimento/alterarrgi.jspx</from-view-id>
+		<navigation-case>
+			<from-outcome>PAGINAINICIAL</from-outcome>
+			<to-view-id>/pages/home/paginainicial.iface</to-view-id>
+		</navigation-case>	
+		<navigation-case>
+			<from-outcome>IDENTIFICA_RGI</from-outcome>
+			<to-view-id>/pages/atendimento/identificargi.iface</to-view-id>
+		</navigation-case>		
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/pages/atendimento/identificargi.jspx</from-view-id>
+		<navigation-case>
+			<from-outcome>PROSSEGUIR_RGI</from-outcome>
+			<to-view-id>/pages/atendimento/confirmargi.iface</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>PROSSEGUIR_ENDERECO</from-outcome>
+			<to-view-id>/pages/atendimento/numeroendereco.iface</to-view-id>
+		</navigation-case>		
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/pages/atendimento/numeroendereco.jspx</from-view-id>
+		<navigation-case>
+			<from-outcome>PESQUISA_RGI_ENDERECO</from-outcome>
+			<to-view-id>/pages/atendimento/pesquisargiendereco.iface</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>PESQUISA_NUMERO_ENDERECO</from-outcome>
+			<to-view-id>/pages/atendimento/pesquisanumeroendereco.iface</to-view-id>
+		</navigation-case>						
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/pages/atendimento/pesquisanumeroendereco.jspx</from-view-id>
+		<navigation-case>
+			<from-outcome>VOLTAR_ENDERECO</from-outcome>
+			<to-view-id>/pages/atendimento/pesquisanumeroendereco.jspx</to-view-id>
+		</navigation-case>		
+		<navigation-case>
+			<from-outcome>PROSSEGUIR</from-outcome>
+				<to-view-id>/pages/home/paginainicial.iface</to-view-id>
+		</navigation-case>	
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/pages/atendimento/confirmargi.jspx</from-view-id>
+		<navigation-case>
+			<from-outcome>VOLTAR</from-outcome>
+			<to-view-id>/pages/atendimento/identificargi.iface</to-view-id>
+		</navigation-case>	
+		<navigation-case>
+			<from-outcome>PROSSEGUIR</from-outcome>
+				<to-view-id>/pages/home/paginainicial.iface</to-view-id>
+		</navigation-case>		
+	</navigation-rule>
+	
+	<!-- Fim ALterar Rgi -->
+	
+	<navigation-rule>
+		<display-name>Formulário Débito Automático</display-name>
+		<from-view-id>/pages/suaconta/formdebitoautomatico.jspx</from-view-id>
+		<navigation-case>
+			<from-outcome>PROSSEGUIR</from-outcome>
+			<to-view-id>/pages/suaconta/formdebitoautomatico.iface</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>Cancel</from-outcome>
+			<to-view-id>/pages/suaconta/formdebitoautomatico.jspx</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+    
+</faces-config>

@@ -1,0 +1,18 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="namingStrategy" class="com.prime.infra.jmx.WebsphereNamingStrategy">
+        <property name="domainName" value="${application.name}"/>
+        <property name="cellName" ref="adminService.cellName"/>
+        <property name="nodeName" ref="adminService.nodeName"/>
+        <property name="processName" ref="adminService.processName"/>
+    </bean>
+
+    <bean id="adminService" class="com.ibm.websphere.management.AdminServiceFactory" factory-method="getAdminService"/>
+    <bean id="adminService.defaultDomain" class="org.springframework.beans.factory.config.PropertyPathFactoryBean"/>
+    <bean id="adminService.cellName" class="org.springframework.beans.factory.config.PropertyPathFactoryBean"/>
+    <bean id="adminService.nodeName" class="org.springframework.beans.factory.config.PropertyPathFactoryBean"/>
+    <bean id="adminService.processName" class="org.springframework.beans.factory.config.PropertyPathFactoryBean"/>
+
+</beans>

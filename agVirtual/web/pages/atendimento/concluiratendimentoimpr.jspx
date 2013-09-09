@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ice="http://www.icesoft.com/icefaces/component"
+    xmlns:fn="http://www.primeinformatica.com.br/functions" template="../template/template.jspx">
+
+<head> 
+	<link href="#{facesContext.externalContext.requestContextPath}/css/agvt.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+	<ice:panelGroup styleClass="wrapper">
+		<ice:panelGroup styleClass="contaContent">
+			
+			<!-- ferramentas
+			<ice:panelGroup id="ferramentas">
+				<ul class="ferramentas" style="overflow: hidden;">
+					<li><a href="#" class="print ico_1line_Tip" title="Imprimir" onclick="javascript:imprimirRelatorioAtendimento();">Imprimir</a></li>
+					<li><a href="#" class="save ico_1line_Tip" title="Salvar" onclick="salvar();">Salvar</a></li>
+					<li><a href="#modalMail" class="sendMail ico_1line_Tip modal" title="Enviar por email" onclick="focusMail();">Enviar por email</a></li>
+				</ul>
+			</ice:panelGroup>-->
+	
+			<!-- titulo relatorio atendimento -->
+			<ice:panelGroup id="ferramentas" styleClass="headertable" style="padding-top: 40px;">	
+				<table class="tblAlignLeft" cellpadding="0" cellspacing="0" border="0" width="960">
+					<thead>
+						<tr>
+							<th>Relatório de Atendimento</th>
+						</tr>
+					</thead>
+				</table>
+			</ice:panelGroup>
+			
+			<!-- relatorio atendimento -->
+			<ice:panelGroup styleClass="drillDown">
+				<!-- external table -->
+				<table class="tabela-expansivel tblAlignLeft tabCollapse" cellpadding="0" cellspacing="0" border="0">
+					<thead>
+						<tr>
+							<th colspan="2">RGI</th>
+							<th>Nome</th>
+							<th>Endereço</th>
+						</tr>
+					</thead>
+						<!-- repeat  -->
+						<ui:repeat value="${relatorioAtendimentoBBean.listaAAAcessadoTO}" rowClasses="row1, row2" var="aaAcessadoTO">
+							<!-- line container -->
+							<tbody>
+								<!-- fixed line -->
+								<tr class="expansor">
+									<td width="40" rowspan="2"></td>
+									<td width="115"><h:outputText value="#{aaAcessadoTO.cdRgi}"/> </td>
+									<td width="170"><h:outputText value="#{aaAcessadoTO.socilicitante}"/></td>
+									<td width="633" class="last"><h:outputText value="#{aaAcessadoTO.dsEndereco}"/></td>
+								</tr>
+								<!-- expandable line -->
+								<tr class="expansivel">
+									<td width="100%" colspan="4" class="td-expansivel">
+										<!-- expandable box -->
+										<div class="box-expansivel">
+										<!-- internal table -->	
+										<table cellpadding="0" cellspacing="0" border="0" width="900px">
+											<!-- define head -->
+											<thead>
+												<tr>						
+													<th width="287" >Situação ou Serviço</th>
+													<th width="320" >Observações</th>
+													<th width="210" >Status</th>								
+												</tr>
+											</thead>
+											<!-- iterate over list of "Contas" -->
+											<ui:repeat value="#{aaAcessadoTO.listaAAAcessado}" var="aaa">
+												<!-- define one tbody per item, css requirement -->
+												<tbody>
+												<tr>
+													<td><h:outputText value="#{aaa.autoAtendimento.cdAutoatendimento} - #{aaa.autoAtendimento.dsAutoatendimento}"/> </td>
+													<td><h:outputText value="#{aaa.observacao}"/> </td>
+													<td><h:outputText value="#{aaa.status}"/> </td>
+													
+													<!-- regra 1 - concluido 
+													<h:outputText rendered="#{aaa.autoAtendimento.cdAutoatendimento==1}">
+														<td><h:outputText value="#{aa.autoAtendimento.cdAutoatendimento} - #{aa.autoAtendimento.dsAutoatendimento}"/> </td>
+														<td><h:outputText value="#{Aberto o serviço nº aa.cdAutoAtendimentoAcess}"/> </td>
+														<td class="last"><span class="concluido"></span>Concluída</td>
+													</h:outputText>
+													-->
+												</tr>
+												</tbody>
+											</ui:repeat>
+										</table>
+										</div>
+									</td>
+								</tr>
+						  </tbody> <!-- end line container -->                                                   
+					  </ui:repeat>
+					
+				</table>	
+			</ice:panelGroup>
+	</ice:panelGroup> <!-- fim content -->
+</ice:panelGroup> <!-- fim wrapper -->
+<script type="text/javascript">
+	window.print();
+</script>
+</body>
+</html>

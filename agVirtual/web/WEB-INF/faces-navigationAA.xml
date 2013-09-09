@@ -1,0 +1,861 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE faces-config PUBLIC
+    "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.1//EN"
+    "http://java.sun.com/dtd/web-facesconfig_1_1.dtd">
+<faces-config>
+	
+  	<navigation-rule>	
+		<navigation-case>
+			<from-outcome>EMERGENCIA_ESTOU_SEM_AGUA</from-outcome>
+			<to-view-id>/pages/emergencias/estousemagua/estousemaguainformacao.iface</to-view-id>
+		</navigation-case>				
+	</navigation-rule>
+	
+  	<navigation-rule>	
+		<navigation-case>
+			<from-outcome>EMERGENCIA_ESTOU_SEM_AGUA_IDENTIFICAR</from-outcome>
+			<to-view-id>/pages/emergencias/estousemagua/estousemagua.jspx</to-view-id>
+		</navigation-case>				
+	</navigation-rule>		
+	
+	<!-- ESGOTO ENTUPIDO - INICIO -->
+	<navigation-rule>
+		<from-view-id>/pages/emergencias/esgotoentupido/esgotoentupidoLink.jspx</from-view-id>
+		<navigation-case>
+        	<from-outcome>EMERGENCIA_ESGOTO_ENTUPIDO</from-outcome>
+            <to-view-id>/pages/emergencias/esgotoentupido/esgotoentupidoperguntas.iface</to-view-id>
+        </navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<from-view-id>/pages/emergencias/esgotoentupido/esgotoentupidoperguntas.jspx</from-view-id>		
+
+		<navigation-case>
+        	<from-outcome>PROSSEGUIR</from-outcome>
+        	<to-view-id>/pages/emergencias/esgotoentupido/esgotoentupidopesquisargi.iface</to-view-id>
+        </navigation-case>		
+        
+		<navigation-case>
+        	<from-outcome>ERRO</from-outcome>
+            <to-view-id>/pages/emergencias/esgotoentupido/esgotoentupidoperguntas.iface</to-view-id>
+        </navigation-case>
+        
+		<navigation-case>
+        	<from-outcome>FA_CANAIS_ATENDIMENTO</from-outcome>
+            <to-view-id>/pages/emergencias/esgotoentupido/esgotoentupidogotocanaisatendimento.iface</to-view-id>
+        </navigation-case>                 
+        
+	</navigation-rule>
+	
+	
+	<navigation-rule>
+		<from-view-id>/pages/emergencias/esgotoentupido/esgotoentupidopesquisargi.jspx</from-view-id>	
+		<navigation-case>
+        	<from-outcome>VOLTAR</from-outcome>
+            <to-view-id>/pages/emergencias/esgotoentupido/esgotoentupidoperguntas.iface</to-view-id>
+        </navigation-case>
+        
+		<navigation-case>
+        	<from-outcome>PROSSEGUIR</from-outcome>
+            <to-view-id>/pages/emergencias/esgotoentupido/esgotoentupidogotoconfirmargi.iface</to-view-id>
+        </navigation-case>        		
+	</navigation-rule>	
+	
+	<navigation-rule>
+		<from-view-id>/pages/emergencias/esgotoentupido/esgotoentupidogotoconfirmargi.jspx</from-view-id>	
+		
+		<navigation-case>
+        	<from-outcome>VOLTAR</from-outcome>
+            <to-view-id>/pages/emergencias/esgotoentupido/esgotoentupidoperguntas.iface</to-view-id>
+        </navigation-case>
+        
+		<navigation-case>
+        	<from-outcome>PROSSEGUIR</from-outcome>
+            <to-view-id>/pages/emergencias/esgotoentupido/esgotoentupidorespostas.iface</to-view-id>
+        </navigation-case>        		
+			
+	</navigation-rule>	
+	
+	<navigation-rule>
+		<from-view-id>/pages/emergencias/esgotoentupido/esgotoentupidorespostas.jspx</from-view-id>	
+		
+		<navigation-case>
+        	<from-outcome>VOLTAR</from-outcome>
+            <to-view-id>/pages/emergencias/esgotoentupido/esgotoentupidoperguntas.iface</to-view-id>
+        </navigation-case>
+        
+		<navigation-case>
+        	<from-outcome>PROSSEGUIR</from-outcome>
+            <to-view-id>/pages/emergencias/esgotoentupido/esgotoentupidogotopesquisacliente.iface</to-view-id>
+        </navigation-case>        		
+			
+	</navigation-rule>		
+	
+	<navigation-rule>
+		<from-view-id>/pages/emergencias/esgotoentupido/esgotoentupidogotopesquisacliente.jspx</from-view-id>
+		
+		<navigation-case>
+        	<from-outcome>PROSSEGUIR</from-outcome>
+            <to-view-id>/pages/emergencias/esgotoentupido/esgotoentupidogotoconcluirsolicitacao.iface</to-view-id>
+        </navigation-case>	
+		
+		<navigation-case>
+        	<from-outcome>VOLTAR</from-outcome>
+            <to-view-id>/pages/emergencias/esgotoentupido/esgotoentupidorespostas.iface</to-view-id>
+        </navigation-case>		
+		
+	</navigation-rule>
+	
+	<!-- ESGOTO ENTUPIDO - FIM -->
+
+	<!-- Ligações de água e esgoto -  ESGOTO -->
+		
+	<navigation-rule>
+		<from-view-id>/pages/ligacoesaguaesgoto/esgoto/mudancaligacaoesgotopesquisargi.jspx</from-view-id>
+		<navigation-case>
+        	<from-outcome>PROSSEGUIR</from-outcome>
+            <to-view-id>/pages/ligacoesaguaesgoto/esgoto/mudancaligacaoesgotoconfirmargi.iface</to-view-id>
+        </navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/pages/ligacoesaguaesgoto/esgoto/mudancaligacaoesgotoconfirmargi.jspx</from-view-id>
+		<navigation-case>
+        	<from-outcome>VOLTAR</from-outcome>
+            <to-view-id>/pages/ligacoesaguaesgoto/esgoto/mudancaligacaoesgotopesquisargi.iface</to-view-id>
+        </navigation-case>
+		<navigation-case>
+        	<from-outcome>PROSSEGUIR</from-outcome>
+            <to-view-id>/pages/ligacoesaguaesgoto/esgoto/mudancaligacaoesgotoperguntas.iface</to-view-id>
+        </navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/pages/ligacoesaguaesgoto/esgoto/mudancaligacaoesgotopesquisacliente.jspx</from-view-id>
+		<navigation-case>
+			<from-outcome>ERRO</from-outcome>
+			<to-view-id>/pages/ligacoesaguaesgoto/esgoto/mudancaligacaoesgotopesquisacliente.iface</to-view-id>
+		</navigation-case>	
+		<navigation-case>
+			<from-outcome>PROSSEGUIR</from-outcome>
+			<to-view-id>/pages/ligacoesaguaesgoto/esgoto/mudancaligacaoesgotoconcluir.iface</to-view-id>
+		</navigation-case>		
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/pages/ligacoesaguaesgoto/esgoto/mudancaligacaoesgotoperguntas.jspx</from-view-id>
+			<navigation-case>
+        	<from-outcome>VOLTAR</from-outcome>
+            <to-view-id>/pages/ligacoesaguaesgoto/esgoto/mudancaligacaoesgotopesquisargi.iface</to-view-id>
+        </navigation-case>
+		<navigation-case>
+			<from-outcome>ERRO</from-outcome>
+			<to-view-id>/pages/ligacoesaguaesgoto/esgoto/mudancaligacaoesgotoperguntas.iface</to-view-id>
+		</navigation-case>	
+		<navigation-case>
+			<from-outcome>PROSSEGUIR_ACATAMENTO</from-outcome>
+			<to-view-id>/pages/ligacoesaguaesgoto/esgoto/mudancaligacaoesgotoperguntas.iface</to-view-id>
+		</navigation-case>	
+		<navigation-case>
+			<from-outcome>PROSSEGUIR_ENCAMINHAMENTO</from-outcome>
+			<to-view-id>/pages/ligacoesaguaesgoto/esgoto/mudancaligacaoesgotoencaminhamento.iface</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>PROSSEGUIR_CLIENTE</from-outcome>
+			<to-view-id>/pages/ligacoesaguaesgoto/esgoto/mudancaligacaoesgotopesquisacliente.iface</to-view-id>
+		</navigation-case>				
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/pages/ligacoesaguaesgoto/esgoto/mudancaligacaoesgotoencaminhamento.jspx</from-view-id>
+		<navigation-case>
+        	<from-outcome>CONCLUIR_ATENDIMENTO</from-outcome>
+            <to-view-id>/pages/atendimento/concluiratendimento.iface</to-view-id>
+        </navigation-case>
+        <navigation-case>
+       		<from-outcome>PAGINAINICIAL</from-outcome>
+            <to-view-id>/pages/home/paginainicial.iface</to-view-id>
+        </navigation-case>   
+	</navigation-rule>
+	
+	
+	<!-- FIM Ligações de água e esgoto -  ESGOTO --> 
+ 
+	<!-- Ligações de água e esgoto -  AGUA -->
+
+	<navigation-rule>
+		<from-view-id>/pages/ligacoesaguaesgoto/agua/mudancaligacaoaguapesquisargi.jspx</from-view-id>
+		<navigation-case>
+        	<from-outcome>PROSSEGUIR</from-outcome>
+            <to-view-id>/pages/ligacoesaguaesgoto/agua/mudancaligacaoaguaconfirmargi.iface</to-view-id>
+        </navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/pages/ligacoesaguaesgoto/agua/mudancaligacaoaguaconfirmargi.jspx</from-view-id>
+		<navigation-case>
+        	<from-outcome>VOLTAR</from-outcome>
+            <to-view-id>/pages/ligacoesaguaesgoto/agua/mudancaligacaoaguapesquisargi.iface</to-view-id>
+        </navigation-case>
+		<navigation-case>
+        	<from-outcome>PROSSEGUIR</from-outcome>
+            <to-view-id>/pages/ligacoesaguaesgoto/agua/mudancaligacaoaguaperguntas.iface</to-view-id>
+        </navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/pages/ligacoesaguaesgoto/agua/mudancaligacaoaguapesquisacliente.jspx</from-view-id>
+		<navigation-case>
+			<from-outcome>ERRO</from-outcome>
+			<to-view-id>/pages/ligacoesaguaesgoto/agua/mudancaligacaoaguapesquisacliente.iface</to-view-id>
+		</navigation-case>	
+		<navigation-case>
+			<from-outcome>PROSSEGUIR</from-outcome>
+			<to-view-id>/pages/ligacoesaguaesgoto/agua/mudancaligacaoaguaconcluir.iface</to-view-id>
+		</navigation-case>		
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/pages/ligacoesaguaesgoto/agua/mudancaligacaoaguaperguntas.jspx</from-view-id>
+		<navigation-case>
+        	<from-outcome>VOLTAR</from-outcome>
+            <to-view-id>/pages/ligacoesaguaesgoto/agua/mudancaligacaoaguapesquisargi.iface</to-view-id>
+        </navigation-case>
+		<navigation-case>
+			<from-outcome>ERRO</from-outcome>
+			<to-view-id>/pages/ligacoesaguaesgoto/agua/mudancaligacaoaguaperguntas.iface</to-view-id>
+		</navigation-case>	
+		<navigation-case>
+			<from-outcome>PROSSEGUIR_ACATAMENTO</from-outcome>
+			<to-view-id>/pages/ligacoesaguaesgoto/agua/mudancaligacaoaguaperguntas.iface</to-view-id>
+		</navigation-case>	
+		<navigation-case>
+			<from-outcome>PROSSEGUIR_UMA</from-outcome>
+			<to-view-id>/pages/ligacoesaguaesgoto/agua/mudancaligacaoaguaavisouma.iface</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>PROSSEGUIR_CLIENTE</from-outcome>
+			<to-view-id>/pages/ligacoesaguaesgoto/agua/mudancaligacaoaguapesquisacliente.iface</to-view-id>
+		</navigation-case>				
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/pages/ligacoesaguaesgoto/agua/mudancaligacaoaguaavisouma.jspx</from-view-id>
+		<navigation-case>
+        	<from-outcome>CONCLUIR_ATENDIMENTO</from-outcome>
+            <to-view-id>/pages/atendimento/concluiratendimento.iface</to-view-id>
+        </navigation-case>
+        <navigation-case>
+       		<from-outcome>PAGINAINICIAL</from-outcome>
+            <to-view-id>/pages/home/paginainicial.iface</to-view-id>
+        </navigation-case>   
+	</navigation-rule>
+
+	<!-- FIM Ligações de água e esgoto -  AGUA --> 
+ 
+    
+    <!-- EMERGENCIA - ESTOU SEM AGUA -->
+    <!-- tela de pesquisa -->
+    <navigation-rule>
+		<from-view-id>/pages/emergencias/estousemagua/estousemagua.jspx</from-view-id>
+		<navigation-case>
+        	<from-outcome>PROSSEGUIR_RGI</from-outcome>
+            <to-view-id>/pages/emergencias/estousemagua/estousemaguaconfirmarrgi.iface</to-view-id>
+        </navigation-case>
+        <navigation-case>
+        	<from-outcome>PROSSEGUIR_ENDERECO</from-outcome>
+        	<to-view-id>/pages/emergencias/estousemagua/estousemaguapesquisaendereco.iface</to-view-id>
+        </navigation-case>
+	</navigation-rule> 
+	
+	<!-- pesquisa por rgi -->
+	<navigation-rule>
+		<from-view-id>/pages/emergencias/estousemagua/estousemaguaconfirmarrgi.jspx</from-view-id>
+		<navigation-case>
+			<from-outcome>VOLTAR</from-outcome>
+			<to-view-id>/pages/emergencias/estousemagua/estousemagua.iface</to-view-id>
+		</navigation-case>		
+		<navigation-case>
+			<from-outcome>EXIBIR_SEMAGUA_INFORMACAO</from-outcome>
+			<to-view-id>/pages/emergencias/estousemagua/estousemaguainformacao.iface</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<!-- pesquisa por endereco -->
+	<navigation-rule>
+		<from-view-id>/pages/emergencias/estousemagua/estousemaguapesquisaendereco.jspx</from-view-id>
+		<navigation-case>
+			<from-outcome>VOLTAR</from-outcome>
+			<to-view-id>/pages/emergencias/estousemagua/estousemagua.iface</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>EXIBIR_PESQUISA_NUMERO_ENDERECO</from-outcome>
+			<to-view-id>/pages/emergencias/estousemagua/semaguapesquisanumeroendereco.iface</to-view-id>
+		</navigation-case>
+	</navigation-rule>	
+	
+	<!-- pesquisa por endereco - numero -->
+	<navigation-rule>
+		<from-view-id>/pages/emergencias/estousemagua/semaguapesquisanumeroendereco.jspx</from-view-id>
+		<navigation-case>
+			<from-outcome>VOLTAR</from-outcome>
+			<to-view-id>/pages/emergencias/estousemagua/estousemaguapesquisaendereco.iface</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>EXIBIR_SEMAGUA_INFORMACAO</from-outcome>
+			<to-view-id>/pages/emergencias/estousemagua/estousemaguainformacao.iface</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<!-- tela informacao -->
+	<navigation-rule>
+		<from-view-id>/pages/emergencias/estousemagua/estousemaguainformacao.jspx</from-view-id>
+		<navigation-case>
+        	<from-outcome>VOLTAR</from-outcome>
+            <to-view-id>/pages/emergencias/estousemagua/estousemaguaconfirmarrgi.iface</to-view-id>
+        </navigation-case>		
+		<navigation-case>
+        	<from-outcome>EXIBIR_PERGUNTAS_SEM_AGUA</from-outcome>
+            <to-view-id>/pages/emergencias/estousemagua/estousemaguaperguntas.iface</to-view-id>
+        </navigation-case>		
+	</navigation-rule>
+	
+	<!-- tela exibe perguntas -->
+	<navigation-rule>
+		<from-view-id>/pages/emergencias/estousemagua/estousemaguaperguntas.jspx</from-view-id>
+		<navigation-case>
+        	<from-outcome>EXIBIR_CONFIRMACAO</from-outcome>
+            <to-view-id>/pages/emergencias/estousemagua/estousemaguaconfirmacao.iface</to-view-id>
+        </navigation-case>        
+	</navigation-rule>	
+	
+	<!-- tela exibicao confirmacao do service -->
+	<navigation-rule>
+		<from-view-id>/pages/emergencias/estousemagua/estousemaguaconfirmacao.jspx</from-view-id>
+		<navigation-case>
+        	<from-outcome>EXIBIR_IDENTIFICAR_CLIENTE</from-outcome>
+            <to-view-id>/pages/emergencias/estousemagua/estousemaguapesquisacliente.iface</to-view-id>
+        </navigation-case>        
+	</navigation-rule>	
+	
+	<!-- tela identica cliente -->
+	<navigation-rule>
+		<from-view-id>/pages/emergencias/estousemagua/estousemaguapesquisacliente.jspx</from-view-id>
+		<navigation-case>
+        	<from-outcome>PROSSEGUIR</from-outcome>
+            <to-view-id>/pages/emergencias/estousemagua/estousemaguaservicoacatado.iface</to-view-id>
+        </navigation-case>       
+        <navigation-case>
+        <from-outcome>ERRO</from-outcome>
+            <to-view-id>/pages/emergencias/estousemagua/estousemaguapesquisacliente.iface</to-view-id>
+        </navigation-case>
+	</navigation-rule> 	
+	
+    <!-- fim - EMERGENCIA - ESTOU SEM AGUA -->
+    
+    
+    <!-- Emergencia Pouca Pressão -->
+    
+    <navigation-rule>
+		<from-view-id>/pages/emergencias/poucapressao/poucapressaoinfo.jspx</from-view-id>
+		<navigation-case>
+        	<from-outcome>PROSSEGUIR</from-outcome>
+            <to-view-id>/pages/emergencias/poucapressao/poucapressaoperguntas.iface</to-view-id>
+        </navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/pages/emergencias/poucapressao/poucapressaoperguntas.jspx</from-view-id>
+		<navigation-case>
+			<from-outcome>ERRO</from-outcome>
+			<to-view-id>/pages/emergencias/poucapressao/poucapressaoperguntas.iface</to-view-id>
+		</navigation-case>	
+		<navigation-case>
+			<from-outcome>PROSSEGUIR</from-outcome>
+			<to-view-id>/pages/emergencias/poucapressao/poucapressaoperguntas.iface</to-view-id>
+		</navigation-case>	
+		<navigation-case>
+			<from-outcome>PROSSEGUIR_PESQUISA_RGI</from-outcome>
+			<to-view-id>/pages/emergencias/poucapressao/poucapressaopesquisargi.iface</to-view-id>
+		</navigation-case>				
+		<navigation-case>
+			<from-outcome>PROSSEGUIR_PESQUISA_SOMENTE_RGI</from-outcome>
+			<to-view-id>/pages/emergencias/poucapressao/poucapressaopesquisasomentergi.iface</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/pages/emergencias/poucapressao/poucapressaopesquisasomentergi.jspx</from-view-id>
+		<navigation-case>
+			<from-outcome>ERRO</from-outcome>
+			<to-view-id>/pages/emergencias/poucapressao/poucapressaopesquisasomentergi.iface</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>PROSSEGUIR</from-outcome>
+			<to-view-id>/pages/emergencias/poucapressao/poucapressaoconfirmargi.iface</to-view-id>
+		</navigation-case>
+	</navigation-rule>	
+    
+   	<navigation-rule>
+		<from-view-id>/pages/emergencias/poucapressao/poucapressaopesquisargi.jspx</from-view-id>
+		<navigation-case>
+			<from-outcome>PROSSEGUIR_RGI</from-outcome>
+			<to-view-id>/pages/emergencias/poucapressao/poucapressaoconfirmargi.iface</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>PROSSEGUIR_ENDERECO</from-outcome>
+			<to-view-id>/pages/emergencias/poucapressao/poucapressaonumeroendereco.iface</to-view-id>
+		</navigation-case>
+	</navigation-rule>	
+	
+	<navigation-rule>
+		<from-view-id>/pages/emergencias/poucapressao/poucapressaoconfirmargi.jspx</from-view-id>
+		<navigation-case>
+			<from-outcome>ERRO</from-outcome>
+			<to-view-id>/pages/emergencias/poucapressao/poucapressaoconfirmargi.iface</to-view-id>
+		</navigation-case>	
+		<navigation-case>
+			<from-outcome>PROSSEGUIR</from-outcome>
+			<to-view-id>/pages/emergencias/poucapressao/poucapressaopesquisacliente.iface</to-view-id>
+		</navigation-case>		
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/pages/emergencias/poucapressao/poucapressaonumeroendereco.jspx</from-view-id>
+		<navigation-case>
+			<from-outcome>POUCAPRESSAO_PESQUISA_RGI_ENDERECO</from-outcome>
+			<to-view-id>/pages/emergencias/poucapressao/poucapressaopesquisargiendereco.iface</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>POUCAPRESSAO_PESQUISA_NUMERO_ENDERECO</from-outcome>
+			<to-view-id>/pages/emergencias/poucapressao/poucapressaopesquisanumeroendereco.iface</to-view-id>
+		</navigation-case>						
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/pages/emergencias/poucapressao/poucapressaopesquisanumeroendereco.jspx</from-view-id>
+		<navigation-case>
+			<from-outcome>VOLTAR_ENDERECO</from-outcome>
+			<to-view-id>/pages/emergencias/poucapressao/poucapressaonumeroendereco.jspx</to-view-id>
+		</navigation-case>		
+		<navigation-case>
+			<from-outcome>PROSSEGUIR_POUCAPRESSAO</from-outcome>
+			<to-view-id>/pages/emergencias/poucapressao/poucapressaopesquisacliente.iface</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/pages/emergencias/poucapressao/poucapressaopesquisacliente.jspx</from-view-id>
+		<navigation-case>
+			<from-outcome>ERRO</from-outcome>
+			<to-view-id>/pages/emergencias/poucapressao/poucapressaopesquisacliente.iface</to-view-id>
+		</navigation-case>	
+		<navigation-case>
+			<from-outcome>PROSSEGUIR</from-outcome>
+			<to-view-id>/pages/emergencias/poucapressao/poucapressaoconcluir.iface</to-view-id>
+		</navigation-case>		
+	</navigation-rule>
+	
+	<!-- Fim Emergencia Pouca Pressão -->
+	
+	<navigation-rule>
+		<from-view-id>/pages/consertos/consertohidrometro.jspx</from-view-id>
+        <navigation-case>
+        	<from-outcome>PROSSEGUIR_HIDROMETRO</from-outcome>
+            <to-view-id>/pages/consertos/hidrometro/consertohidrometroperguntas.iface</to-view-id>
+        </navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/pages/consertos/consertocavalete.jspx</from-view-id>
+        <navigation-case>
+        	<from-outcome>PROSSEGUIR_CAVALETE</from-outcome>
+            <to-view-id>/pages/consertos/cavalete/consertocavaletepergunta.iface</to-view-id>
+        </navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/pages/consertos/consertocavaletepeinferior.jspx</from-view-id>
+        <navigation-case>
+        	<from-outcome>PROSSEGUIR_CAVALETE</from-outcome>
+            <to-view-id>/pages/consertos/cavalete/consertocavaletepergunta.iface</to-view-id>
+        </navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/pages/consertos/consertoregistro.jspx</from-view-id>
+        <navigation-case>
+        	<from-outcome>PROSSEGUIR_REGISTRO</from-outcome>
+            <to-view-id>/pages/consertos/registro/consertoregistroperguntas.iface</to-view-id>
+        </navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/pages/consertos/consertoescolhaproblema.jspx</from-view-id>
+		<navigation-case>
+        	<from-outcome>PROSSEGUIR_CAVALETE</from-outcome>
+            <to-view-id>/pages/consertos/cavalete/consertocavaletepergunta.iface</to-view-id>
+        </navigation-case>
+        <navigation-case>
+        	<from-outcome>PROSSEGUIR_HIDROMETRO</from-outcome>
+            <to-view-id>/pages/consertos/hidrometro/consertohidrometroperguntas.iface</to-view-id>
+        </navigation-case>
+        <navigation-case>
+        	<from-outcome>PROSSEGUIR_REGISTRO</from-outcome>
+            <to-view-id>/pages/consertos/registro/consertoregistroperguntas.iface</to-view-id>
+        </navigation-case>
+	</navigation-rule>
+	
+	<!-- Troca de Hidrômetro -->
+	<navigation-rule>
+		<from-view-id>/pages/consertos/hidrometro/consertohidrometroperguntas.jspx</from-view-id>
+			<navigation-case>
+        	<from-outcome>PROSSEGUIR</from-outcome>
+            <to-view-id>/pages/consertos/hidrometro/consertohidrometropesquisargi.iface</to-view-id>
+        </navigation-case>
+        <navigation-case>
+			<from-outcome>VOLTAR</from-outcome>
+			<to-view-id>/pages/consertos/consertoescolhaproblema.iface</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>ERRO</from-outcome>
+			<to-view-id>/pages/consertos/hidrometro/consertohidrometroperguntas.iface</to-view-id>
+		</navigation-case>	
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/pages/consertos/hidrometro/consertohidrometropesquisargi.jspx</from-view-id>
+		<navigation-case>
+        	<from-outcome>PROSSEGUIR</from-outcome>
+            <to-view-id>/pages/consertos/hidrometro/consertohidrometroconfirmarrgi.iface</to-view-id>
+        </navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/pages/consertos/hidrometro/consertohidrometroconfirmarrgi.jspx</from-view-id>
+		<navigation-case>
+        	<from-outcome>VOLTAR</from-outcome>
+           	<to-view-id>/pages/consertos/consertoescolhaproblema.iface</to-view-id>
+        </navigation-case>
+		<navigation-case>
+        	<from-outcome>PROSSEGUIR</from-outcome>
+            <to-view-id>/pages/consertos/hidrometro/consertohidrometroperguntasrespostas.iface</to-view-id>
+        </navigation-case>
+        <navigation-case>
+        	<from-outcome>PROSSEGUIR_ENCAMINHAMENTO</from-outcome>
+            <to-view-id>/pages/consertos/hidrometro/consertohidrometroencaminhamento.iface</to-view-id>
+        </navigation-case>
+        
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/pages/consertos/hidrometro/consertohidrometroperguntasrespostas.jspx</from-view-id>
+			<navigation-case>
+        	<from-outcome>PROSSEGUIR</from-outcome>
+            <to-view-id>/pages/consertos/hidrometro/consertohidrometropesquisacliente.iface</to-view-id>
+        </navigation-case>
+		<navigation-case>
+			<from-outcome>ERRO</from-outcome>
+			<to-view-id>/pages/consertos/hidrometro/consertohidrometroperguntasrespostas.iface</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>VOLTAR</from-outcome>
+			<to-view-id>/pages/consertos/hidrometro/consertohidrometropesquisargi.iface</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/pages/consertos/hidrometro/consertohidrometropesquisacliente.jspx</from-view-id>
+		<navigation-case>
+			<from-outcome>ERRO</from-outcome>
+			<to-view-id>/pages/consertos/hidrometro/consertohidrometropesquisacliente.iface</to-view-id>
+		</navigation-case>	
+		<navigation-case>
+			<from-outcome>PROSSEGUIR</from-outcome>
+			<to-view-id>/pages/consertos/hidrometro/consertohidrometroconcluir.iface</to-view-id>
+		</navigation-case>		
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/pages/consertos/hidrometro/consertohidrometroconcluir.jspx</from-view-id>
+		<navigation-case>
+        	<from-outcome>CONCLUIR_ATENDIMENTO</from-outcome>
+            <to-view-id>/pages/atendimento/concluiratendimento.iface</to-view-id>
+        </navigation-case>
+        <navigation-case>
+       		<from-outcome>PAGINAINICIAL</from-outcome>
+            <to-view-id>/pages/home/paginainicial.iface</to-view-id>
+        </navigation-case>   
+	</navigation-rule>
+	<!--  -->
+	
+	<!-- Conserto do Cavalete - Início -->
+	<navigation-rule>
+		<from-view-id>/pages/consertos/cavalete/consertocavaletepergunta.jspx</from-view-id>
+		<navigation-case>
+        	<from-outcome>VOLTAR</from-outcome>
+            <to-view-id>/pages/consertos/consertoescolhaproblema.iface</to-view-id>
+        </navigation-case>
+		<navigation-case>
+        	<from-outcome>PROSSEGUIR</from-outcome>
+            <to-view-id>/pages/consertos/cavalete/consertocavaletepesquisargi.iface</to-view-id>
+        </navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/pages/consertos/cavalete/consertocavaletepesquisargi.jspx</from-view-id>
+		<navigation-case>
+        	<from-outcome>VOLTAR</from-outcome>
+            <to-view-id>/pages/consertos/cavalete/consertocavaletepergunta.iface</to-view-id>
+        </navigation-case>
+		<navigation-case>
+        	<from-outcome>PROSSEGUIR_RGI</from-outcome>
+            <to-view-id>/pages/consertos/cavalete/consertocavaleteconfirmarrgi.iface</to-view-id>
+        </navigation-case>
+        <navigation-case>
+			<from-outcome>ERRO</from-outcome>
+			<to-view-id>/pages/consertos/cavalete/consertocavaletepesquisargi.iface</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/pages/consertos/cavalete/consertocavaleteconfirmarrgi.jspx</from-view-id>
+		<navigation-case>
+        	<from-outcome>VOLTAR</from-outcome>
+            <to-view-id>/pages/consertos/cavalete/consertocavaletepesquisargi.iface</to-view-id>
+        </navigation-case>
+		<navigation-case>
+        	<from-outcome>PROSSEGUIR</from-outcome>
+            <to-view-id>/pages/consertos/cavalete/consertocavaletepesquisacliente.iface</to-view-id>
+        </navigation-case>
+        <navigation-case>
+			<from-outcome>ERRO</from-outcome>
+			<to-view-id>/pages/consertos/cavalete/consertocavaleteconfirmarrgi.iface</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/pages/consertos/cavalete/consertocavaletepesquisacliente.jspx</from-view-id>
+			<navigation-case>
+        	<from-outcome>PROSSEGUIR</from-outcome>
+            <to-view-id>/pages/consertos/cavalete/consertocavaleteconcluir.iface</to-view-id>
+        </navigation-case>
+		<navigation-case>
+			<from-outcome>ERRO</from-outcome>
+			<to-view-id>/pages/consertos/cavalete/consertocavaletepesquisacliente.iface</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>VOLTAR</from-outcome>
+			<to-view-id>/pages/consertos/cavalete/consertocavaletepesquisargi.iface</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/pages/consertos/cavalete/consertocavaleteconcluir.jspx</from-view-id>
+		<navigation-case>
+        	<from-outcome>CONCLUIR_ATENDIMENTO</from-outcome>
+            <to-view-id>/pages/atendimento/concluiratendimento.iface</to-view-id>
+        </navigation-case>
+        <navigation-case>
+       		<from-outcome>PAGINAINICIAL</from-outcome>
+            <to-view-id>/pages/home/paginainicial.iface</to-view-id>
+        </navigation-case>   
+	</navigation-rule>
+	<!-- Conserto do Cavalete - Fim -->
+	
+	<!-- Conserto do Registro - Início -->
+	<navigation-rule>
+		<from-view-id>/pages/consertos/registro/consertoregistroperguntas.jspx</from-view-id>
+			<navigation-case>
+        	<from-outcome>PROSSEGUIR</from-outcome>
+            <to-view-id>/pages/consertos/registro/consertoregistroperguntasrespostas.iface</to-view-id>
+        </navigation-case>
+        <navigation-case>
+			<from-outcome>VOLTAR</from-outcome>
+			<to-view-id>/pages/consertos/consertoescolhaproblema.iface</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>ERRO</from-outcome>
+			<to-view-id>/pages/consertos/registro/consertoregistroperguntas.iface</to-view-id>
+		</navigation-case>	
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/pages/consertos/registro/consertoregistroperguntasrespostas.jspx</from-view-id>
+			<navigation-case>
+        	<from-outcome>PROSSEGUIR</from-outcome>
+            <to-view-id>/pages/consertos/registro/consertoregistropesquisargi.iface</to-view-id>
+        </navigation-case>
+        <navigation-case>
+			<from-outcome>VOLTAR</from-outcome>
+			<to-view-id>/pages/consertos/registro/consertoregistroperguntas.iface</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>ERRO</from-outcome>
+			<to-view-id>/pages/consertos/registro/consertoregistroperguntasrespostas.iface</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/pages/consertos/registro/consertoregistropesquisargi.jspx</from-view-id>
+		<navigation-case>
+        	<from-outcome>PROSSEGUIR</from-outcome>
+            <to-view-id>/pages/consertos/registro/consertoregistroconfirmarrgi.iface</to-view-id>
+        </navigation-case>
+        <navigation-case>
+			<from-outcome>VOLTAR</from-outcome>
+			<to-view-id>/pages/consertos/registro/consertoregistroperguntasrespostas.iface</to-view-id>
+		</navigation-case>
+        <navigation-case>
+			<from-outcome>ERRO</from-outcome>
+			<to-view-id>/pages/consertos/registro/consertoregistropesquisargi.iface</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/pages/consertos/registro/consertoregistroconfirmarrgi.jspx</from-view-id>
+		<navigation-case>
+        	<from-outcome>PROSSEGUIR</from-outcome>
+            <to-view-id>/pages/consertos/registro/consertoregistropesquisacliente.iface</to-view-id>
+        </navigation-case>
+		<navigation-case>
+			<from-outcome>VOLTAR</from-outcome>
+			<to-view-id>/pages/consertos/registro/consertoregistropesquisargi.iface</to-view-id>
+		</navigation-case>
+        <navigation-case>
+			<from-outcome>ERRO</from-outcome>
+			<to-view-id>/pages/consertos/registro/consertoregistroconfirmarrgi.iface</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/pages/consertos/registro/consertoregistropesquisacliente.jspx</from-view-id>
+		<navigation-case>
+        	<from-outcome>PROSSEGUIR</from-outcome>
+            <to-view-id>/pages/consertos/registro/consertoregistroconcluir.iface</to-view-id>
+        </navigation-case>
+        <navigation-case>
+        	<from-outcome>VOLTAR</from-outcome>
+           <to-view-id>/pages/consertos/registro/consertoregistroconfirmarrgi.iface</to-view-id>
+        </navigation-case>
+        <navigation-case>
+			<from-outcome>ERRO</from-outcome>
+			<to-view-id>/pages/consertos/registro/consertoregistropesquisacliente.iface</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<from-view-id>/pages/consertos/registro/consertoregistroconcluir.jspx</from-view-id>
+		<navigation-case>
+        	<from-outcome>CONCLUIR_ATENDIMENTO</from-outcome>
+            <to-view-id>/pages/atendimento/concluiratendimento.iface</to-view-id>
+        </navigation-case>
+        <navigation-case>
+       		<from-outcome>PAGINAINICIAL</from-outcome>
+            <to-view-id>/pages/home/paginainicial.iface</to-view-id>
+        </navigation-case>   
+	</navigation-rule>
+	<!-- Conserto do Registro - Fim -->
+	
+	
+	<!-- Emergencia Vazamento na Rede -->
+	
+	<navigation-rule>
+		<from-view-id>/pages/emergencias/vazamento/vazamentoperguntas.jspx</from-view-id>
+		<navigation-case>
+			<from-outcome>VOLTAR</from-outcome>
+			<to-view-id>/pages/home/paginainicial.iface</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>ERRO</from-outcome>
+			<to-view-id>/pages/emergencias/vazamento/vazamentoperguntas.jspx</to-view-id>
+		</navigation-case>	
+		<navigation-case>
+			<from-outcome>PROSSEGUIR</from-outcome>
+			<to-view-id>/pages/emergencias/vazamento/vazamentoperguntas.iface</to-view-id>
+		</navigation-case>	
+		<navigation-case>
+			<from-outcome>PROSSEGUIR_PESQUISA_RGI</from-outcome>
+			<to-view-id>/pages/emergencias/vazamento/vazamentopesquisargi.iface</to-view-id>
+		</navigation-case>				
+		<navigation-case>
+			<from-outcome>PROSSEGUIR_PESQUISA_SOMENTE_RGI</from-outcome>
+			<to-view-id>/pages/emergencias/vazamento/vazamentopesquisasomentergi.iface</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/pages/emergencias/vazamento/vazamentopesquisasomentergi.jspx</from-view-id>
+		<navigation-case>
+			<from-outcome>ERRO</from-outcome>
+			<to-view-id>/pages/emergencias/vazamento/vazamentopesquisasomentergi.iface</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>PROSSEGUIR</from-outcome>
+			<to-view-id>/pages/emergencias/vazamento/vazamentoconfirmargi.iface</to-view-id>
+		</navigation-case>
+	</navigation-rule>	
+    
+   	<navigation-rule>
+		<from-view-id>/pages/emergencias/vazamento/vazamentopesquisargi.jspx</from-view-id>
+		<navigation-case>
+			<from-outcome>PROSSEGUIR_RGI</from-outcome>
+			<to-view-id>/pages/emergencias/vazamento/vazamentoconfirmargi.iface</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>PROSSEGUIR_ENDERECO</from-outcome>
+			<to-view-id>/pages/emergencias/vazamento/vazamentonumeroendereco.iface</to-view-id>
+		</navigation-case>
+	</navigation-rule>	
+	
+	<navigation-rule>
+		<from-view-id>/pages/emergencias/vazamento/vazamentoconfirmargi.jspx</from-view-id>
+		<navigation-case>
+			<from-outcome>ERRO</from-outcome>
+			<to-view-id>/pages/emergencias/vazamento/vazamentoconfirmargi.iface</to-view-id>
+		</navigation-case>	
+		<navigation-case>
+			<from-outcome>PROSSEGUIR</from-outcome>
+			<to-view-id>/pages/emergencias/vazamento/vazamentopesquisacliente.iface</to-view-id>
+		</navigation-case>		
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/pages/emergencias/vazamento/vazamentonumeroendereco.jspx</from-view-id>
+		<navigation-case>
+			<from-outcome>VAZAMENTO_PESQUISA_RGI_ENDERECO</from-outcome>
+			<to-view-id>/pages/emergencias/vazamento/vazamentopesquisargiendereco.iface</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>VAZAMENTO_PESQUISA_NUMERO_ENDERECO</from-outcome>
+			<to-view-id>/pages/emergencias/vazamento/vazamentopesquisanumeroendereco.iface</to-view-id>
+		</navigation-case>						
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/pages/emergencias/vazamento/vazamentopesquisanumeroendereco.jspx</from-view-id>
+		<navigation-case>
+			<from-outcome>VOLTAR_ENDERECO</from-outcome>
+			<to-view-id>/pages/emergencias/vazamento/vazamentonumeroendereco.jspx</to-view-id>
+		</navigation-case>		
+		<navigation-case>
+			<from-outcome>PROSSEGUIR_VAZAMENTO</from-outcome>
+			<to-view-id>/pages/emergencias/vazamento/vazamentopesquisacliente.iface</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/pages/emergencias/vazamento/vazamentopesquisacliente.jspx</from-view-id>
+		<navigation-case>
+			<from-outcome>ERRO</from-outcome>
+			<to-view-id>/pages/emergencias/vazamento/vazamentopesquisacliente.iface</to-view-id>
+		</navigation-case>	
+		<navigation-case>
+			<from-outcome>PROSSEGUIR</from-outcome>
+			<to-view-id>/pages/emergencias/vazamento/vazamentoconcluir.iface</to-view-id>
+		</navigation-case>		
+	</navigation-rule>
+	
+	<!-- Fim Emergencia Vazamento na Rede -->
+    
+</faces-config>

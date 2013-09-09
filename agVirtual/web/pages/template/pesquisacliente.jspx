@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ice="http://www.icesoft.com/icefaces/component">
+
+		<ice:panelGroup styleClass="icePnlGrp bgrInput">
+			<div class="formID">
+				<ul class="esquerda" style="width: 400px;">
+					<li>
+						<label><b class="asterisco">*</b><h:outputText value="#{msg['suaconta.txt.bancoconveniado.nome']}"/>:</label><ice:inputText  alt="Nome do Cliente" title="Entre com o nome do Solicitante" value="#{backbean.cliente.nmCLiente}" styleClass="w255" maxlength="110"/>
+					</li>
+					<li>
+						<label><b class="asterisco">*</b><h:outputText value="#{msg['suaconta.txt.debitoautomatico.telefone']}"/>:</label> <ice:inputText alt="Dígito DDD" onkeyup="somente_numero(this);" title="Entre com o DDD" value="#{backbean.cliente.ddd1}" styleClass="w23" maxlength="2"/> <ice:inputText alt="Número do telefone1" onkeyup="somente_numero(this);" title="Entre com o telefone1 no formato 99999999" value="#{backbean.cliente.telefone1}" styleClass="w120" maxlength="8"/><span class="avisosemdestaque2">(99) 99999999</span>
+					</li>
+					<li>
+						<label><b class="asterisco">*</b><h:outputText value="#{msg['cpfM']}"/>:</label>
+						<!-- 
+						 <ice:inputText value="#{backbean.cliente.cpf}" styleClass="w120" partialSubmit="true" immediate="true"  converter="CPFConverter" validator="CPFValidator" > 
+							<f:converter converterId="CPFConverter"  />
+							<f:validator validatorId="CPFValidator"/> -->
+						<ice:inputText alt="CPF" id="cpf" value="#{backbean.cliente.cpf}"  onkeyup="somente_numero(this);" styleClass="w120" partialSubmit="true" immediate="true" maxlength="11">
+						</ice:inputText>
+						<label style="width:auto; margin-left:10px;"><h:outputText value="#{msg['ou']}"/><h:outputText value=" "/><h:outputText value="#{msg['cnpjM']}"/></label>
+						<!-- 
+							<ice:inputText value="#{backbean.cliente.cnpj}" styleClass="w120" partialSubmit="true" immediate="true"  converter="CNPJConverter" validator="CNPJValidator">
+							<f:converter converterId="CNPJConverter"  />
+							<f:validator validatorId="CNPJValidator"/> -->
+							<ice:inputText id="cnpj" alt="CNPJ" value="#{backbean.cliente.cnpj}" onkeyup="somente_numero(this);" styleClass="w120" partialSubmit="true" immediate="true"  >
+						</ice:inputText>
+					</li>
+					<!-- nao utilizado mais 
+						<li>
+							<label>Telefone Opcional:</label> 
+							<ice:inputText alt="Dígito DDD" title="Entre com o DDD" value="#{backbean.cliente.ddd2}" styleClass="w23"/> 
+							<ice:inputText alt="Número do telefone2" title="Entre com o telefone2 no formato 99999999" value="#{backbean.cliente.telefone2}" styleClass="w120"/><span class="avisosemdestaque2">(99) 99999999</span>
+						</li>
+					-->
+				</ul>
+				<ul class="direita">
+					<li><label><span class="asterisco">*</span><h:outputText value="#{msg['com.relacao.ao.imovel']}"/>:</label> 
+							<select  class="selectAgv" id="tipoRelacionamento" jsfc="h:selectOneMenu" title="Relação com o imóvel."
+								value="#{backbean.cliente.codCategoria}" required="false" style="width: 250px;">
+								<f:selectItems  value="#{backbean.listaCategorias}"  />
+							</select>
+					 </li>
+					<li>
+						<label><h:outputText value="#{msg['email']}"/>:</label>
+						<ice:inputText value="#{backbean.cliente.dsEmail}" alt="Email" style="width: 240px;">
+						</ice:inputText>
+					</li>
+				</ul>
+				<div class="clearBoth"></div>
+			</div>
+
+		</ice:panelGroup>
+		<span class="avisosemdestaque"><label><b class="asterisco">* Campos Obrigatórios </b></label></span>
+
+			<table border="0" width="100%">
+			<tr>
+				<td align="center">
+					<ice:panelGroup styleClass="botoes" style="clear: both;">
+						<br />	
+
+						<ul>
+							<li class="claro">
+								<ice:commandLink title="Link para a próxima página" action="#{backbean.prosseguirCliente}" >
+									<f:param name="outcomeparam" value="PROSSEGUIR" />	
+									<b><span>PROSSEGUIR</span></b>
+								</ice:commandLink>
+							</li>
+						</ul>						
+					</ice:panelGroup>
+				</td>
+			</tr>
+			</table>
+					
+</ui:composition>

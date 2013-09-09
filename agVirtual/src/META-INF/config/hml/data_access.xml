@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+                           http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.5.xsd
+							http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd">
+
+	<!-- =========================================================================================================== -->
+	<!-- 						    Persistent Unit Padrao					   									     -->
+	<!-- =========================================================================================================== -->
+	
+	<bean id="defaultPersistentUnitName" class="java.lang.String">
+		<constructor-arg value="manager1" />
+	</bean>
+	
+	<!-- =========================================================================================================== -->
+	<!-- 						    Local onde encontra-se o persistence.xml   									     -->
+	<!-- =========================================================================================================== -->
+	<util:list id="persistentXmlPaths">
+		<value>${jpa.persistence.config.file}</value>
+		<value>${jpa.rdms.persistence.config.file}</value>
+	</util:list>
+
+	<!-- =========================================================================================================== -->
+	<!-- 						    Cada Data Source deve ser registrado neste map								     -->
+	<!-- =========================================================================================================== -->
+	<util:map id="dataSources">
+		<entry key="datasource1">
+			<ref local="dataSource1" />
+		</entry>
+		<entry key="datasource2">
+			<ref local="dataSource2" />
+		</entry>
+	</util:map>
+
+	<!-- =========================================================================================================== -->
+	<!-- 						    Entity Manager 1  															     -->
+	<!-- =========================================================================================================== -->
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+		autowire-candidate="default">
+		<property name="persistenceUnitManager" ref="persistenceUnitManager" />
+		<property name="persistenceUnitName" value="manager1" />
+	</bean>
+
+	<!-- =========================================================================================================== -->
+	<!-- 						    Entity Manager 2   															     -->
+	<!-- =========================================================================================================== -->	
+	<bean id="entityManagerFactory2"
+	      class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+	      autowire-candidate="default">
+	     <property name="persistenceUnitManager" ref="persistenceUnitManager"/>
+	     <property name="persistenceUnitName" value="manager2"/>
+	</bean>
+
+	<!-- =========================================================================================================== -->
+	<!-- 						    Data Source Entity Manager 1												     -->
+	<!-- =========================================================================================================== -->	
+    <jee:jndi-lookup id="dataSource1" jndi-name="jdbc/agvirtual"/>
+
+	<!-- =========================================================================================================== -->
+	<!-- 						    Data Source Entity Manager 2												     -->
+	<!-- =========================================================================================================== -->
+		<bean id="dataSource2"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${jdbc2.driverClassName}" />
+		<property name="url" value="${jdbc2.url}" />
+		<property name="username" value="${jdbc2.username}" />
+		<property name="password" value="${jdbc2.password}" />
+	</bean>
+	
+    <!-- =========================================================================================================== -->
+    <!-- EAE Connection Pool 																						 -->
+    <!-- =========================================================================================================== -->	
+	<bean id="eaeConnectionPool" class="com.prime.app.agvirtual.eae.EAEConnectionPool">
+		<property name="conexoes" value="10"/>
+		<property name="maxIdle" value="10"/>
+		<property name="validaConexao" value="true"/>
+		<property name="factory" ref="eaeConnectionFactory"/>
+	</bean>
+	
+    <!-- =========================================================================================================== -->
+    <!-- EAE Connection Factory 																					 -->
+    <!-- =========================================================================================================== -->
+	<bean id="eaeConnectionFactory" class="com.prime.app.agvirtual.eae.EAEConnectionFactory">	
+		<property name="host" value="${eae.host}"/>
+		<property name="viewName" value="${eae.viewName}"/>
+		<property name="user" value="${eae.user}"/>
+		<property name="pwd" value="${eae.pwd}"/>	
+	</bean>
+
+
+</beans>

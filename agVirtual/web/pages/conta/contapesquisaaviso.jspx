@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ice="http://www.icesoft.com/icefaces/component"
+    xmlns:fn="http://www.primeinformatica.com.br/functions" template="../template/template.jspx">
+
+<ui:define name="conteudo">
+<ice:panelGroup styleClass="wrapper">
+		
+		<ice:panelGroup styleClass="contaContent">	
+
+			<ice:panelGroup>
+				<h3 id="titulo"><h:outputText value="#{migalhaPaoBBean.dsSubMenu}"/></h3>
+				<br />
+				<p><span class="info"></span>Você identificou seu imóvel pelo endereço. Esta opção permite apenas o serviço de pagamento eletrônico, sem análise de situação de contas e outros serviços correspondentes.</p>
+				<p>Se quiser ter acesso a todos os serviços, clique no botão "Informe o RGI"</p>
+				<p>Para continuar o atendimento apenas para o serviço acima, clique no botão "Prosseguir"</p>
+			</ice:panelGroup>
+		</ice:panelGroup>
+
+				<table border="0" width="100%">
+				<tr>
+					<td align="center">
+						<ice:panelGroup styleClass="botoes" style="clear: both;">
+							<br />
+
+
+							<ul>
+			
+								<li class="claro">
+									<ice:commandLink action="#{contaBBean.retornar}">
+										<f:param name="retornoparam" value="CONTA_PESQUISA_RGI_ENDERECO" />
+										<b><span>INFORME O RGI</span></b>
+									</ice:commandLink>
+								</li>
+								<li class="claro">
+									<ice:commandLink action="#{contaBBean.prosseguir}" actionListener="#{contaBBean.inicializar}" >
+										<f:param name="outcomeparam" value="CONTA_TABELA_SEGUNDAVIA_ENDERECO" />
+										<b><span>PROSSEGUIR</span></b>
+									</ice:commandLink>
+								</li>					
+			
+							</ul>
+
+						</ice:panelGroup>
+					</td>
+				</tr>
+				</table>					
+						
+
+
+</ice:panelGroup>
+</ui:define>
+
+</ui:composition>	
+			
+			

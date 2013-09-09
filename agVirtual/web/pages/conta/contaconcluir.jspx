@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ice="http://www.icesoft.com/icefaces/component"
+    xmlns:fn="http://www.primeinformatica.com.br/functions" template="../template/template.jspx">
+
+<ui:define name="conteudo">
+	<ice:panelGroup styleClass="wrapper">
+		<ice:panelGroup styleClass="contaContent">
+			<h3 id="titulo"><h:outputText value="#{migalhaPaoBBean.dsSubMenu}"/></h3>
+			<div class="status">
+				<p><span class="concluida"></span>Sua solicitação foi concluída.</p>
+			</div>
+
+			<p><h:outputText rendered="${not empty backbean.listaCorrelacao}" value="Ir para:" style="font-weight: bold;"/></p>
+
+			<ice:panelGroup>
+				<h:dataTable rendered="${not empty backbean.listaCorrelacao}" var="subMenu" value="#{backbean.listaCorrelacao}"
+								 styleClass="subMenuTabela" headerClass="subMenuTabelaTitulo" cellpadding="2" cellspacing="2">
+						<h:column>
+							<h:commandLink action="#{subMenuBBean.direcionarSubMenu}">
+								<h:outputText styleClass="subMenuTabelaItem" value="#{subMenu.itemMenuAcesso.dsItemMenu}"/>
+								<f:param name="outcomeSubMenu" value="#{subMenu.itemMenuAcesso.dsLink}"/>
+								<f:param name="dsSubMenu" value="#{subMenu.itemMenuAcesso.dsItemMenu}"/>
+							</h:commandLink>
+			            </h:column>
+				</h:dataTable>
+			</ice:panelGroup>
+			
+			<p><b>Ir para:</b></p>
+			<p class="servicosCorrelatos"><a href="#" onclick="mudarLigAgua()">Mudar o local da ligação de água</a></p>
+			<p class="servicosCorrelatos"><a href="#" onclick="carregarHome()">Página Inicial</a></p>
+
+			<table border="0" width="100%">
+				<tr>
+					<td align="center">
+						<ice:panelGroup styleClass="botoes" style="clear: both;">
+							<br />
+							<ul>	
+								<li class="claro">
+									<ice:commandLink action="#{contaBBean.paginaInicial}" >
+										<f:param name="outcomeparam" value="SOLICITACAO_SUCESSO" />
+										<b><span>CONTINUAR NAVEGANDO</span></b>
+									</ice:commandLink>
+								</li>
+								<li class="escuro">
+									<ice:commandLink action="#{contaBBean.prosseguir}" >
+										<f:param name="outcomeparam" value="RELATORIOATENDIMENTO" />
+										<b><span>CONCLUIR</span></b>
+									</ice:commandLink>
+								</li>
+							</ul>
+						</ice:panelGroup>
+					</td>
+				</tr>
+			</table>
+		</ice:panelGroup>
+	</ice:panelGroup>
+</ui:define>
+</ui:composition>
+		

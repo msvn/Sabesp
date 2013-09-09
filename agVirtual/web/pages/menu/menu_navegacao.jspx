@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ice="http://www.icesoft.com/icefaces/component">
+
+
+	<ul class="menuSecundario">
+			<li class="conta" id="conta">
+				<ice:commandLink action="#{menuBBean.redirectLink}">
+					<h:outputText value="#{msg['menu.navegacao.link.suaconta']}" />
+					<f:param name="cdMenu" value="#{menuBBean.suaConta}"/>
+					<f:param name="outcomeMenu" value="SUBMENUSUACONTA"/>
+				</ice:commandLink>
+			</li>
+
+			<li class="ligacoes">
+				<ice:commandLink action="#{menuBBean.redirectLink}">
+					<h:outputText value="#{msg['menu.navegacao.link.ligacoesaguaesgoto']}" />
+					<f:param name="cdMenu" value="#{menuBBean.ligacoesAguaEsgoto}"/>
+					<f:param name="outcomeMenu" value="SUBMENULIGACOESAGUAESGOTO"/>
+				</ice:commandLink>
+			</li>
+			<li class="consertos">
+				<ice:commandLink action="#{menuBBean.redirectLink}">	
+					<h:outputText value="#{msg['menu.navegacao.link.consertoslink']}" />
+					<f:param name="cdMenu" value="#{menuBBean.consertos}"/>
+					<f:param name="outcomeMenu" value="SUBMENUCONSERTOS"/>
+				</ice:commandLink>
+			</li>
+			<li class="emergencias">
+				<ice:commandLink action="#{menuBBean.redirectLink}">	
+					<h:outputText value="#{msg['menu.navegacao.link.emergenciaslink']}" />
+					<f:param name="cdMenu" value="#{menuBBean.emergencias}"/>
+					<f:param name="outcomeMenu" value="SUBMENUEMERGENCIAS"/>
+				</ice:commandLink>
+			</li>
+			<li class="corporativo">
+				<ice:commandLink action="#{menuBBean.redirectLink}">
+					<h:outputText value="#{msg['menu.navegacao.link.corporativolink']}" />
+					<f:param name="cdMenu" value="#{menuBBean.corporativo}"/>
+					<f:param name="outcomeMenu" value="SUBMENUCORPORATIVO"/>
+				</ice:commandLink>
+			</li>
+			<li class="dicas">
+				<ice:commandLink action="#{menuBBean.redirectLink}">
+					<h:outputText value="#{msg['menu.navegacao.link.dicasinformacoes']}" />
+					<f:param name="cdMenu" value="#{menuBBean.dicasInformacoes}"/>
+					<f:param name="outcomeMenu" value="SUBMENUDICASINFORMACOES"/>
+				</ice:commandLink>
+			</li>
+			<li class="tarifas">
+				<ice:commandLink action="#{menuBBean.redirectLink}">
+					<h:outputText value="#{msg['menu.navegacao.link.tarifaslink']}" />
+					<f:param name="cdMenu" value="#{menuBBean.tarifas}"/>
+					<f:param name="outcomeMenu" value="SUBMENUTARIFAS"/>
+				</ice:commandLink>
+			</li>
+ 			
+	</ul>
+</ui:composition>

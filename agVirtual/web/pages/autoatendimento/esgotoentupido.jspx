@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ice="http://www.icesoft.com/icefaces/component"
+    xmlns:fn="http://www.primeinformatica.com.br/functions" template="../template/template.jspx">
+
+	<link href="#{facesContext.externalContext.requestContextPath}/css/agvt.css" rel="stylesheet" type="text/css" />	
+	
+
+<ui:define name="conteudo">
+
+<ice:panelGroup styleClass="wrapper">
+
+		<ice:panelGroup styleClass="contaContent">
+								
+				<h3><h:outputText value="#{migalhaPaoBBean.dsSubMenu}"/> </h3>
+				<p><h:outputText value="#{msg['autoatendimento.esgotoentupido.titulo.aquivocesolicita']}" /></p>
+				<p><h:outputText value="#{msg['autoatendimento.esgotoentupido.titulo.respondaquestaoabaixo']}" /></p>
+
+				<table border="0" width="100%">
+				<tr>
+					<td align="center">
+						<ice:panelGroup styleClass="botoes" style="clear: both;">
+						<br />
+						<ul>
+							<li class="claro">
+								<ice:commandLink action="#{esgotoEntupidoBBean.prosseguirOutcome}">
+									<f:param name="prosseguirparam" value="PROSSEGUIR_INFORMAR_RGI" />
+									<b><span>PROSSEGUIR</span></b>
+								</ice:commandLink>
+							</li>
+						</ul>	
+						</ice:panelGroup>
+					</td>
+				</tr>
+				</table>				
+
+		</ice:panelGroup>
+	
+</ice:panelGroup>
+
+</ui:define>		

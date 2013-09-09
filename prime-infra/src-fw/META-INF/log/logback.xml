@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+
+    <substitutionProperty resource="META-INF/config/application.properties"/>
+
+    <jmxConfigurator/>
+
+    <!-- =========================================================================================================== -->
+    <!-- Appenders                                                                                                   -->
+    <!-- =========================================================================================================== -->
+
+    <appender name="STANDARD_APPLICATION_LOG_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${BASE_LOG_PATH}/${application.name}.log</file>
+        <append>true</append>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+        <layout class="com.prime.infra.logging.WasLayout"/>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${BASE_LOG_PATH}/${application.name}_%d{yy.MM.dd_HH.mm.ss}.log</fileNamePattern>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>5MB</maxFileSize>
+        </triggeringPolicy>
+    </appender>
+
+    <appender name="JUL_APPENDER" class="com.prime.infra.logging.JULAppender">
+        <messagePrefix>${application.name}</messagePrefix>
+        <exposeCaller>false</exposeCaller>
+    </appender>
+
+    <!-- =========================================================================================================== -->
+    <!-- Loggers                                                                                                     -->
+    <!-- =========================================================================================================== -->
+
+    <logger name="org.apache.commons">
+        <level value="ERROR"/>
+    </logger>
+
+    <!-- =========================================================================================================== -->
+    <!-- Root Logger                                                                                                 -->
+    <!-- =========================================================================================================== -->
+
+    <root>
+        <level value="INFO"/>
+        <appender-ref ref="STANDARD_APPLICATION_LOG_FILE"/>
+        <appender-ref ref="JUL_APPENDER"/>
+    </root>
+
+</configuration>

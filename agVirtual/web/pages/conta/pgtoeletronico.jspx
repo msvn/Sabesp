@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ice="http://www.icesoft.com/icefaces/component"
+    xmlns:fn="http://www.primeinformatica.com.br/functions" template="../template/template.jspx">
+
+<ui:define name="conteudo">
+<ice:panelGroup styleClass="wrapper">
+		
+		<ice:panelGroup styleClass="contaContent">	
+
+			<ice:panelGroup>
+				<h3><h:outputText value="#{msg['pagamento.eletronico']}"/></h3>
+				<br/>
+				<h3>Dados da conta</h3>
+				<div>
+					<div class="formID">
+						<ul class="esquerda" style="width:100%">
+							<li>
+								<label><b>Mês de Referência:</b></label><span class="normal">Dezembro/2009</span>
+							</li>
+							<li>
+								<label><b>Número da Conta:</b></label><span class="normal">99999999999</span>
+							</li>
+							<li>
+								<label><b>Vencimento</b></label><span class="normal">26/12/2009</span>
+							</li>
+							<li>
+								<label><b>Valor:</b></label><span class="normal">24,40</span>
+							</li>
+							<li>
+								<label><b>Código de Barras:</b></label><span class="normal">82569865199818 5 440288790004528 9 5258531558523 2 5598542547444 2 54861615 6</span>
+							</li>
+							<li>
+								<label><b>Banco Conveniado:</b></label>
+								<select name="identImovel" class="w275">
+									<option value="selecione" selected="selected">Selecione</option>
+								</select>
+							</li>
+						</ul>
+						<div class="clearBoth"></div>
+					</div>
+				</div>
+							
+				<p>Caso seu banco não esteja na lista, anote ou imprima o código de barras da(s) conta(s) desejada(s) e acesse o site de seu banco.</p>
+				<p><b>Atenção:</b> em função da comunicação de pagamento pelos bancos ocorrer de 2 a 4 dias úteis, as contas de água poderão continuar a ser exibidas como pendentes.</p>
+			</ice:panelGroup>
+		</ice:panelGroup>
+
+
+		<table border="0" width="100%">
+		<tr>
+			<td align="center">
+				<ice:panelGroup styleClass="botoes" style="clear: both;">
+
+				<ul>		
+					
+					<li class="claro">
+						<ice:commandLink action="#{contaBBean.prosseguir}" actionListener="#{contaBBean.prosseguirListarContaPorEndereco}" >
+							<f:param name="outcomeparam" value="" />
+							<b><span>ACESSAR BANCO</span></b>
+						</ice:commandLink>
+					</li>					
+
+				</ul>					
+						
+				</ice:panelGroup>
+			</td>
+		</tr>
+		</table>
+
+
+</ice:panelGroup>
+</ui:define>
+
+</ui:composition>	
+			
+			

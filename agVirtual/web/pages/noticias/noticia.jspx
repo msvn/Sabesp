@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ice="http://www.icesoft.com/icefaces/component"
+    xmlns:fn="http://www.primeinformatica.com.br/functions" template="../template/template.jspx">
+
+	<link href="#{facesContext.externalContext.requestContextPath}/css/agvt.css" rel="stylesheet" type="text/css" />
+	<script language="JavaScript" type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/js/DD_belatedPNG.js"></script>
+
+	<ui:define name="conteudo">
+
+		<ice:panelGroup styleClass="wrapper">
+		
+			<ice:panelGroup styleClass="contaContent" rendered="#{noticiaBBean.exibeGrupoNoticia}">
+					
+				<h3><h:outputText value="#{noticiaBBean.noticia.titulo}"/></h3>
+
+				<p><ice:outputText value="#{noticiaBBean.noticia.subTitulo}" style="font-weight: bold;"/></p>
+
+				<p><ice:outputText value="#{noticiaBBean.noticia.textoNoticia}" escape="false"/></p>
+
+				<ice:panelGroup styleClass="botoes" style="clear: both;">
+					<ul style="float:center;">	
+						<li class="claro"><ice:commandLink action="#{noticiaBBean.carregarNoticias}" ><b><span>#{msg['noticia.botao.outrasnoticias']}</span></b></ice:commandLink></li>
+					</ul>						
+				</ice:panelGroup>
+			</ice:panelGroup>
+	
+			<ice:panelGroup styleClass="contaContent" rendered="#{noticiaBBean.exibeGrupoNoticias}">
+
+				<h3><h:outputText value="#{msg['noticia.txt.noticias']}"/></h3>
+
+				<h:panelGroup>
+					<h:dataTable var="noticia" value="#{noticiaBBean.listaNoticia}" style="padding-top: 10px;">
+						<h:column>
+							<h:commandLink actionListener="#{noticiaBBean.detalhar}" style="display:block; font-weight:normal; font-size:12px; color:#40A6D2;">
+								<h:outputText value="#{noticia.dataPublicacao}">
+									<f:convertDateTime pattern="dd/MM/yyyy"	timeZone="#{noticiaBBean.timeZone}"/>
+								</h:outputText>
+								<h:outputText value=" - #{noticia.titulo}"/>
+								<f:param name="cdNoticia" value="#{noticia.cdNoticia}"/>
+							</h:commandLink>
+							<h:outputText value="#{noticia.subTitulo}" style="display:block; font-weight:normal; font-size:12px; color:#4F575D; margin-bottom:15px;"/>
+						</h:column>
+					</h:dataTable>
+				</h:panelGroup>
+			</ice:panelGroup>
+	
+		</ice:panelGroup>
+	</ui:define>
+
+</ui:composition>

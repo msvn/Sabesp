@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:c="http://java.sun.com/jstl/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ice="http://www.icesoft.com/icefaces/component"
+    xmlns:fn="http://www.primeinformatica.com.br/functions" template="../template/template.jspx">
+
+	<ui:define name="conteudo">
+
+		<ice:panelGroup styleClass="wrapper">
+			<ice:panelGroup styleClass="contaContent">
+
+					<!-- mensagem erro validacao -->
+				<ui:include src="../template/errovalidacao.jspx" >
+					<ui:param name="backbean" value="#{tabelaPrecosServicosBBean}"/>
+				</ui:include>
+
+				<h3><h:outputText value="#{msg['tabelaprecosservicos.titulo']}"/></h3>
+				<p>
+					<h:outputText value="#{msg['tabelaprecosservicos.subtitulo']}" rendered="#{tabelaPrecosServicosBBean.exibePainel1 == true}"/>
+					<!--  h:outputText value="Tarifas para os serviços de abastecimento de água e/ou coleta de esgoto, para o município de #{tabelaPrecosServicosBBean.municipio.nome}, a partir de DATA do CSI" rendered="#{tabelaPrecosServicosBBean.exibePainel2 == true}"/  -->
+				</p>
+
+				<!-- Grid 1 Início -->
+				<ice:panelGroup rendered="#{tabelaPrecosServicosBBean.exibePainel1}">
+					<ice:panelGroup >
+						<h:panelGrid id="panelForm" styleClass="panelForm" columns="2"
+								 columnClasses="colunaAgencia1, colunaAgencia2, colunaAgencia1, colunaAgencia3, colunaAgencia1, colunaAgencia2"
+								 cellspacing="5" cellpadding="2">
+							<ice:outputText value="#{msg['agenciasatendimento.label.municipio']}:" />
+							
+							<ice:selectInputText id="AutoCmpTxtFace" required="false" style="width: 300px;margin-top: -15px;"
+					                             rows="5"
+					                             value="#{tabelaPrecosServicosBBean.municipio.nome}"
+					                             valueChangeListener="#{tabelaPrecosServicosBBean.selectInputValueChanged}"
+					                             listVar="municipio"
+												 autocomplete="true"
+												 partialSubmit="false"
+					                             listValue="#{tabelaPrecosServicosBBean.municipioMatchPossibilities}">
+					            <f:facet name="selectInputText">
+					                <h:panelGrid id="testeMunicipio" columns="1" columnClasses="cityCol" width="500px" style="height: auto; width: 300px !important; cursor: pointer;" rendered="#{tabelaPrecosServicosBBean.municipioSelecionado == null}">
+					                    <h:outputText style="color:gray; font-size: 12px;" id="AutoCmpCty" value="#{municipio.nome}"/>
+									</h:panelGrid>
+					            </f:facet>
+					        </ice:selectInputText>
+	
+						</h:panelGrid>
+
+					</ice:panelGroup>
+
+					<ice:panelGroup styleClass="botoes" style="clear: both; padding-top: 40px;">
+						<table border="0" width="100%">
+						<tr>
+							<td align="center">
+								<ul style="float:center;">	
+									<li class="claro"><ice:commandLink actionListener="#{tabelaPrecosServicosBBean.prosseguir}"><b><span>#{msg['agenciasatendimento.botao.prosseguir']}</span></b></ice:commandLink></li>
+								</ul>
+							</td>
+						</tr>
+					</table>	
+					</ice:panelGroup>
+				</ice:panelGroup>
+				<!-- Grid 1 Fim -->
+				
+  			    <!-- Grid 2 Início -->				
+				<ice:panelGroup rendered="#{tabelaPrecosServicosBBean.exibePainel2}" styleClass="drillDown" >
+				<ui:repeat value="#{tabelaPrecosServicosBBean.listaSubServico}" var="servico" varStatus="status" >
+					<p></p>
+					<h3><h:outputText value="#{servico.servicoEntity.dsCategoria}"/></h3>
+					<table class="tblAlignLeft" cellpadding="0" cellspacing="0" border="0">
+						<thead>
+							<tr>
+								<th width="270">Serviço</th>
+								<th width="500">Características</th>
+								<th width="125" class="txtC">Valor (em R$)</th>
+								<th width="125" >Prazo</th>
+							</tr>
+						</thead>
+						<tbody>
+						<ui:repeat value="#{servico.listaSubServico}" var="subServico" varStatus="status">
+							<!-- demais linhas -->	
+							<tr class="bgTr">
+								<td class="txtL"><ice:outputText value="#{subServico.servicoEntity.nmServico}" rendered="#{subServico.flagPublicGuia}"/></td>
+								<td class="txtL"><ice:outputText value="#{subServico.dsCondExec}"/></td>
+								<td class="txtC"><ice:outputText value="#{subServico.dsPreco}"/></td>
+								<td class="last txtC"><ice:outputText value="#{subServico.dsPrazoAtend}"/></td>
+							</tr>			
+						</ui:repeat>
+						<p></p>
+						</tbody>
+					</table>						
+					</ui:repeat>
+
+				<!--  Grid 2 Fim  -->
+				</ice:panelGroup>
+			</ice:panelGroup>
+		</ice:panelGroup>
+
+		<ice:panelGroup rendered="#{tabelaPrecosServicosBBean.exibePainel2}" styleClass="botoes" style="clear: both;"><br/>
+		<table border="0" width="100%">
+			<tr><td align="center">
+				<ul>			
+						<li class="claro">
+							<ice:commandLink action="#{tabelaPrecosServicosBBean.limpar}"><b><span>#{msg['agenciasatendimento.botao.voltar']}</span></b></ice:commandLink>						
+						</li>								
+						<li class="escuro">
+							<ice:commandLink action="#{auditoriaAcessoBBean.redirectConcluirAtendimento}" >
+								<b><span>#{msg['cronogramaleitura.botao.concluir']}</span></b>
+							</ice:commandLink>
+						</li>			
+					</ul>					
+			</td></tr>
+		</table>
+	</ice:panelGroup>	
+					
+	</ui:define>
+
+</ui:composition>

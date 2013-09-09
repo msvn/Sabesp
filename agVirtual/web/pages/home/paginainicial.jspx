@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ice="http://www.icesoft.com/icefaces/component"
+    xmlns:fn="http://www.primeinformatica.com.br/functions" template="../template/template.jspx">
+
+	<link href="#{facesContext.externalContext.requestContextPath}/css/agvt.css" rel="stylesheet" type="text/css" />
+	<script language="JavaScript" type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/js/DD_belatedPNG.js"></script>
+
+	<ui:define name="title">
+		<ui:insert name="title">#{msg['agvritualAdm.title']}</ui:insert>
+	</ui:define>
+
+	<ui:define name="conteudo"> 
+	
+		<ice:panelGroup styleClass="wrapper">
+			
+		<ice:panelGroup styleClass="bgrContent">
+			
+			<ice:panelGroup styleClass="content">
+			<!-- Content -->
+				<!-- Início Seção Principal com 4 Itens -->
+				<ice:panelGroup styleClass="conceitualHome conceitualQuatroIcones" rendered="#{conteudoPaginaInicialBBean.secaoPrincipal.secao.qtItens == 4}">
+					
+					<br/>
+					<br/>
+					
+					<ice:panelGroup styleClass="boxConta_quatro">
+					
+						<h3 style="font-size:14px;color:#41A7D3;padding-top:7px;padding-left:25px;"><ice:outputText value="#{conteudoPaginaInicialBBean.secaoPrincipalDescricao}" /></h3>
+					
+						<ice:panelSeries rows="4" var="suaConta" value="#{conteudoPaginaInicialBBean.listaSecaoPrincipal}" style="height: 550px; width: 312px; padding-top: 15px; padding-left:25px;">
+							<ice:column>
+								<ice:commandLink action="#{conteudoPaginaInicialBBean.direcionarLink}">
+									<ice:graphicImage value="#{conteudoPaginaInicialBBean.pathImages}/#{suaConta.dsCaminhoImagem}" width="79" height="89" style="float:left;border:0;" />
+									<ice:outputText value="#{suaConta.dsItem}" style="float:left; width: 57px; padding-right: 20px; padding-top: 20px;"/>									
+									<f:param name="cdMenu" value="#{conteudoPaginaInicialBBean.suaConta}"/>
+									<f:param name="outcomeMenu" value="SUBMENUSUACONTA"/>
+									<f:param name="outcomeSubMenu" value="#{suaConta.dsLink}"/>
+								</ice:commandLink>
+				            </ice:column>
+						</ice:panelSeries>
+					</ice:panelGroup>
+
+					<ice:panelGroup styleClass="boxConsertosLigacoes">
+							
+						<h3><ice:outputText value="#{conteudoPaginaInicialBBean.secaoSecundariaOneDescricao}" style="font-size:14px;color:#41A7D3;" /></h3>
+	
+						<ice:panelSeries  first="0" var="consertos" value="#{conteudoPaginaInicialBBean.listaSecaoSecundariaOne}" style="padding-top:15px;background:#FFFFFF;">						
+																				
+								<ice:commandLink action="#{conteudoPaginaInicialBBean.direcionarLink}">
+									<ice:graphicImage value="#{conteudoPaginaInicialBBean.pathImages}/#{consertos.dsCaminhoImagem}" width="53" height="65"  style="float:left;border:0;" />
+									<ice:outputText style="float:left;width:50px;padding-top:10px;" value="#{consertos.dsItem}"/>
+									<f:param name="cdMenu" value="#{conteudoPaginaInicialBBean.consertos}"/>
+									<f:param name="outcomeMenu" value="SUBMENUCONSERTOS"/>
+									<f:param name="outcomeSubMenu" value="#{consertos.dsLink}"/>
+								</ice:commandLink>			            
+				            
+						</ice:panelSeries>
+
+						<ice:panelGroup styleClass="linAzul" style="padding-bottom:40px;"></ice:panelGroup>
+	
+							<h3><ice:outputText value="#{conteudoPaginaInicialBBean.secaoSecundariaTwoDescricao}" style="font-size:14px;color:#41A7D3;" /></h3>
+							
+							<ice:panelSeries var="ligAguaEsgoto" value="#{conteudoPaginaInicialBBean.listaSecaoSecundariaTwo}" style="padding-top:15px;background:#FFFFFF;">
+								
+								<ice:commandLink action="#{conteudoPaginaInicialBBean.direcionarLink}">
+									<ice:graphicImage value="#{conteudoPaginaInicialBBean.pathImages}/#{ligAguaEsgoto.dsCaminhoImagem}" width="53" height="65" style="float:left;border:0;" />
+									<ice:outputText style="float:left; width:50px;padding-top:10px;" value="#{ligAguaEsgoto.dsItem}"/>
+									<f:param name="cdMenu" value="#{conteudoPaginaInicialBBean.ligacoesAguaEsgoto}"/>
+									<f:param name="outcomeMenu" value="SUBMENULIGACOESAGUAESGOTO"/>
+									<f:param name="outcomeSubMenu" value="#{ligAguaEsgoto.dsLink}"/>
+								</ice:commandLink>
+							</ice:panelSeries>
+					</ice:panelGroup>
+	
+					<ice:panelGroup styleClass="boxEmergencias">
+						<br/>
+						<ice:panelSeries id="boxEmergencias" var="emergencias" value="#{conteudoPaginaInicialBBean.listaBarraHorizontal}" style="padding-left: 142px;">
+							<ice:column>
+								<ice:commandLink action="#{conteudoPaginaInicialBBean.direcionarLink}">
+									<ice:outputText style="color:#FFF; float:left; text-align: center; width:86px; padding-left: 25px;" value="#{emergencias.dsItem}"/>
+									<f:param name="cdMenu" value="#{conteudoPaginaInicialBBean.emergencias}"/>
+									<f:param name="outcomeMenu" value="SUBMENUEMERGENCIAS"/>
+									<f:param name="outcomeSubMenu" value="#{emergencias.dsLink}"/>
+								</ice:commandLink>
+				            </ice:column>
+						</ice:panelSeries>	
+					</ice:panelGroup>				
+	
+				</ice:panelGroup>
+				<!-- Fim Seção Principal com 4 Itens -->
+	
+				<!-- Início Seção Principal com 6 Itens -->
+				<ice:panelGroup styleClass="conceitualHome conceitualSeisIcones" rendered="#{conteudoPaginaInicialBBean.secaoPrincipal.secao.qtItens == 6}">
+					
+					<ice:panelGroup styleClass="boxConta_seis">
+					
+						<h3 style="font-size:14px;color:#41A7D3;padding-top:7px;padding-left:25px;"><ice:outputText value="#{conteudoPaginaInicialBBean.secaoPrincipalDescricao}" /></h3>
+						
+						<ice:panelSeries rows="0" var="suaConta" value="#{conteudoPaginaInicialBBean.listaSecaoPrincipal}">
+							<ice:commandLink action="#{conteudoPaginaInicialBBean.direcionarLink}">
+								<ice:graphicImage value="#{conteudoPaginaInicialBBean.pathImages}/#{suaConta.dsCaminhoImagem}"  width="79" height="89"  style="float:left;border:0;" />										
+								<ice:outputText value="#{suaConta.dsItem}" style="float:left; width: 57px; padding-right: 20px; padding-top: 20px;"/>
+								<f:param name="cdMenu" value="#{conteudoPaginaInicialBBean.suaConta}"/>
+								<f:param name="outcomeMenu" value="SUBMENUSUACONTA"/>
+								<f:param name="outcomeSubMenu" value="#{suaConta.dsLink}"/>
+							</ice:commandLink>
+						</ice:panelSeries>
+					</ice:panelGroup>
+	
+					
+					<ice:panelGroup styleClass="boxConsertosLigacoes">
+							
+						<h3><ice:outputText value="#{conteudoPaginaInicialBBean.secaoSecundariaOneDescricao}" style="font-size:14px;color:#41A7D3;" /></h3>
+	
+						<ice:panelSeries  first="0" var="consertos" value="#{conteudoPaginaInicialBBean.listaSecaoSecundariaOne}" style="padding-top:15px;background:#FFFFFF;">						
+																				
+								<ice:commandLink action="#{conteudoPaginaInicialBBean.direcionarLink}">
+									<ice:graphicImage value="#{conteudoPaginaInicialBBean.pathImages}/#{consertos.dsCaminhoImagem}" width="53" height="65" style="float:left;border:0;" />
+									<ice:outputText style="float:left;width:50px;padding-top:10px;" value="#{consertos.dsItem}"/>
+									<f:param name="cdMenu" value="#{conteudoPaginaInicialBBean.consertos}"/>
+									<f:param name="outcomeMenu" value="SUBMENUCONSERTOS"/>
+									<f:param name="outcomeSubMenu" value="#{consertos.dsLink}"/>
+								</ice:commandLink>			            
+				            
+						</ice:panelSeries>
+	
+						
+						<ice:panelGroup styleClass="linAzul" style="padding-bottom:40px;"></ice:panelGroup>
+	
+						<h3><ice:outputText value="#{conteudoPaginaInicialBBean.secaoSecundariaTwoDescricao}" style="font-size:14px;color:#41A7D3;" /></h3>
+						
+						<ice:panelSeries var="ligAguaEsgoto" value="#{conteudoPaginaInicialBBean.listaSecaoSecundariaTwo}" style="padding-top:15px;background:#FFFFFF;">
+							
+								<ice:commandLink action="#{conteudoPaginaInicialBBean.direcionarLink}">
+									<ice:graphicImage value="#{conteudoPaginaInicialBBean.pathImages}/#{ligAguaEsgoto.dsCaminhoImagem}" width="53" height="65" style="float:left;border:0;" />
+									<ice:outputText style="float:left; width:50px;padding-top:10px;" value="#{ligAguaEsgoto.dsItem}"/>
+									<f:param name="cdMenu" value="#{conteudoPaginaInicialBBean.ligacoesAguaEsgoto}"/>
+									<f:param name="outcomeMenu" value="SUBMENULIGACOESAGUAESGOTO"/>
+									<f:param name="outcomeSubMenu" value="#{ligAguaEsgoto.dsLink}"/>
+								</ice:commandLink>
+				            
+						</ice:panelSeries>
+						
+					</ice:panelGroup>
+					
+					
+	
+					<ice:panelGroup styleClass="boxEmergencias" style="margin-left:55px;">
+						<br/>
+						<ice:panelSeries id="boxEmergencias_seis" var="emergencias" value="#{conteudoPaginaInicialBBean.listaBarraHorizontal}" style="padding-left: 142px;">
+							<ice:column>
+								<ice:commandLink action="#{conteudoPaginaInicialBBean.direcionarLink}">
+									<ice:outputText style="color:#FFF; float:left; text-align: center; width:86px; padding-left:35px;" value="#{emergencias.dsItem}"/>
+									<f:param name="cdMenu" value="#{conteudoPaginaInicialBBean.emergencias}"/>
+									<f:param name="outcomeMenu" value="SUBMENUEMERGENCIAS"/>
+									<f:param name="outcomeSubMenu" value="#{emergencias.dsLink}"/>
+								</ice:commandLink>
+				            </ice:column>
+						</ice:panelSeries>	
+					</ice:panelGroup>
+	
+				</ice:panelGroup>
+				<!-- Início Seção Principal com 6 Itens -->
+			<!-- Content -->
+			</ice:panelGroup>
+	
+			<!-- Guia de servicos -->
+			<ice:panelGroup styleClass="boxGuiaServicos">
+				<ice:panelGroup styleClass="boxInnerGuiaServicos">
+	
+					<ice:panelGroup styleClass="titulo">
+						<ice:commandLink styleClass="lnkGuiaServicos" onclick="javascript:window.open('http://site.sabesp.com.br/site/interna/Default.aspx?secaoId=181', '_blank');">
+							<h:outputText value="#{msg['guiaservicos.txt.guiaservicos']}"/>
+						</ice:commandLink>
+						<ice:outputLabel>
+							<h:outputText value="#{msg['guiaservicos.txt.todosservicos']}"/>
+						</ice:outputLabel>
+
+						<ice:selectOneMenu value="#{conteudoPaginaInicialBBean.idItemMenuSelected}" onchange="document.getElementById('frmhome:botaoNinja').click();" >
+	                  	   		<f:selectItems value="#{conteudoPaginaInicialBBean.listaComboBoxItemMenuSelectItem}" />
+						</ice:selectOneMenu>
+						<ice:commandButton id="botaoNinja" action="#{conteudoPaginaInicialBBean.carregarItemMenu}" style="display: none"  /> 
+	
+					</ice:panelGroup>
+	
+					<ice:panelGroup styleClass="boxPerguntasFrequentes">
+						<h3><h:outputText value="#{msg['perguntasfrequentes.txt.perguntasfrequentes']}"/></h3>
+						<ul>
+							<li>
+								<ice:commandLink onclick="javascript:window.open('http://site.sabesp.com.br/site/fale-conosco/Default.aspx?secaoId=71' , '_blank');">
+									<h:outputText value="#{msg['perguntasfrequentes.txt.comoleiturahidrometro']}"/>
+								</ice:commandLink>
+							</li>
+							<li>
+								<ice:commandLink onclick="javascript:window.open('http://site.sabesp.com.br/site/fale-conosco/Default.aspx?secaoId=71' , '_blank');">
+									<h:outputText value="#{msg['perguntasfrequentes.txt.qualseraproximaleitura']}"/>
+								</ice:commandLink>
+							</li>
+							<li>
+								<ice:commandLink onclick="javascript:window.open('http://site.sabesp.com.br/site/fale-conosco/Default.aspx?secaoId=71' , '_blank');">
+									<h:outputText value="#{msg['perguntasfrequentes.txt.comomedirm3agua']}"/>
+								</ice:commandLink>
+							</li>
+							<li>
+								<ice:commandLink onclick="javascript:window.open('http://site.sabesp.com.br/site/fale-conosco/Default.aspx?secaoId=71' , '_blank');">
+									<h:outputText value="#{msg['perguntasfrequentes.txt.comofeitaleiturahidrometro']}"/>
+								</ice:commandLink>
+							</li>
+							<li>
+								<ice:commandLink onclick="javascript:window.open('http://site.sabesp.com.br/site/fale-conosco/Default.aspx?secaoId=71' , '_blank');">
+									<h:outputText value="#{msg['perguntasfrequentes.txt.quandoseraproximaleitura']}"/>
+								</ice:commandLink>
+							</li>
+							<li>
+								<ice:commandLink onclick="javascript:window.open('http://site.sabesp.com.br/site/fale-conosco/Default.aspx?secaoId=71' , '_blank');">
+									<h:outputText value="#{msg['perguntasfrequentes.txt.comomedirm3agua']}"/>
+								</ice:commandLink>
+							</li>
+							<li>
+								<ice:commandLink onclick="javascript:window.open('http://site.sabesp.com.br/site/fale-conosco/Default.aspx?secaoId=71' , '_blank');">
+									<h:outputText value="#{msg['perguntasfrequentes.txt.outrasduvidas']}"/>
+								</ice:commandLink>
+							</li>
+						</ul>				
+					</ice:panelGroup>
+	
+					<ice:panelGroup styleClass="boxSabespInforma">
+						<h3><h:outputText value="#{msg['sabespinforma.txt.asabespinforma']}"/></h3>
+						<h:dataTable var="noticia" value="#{conteudoPaginaInicialBBean.listaNoticia}" rows="2" style="padding-bottom:15px;font-size:1.2em;">
+							<h:column>
+								<h:commandLink action="#{noticiaBBean.detalhar}">
+									<h:outputText value="#{noticia.dataPublicacao}" styleClass="data">
+										<f:convertDateTime pattern="dd/MM/yyyy"	timeZone="#{conteudoPaginaInicialBBean.timeZone}"/>
+									</h:outputText>
+									<h:outputText value="#{noticia.titulo}" style="display:block;font-weight:normal; width: 300px;"/>
+									<h:outputText value="#{noticia.subTitulo}" style="display:block;font-weight:normal; margin-bottom: 15px; width: 300px; color:#8D9FAB;"/>
+									<f:param name="cdNoticia" value="#{noticia.cdNoticia}"/>
+								</h:commandLink>
+							</h:column>
+						</h:dataTable>
+						<h:panelGroup styleClass="outrasInformacoes">
+							<h:commandLink action="#{noticiaBBean.carregarNoticias}">
+								<h:outputText value="#{msg['sabespinforma.txt.outrasinformacoes']}"/>
+							</h:commandLink>
+						</h:panelGroup>
+					</ice:panelGroup>
+	
+					<ice:panelGroup styleClass="boxDicas">
+						<ice:dataTable var="dicasInformacoes" value="#{conteudoPaginaInicialBBean.listaSecaoInferiorDireita}" style="border-bottom-width:0px !important;">
+							<ice:column>
+								<ice:commandLink action="#{conteudoPaginaInicialBBean.direcionarLink}">
+									<ice:graphicImage value="#{conteudoPaginaInicialBBean.pathImages}/#{dicasInformacoes.dsCaminhoImagem}" width="56" height="69" style="float:left;border:0;" />
+									<ice:outputText value="#{dicasInformacoes.dsItem}" style="margin-top: 20px !important;"/>
+									<ice:outputText value="#{dicasInformacoes.dsResumoItem}"/>
+									<f:param name="cdMenu" value="#{conteudoPaginaInicialBBean.dicasInformacoes}"/>
+									<f:param name="outcomeMenu" value="SUBMENUDICASINFORMACOES"/>
+									<f:param name="outcomeSubMenu" value="#{dicasInformacoes.dsLink}"/>
+								</ice:commandLink>
+				            </ice:column>
+						</ice:dataTable>
+					</ice:panelGroup>
+				</ice:panelGroup>
+			</ice:panelGroup>
+			<!-- Guia de servicos -->
+		</ice:panelGroup>
+			
+		</ice:panelGroup>
+	
+	</ui:define>
+
+</ui:composition>

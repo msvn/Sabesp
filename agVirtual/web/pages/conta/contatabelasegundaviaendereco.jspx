@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ice="http://www.icesoft.com/icefaces/component"
+    xmlns:fn="http://www.primeinformatica.com.br/functions" template="../template/template.jspx">
+
+	<link href="#{facesContext.externalContext.requestContextPath}/css/xmlhttp/css/rime/rime.css" rel="stylesheet" type="text/css"/>
+	<link href="#{facesContext.externalContext.requestContextPath}/css/agvt.css" rel="stylesheet" type="text/css" />
+	
+<ui:define name="conteudo">
+<ice:panelGroup styleClass="wrapper">
+		<ice:panelGroup styleClass="contaContent">
+			<!-- panel Tabela SegundaVia -->			
+			<ice:panelGroup style="padding: 10px;">
+				<h3 id="titulo"><h:outputText value="#{migalhaPaoBBean.dsSubMenu}"/></h3>
+			</ice:panelGroup>
+
+			<ice:panelGroup>
+				<h:panelGroup rendered="${not empty contaBBean.listaContas}">	
+					
+					<ice:dataTable
+							rows="5"
+					        var="conta"
+					        value="#{contaBBean.listaContas}"
+							rowClasses="row1,row2"
+							width="100%"
+							id="table"> 
+				  
+				        <ice:column>
+							<f:facet name="header">
+								<ice:outputText escape="false" value="#{msg['segundavia.table.titulo.mesreferencia']}" />
+							</f:facet>
+
+							<ice:outputLabel value="#{conta.dtReferencia}" >
+								<f:convertDateTime pattern="dd/MM/yyyy"/> 
+							</ice:outputLabel>
+				        </ice:column>
+			  
+		        		<ice:column>
+							<f:facet name="header">
+								<ice:outputText value="#{msg['segundavia.table.titulo.vencimento']}" />
+							</f:facet>
+               
+		                	<ice:outputLabel value="#{conta.dtVencimento}">
+								<f:convertDateTime pattern="dd/MM/yyyy"/>
+							</ice:outputLabel>
+		        		</ice:column>
+	
+				        <ice:column>
+							<f:facet name="header">								
+								<ice:outputText escape="false" value="#{msg['segundavia.table.titulo.valor']}"  />
+							</f:facet>
+
+			                <ice:outputLabel value="#{conta.vlTotal}" />
+				        </ice:column>
+	
+				        <ice:column>
+							<f:facet name="header">								
+								<ice:outputText escape="false" value="#{msg['segundavia.table.titulo.pagamentoeletronico']}"  />
+							</f:facet>
+							<ice:commandLink rendered="${conta.bloqueioPagEletronico eq false}"  action="#{contaBBean.carregaPagamentoEletronico}">
+								<f:param value="#{conta.numeroConta}" name="contaParam"/>
+			                	<ice:outputLabel value="Pagar"  />
+							</ice:commandLink>
+				        </ice:column>
+	
+				        <ice:column>
+							<f:facet name="header">								
+								<ice:outputText escape="false" value="#{msg['segundavia.table.titulo.situacao']}"  />
+							</f:facet>
+
+			                <ice:outputLabel value="#{conta.situacaoConta}" />
+				        </ice:column>
+		
+
+					</ice:dataTable>
+				</h:panelGroup>
+
+				<h:outputText rendered="#{contaBBean.renderedBotao and contaBBean.numLinhasPorPagina > 10 }"> 
+					<ui:include src="../template/paginator.jspx">
+						<ui:param name="tabela" value="table" />
+					</ui:include> 
+				</h:outputText>
+	
+				<table border="0" width="100%">
+					<tr>
+						<td align="center">
+						<h:panelGroup style="float:center;!importante" rendered="${empty contaBBean.listaContas}" >
+							<h2><ice:outputText value="#{msg['agv.2via.lista.vazia']}" /></h2>
+						</h:panelGroup>
+						</td>
+					</tr>
+					</table>
+				<br/>
+	
+			</ice:panelGroup>
+
+		</ice:panelGroup>
+
+</ice:panelGroup>
+	
+</ui:define>
+</ui:composition>				

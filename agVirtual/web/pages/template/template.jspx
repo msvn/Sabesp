@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ice="http://www.icesoft.com/icefaces/component" version="2.0">
+
+<ice:outputDeclaration doctypeRoot="HTML" doctypePublic="-//W3C//DTD HTML 4.01//EN" doctypeSystem="http://www.w3.org/TR/html4/strict.dtd"/>
+
+
+<f:loadBundle basename="com.prime.app.agvirtual.message.default" var="msg" />
+
+<head>
+
+	<title><ui:insert name="title">#{msg['agvritualAdm.title']}</ui:insert></title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="Description" content="Information architecture, Web Design, Web Standards." />
+	<meta name="Keywords" content="your, keywords" />
+	<meta name="Distribution" content="Global" />
+	<meta name="Author" content="Prime" />
+	<meta name="Robots" content="index,follow" />
+	
+	<link href="#{facesContext.externalContext.requestContextPath}/css/agvt.css" rel="stylesheet" type="text/css" />
+	 
+	<!-- cambra - Causando erro no ie - remover / encontrar alternativa -->
+	<!--<script language="JavaScript" type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/js/DD_belatedPNG.js"></script>-->
+	<!-- jquery libs -->
+	<script language="JavaScript" type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/js/jquery.js"></script>
+<script language="JavaScript" type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/js/script.js"></script>
+	<script language="JavaScript" type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/js/jquery.cookie.js"></script>
+	<!-- jquery custom behavior -->	
+	<script language="JavaScript" type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/js/jquery.functions.js"></script>
+	<script language="JavaScript" type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/js/jquery.validate.js"></script>
+
+
+
+</head>
+
+<body> 
+	<!-- form home -->
+	<ice:form id="frmhome">
+
+		<!-- header -->
+		<ice:panelGroup styleClass="topo">
+			<ice:commandLink styleClass="logotipo" action="#{conteudoPaginaInicialBBean.carregar}" actionListener="#{migalhaPaoBBean.limpaCampos}"/>
+			<ui:include src="/pages/menu/menu_superior.jspx"/>
+		</ice:panelGroup>
+
+		<!-- main menu -->
+		<ice:panelGroup id="navegacao">
+			<ui:include src="/pages/menu/menu_navegacao.jspx"/>
+		</ice:panelGroup>
+
+		<!-- user menu -->
+		<ice:panelGroup id="navegacao">
+			<ui:include src="/pages/menu/menu_user.jspx"/>
+		</ice:panelGroup>
+
+		<!-- body -->
+		<ui:insert name="conteudo">Content</ui:insert>
+
+		<!-- footer -->
+		<ice:panelGroup id="footer">
+			<ui:include src="/pages/template/rodape.jspx"/>
+		</ice:panelGroup>
+	</ice:form>
+</body>
+
+</html>
+

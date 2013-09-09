@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ice="http://www.icesoft.com/icefaces/component"
+    xmlns:fn="http://www.primeinformatica.com.br/functions" template="../../template/template.jspx">
+
+	<ui:define name="conteudo"> 
+		<ice:panelGroup styleClass="wrapper">
+			<ice:panelGroup styleClass="contaContent" style="padding-left: 0px;">
+				<ice:panelGroup style="padding-left: 19px;">
+					<h3><h:outputText value="#{migalhaPaoBBean.dsSubMenu}"/> </h3>
+					
+					<ice:panelGroup rendered="#{vazamentoBBean.exibirTextoParcial}">
+						<p>#{msg['vazamento.subtitulo']}</p>
+					</ice:panelGroup>
+
+					<h:panelGrid>   
+						<!-- mensagem erro validacao -->
+						<ui:include src="../../template/errovalidacao.jspx" >
+							<ui:param name="backbean" value="#{vazamentoBBean}"/>
+						</ui:include>
+					</h:panelGrid>
+				</ice:panelGroup>
+				
+				<ui:repeat value="#{vazamentoBBean.listaPerguntasRespondidas}"  var="pergunta">	
+					<ice:panelGroup rendered="#{pergunta.codRespostaSelecionado != null}" styleClass="contaContent" style="padding-left:19px; border-top:0px !important; border-bottom:1px solid #B5E0F3 !important;">
+						<div class="questionario">
+							<label><span class="info"></span><h:outputText value="#{pergunta.dsPergunta}" /></label>
+						</div>
+						<p id="maisresidencias">R:<h:outputText value=" " /><h:outputText value=" #{pergunta.dsRespostaSelecionada}" /></p>
+					</ice:panelGroup>		
+				</ui:repeat>
+						
+				<div class="questionario">
+					<ice:panelGroup rendered="#{vazamentoBBean.perguntaAtual != null}" styleClass="contaContent" style="margin-top:0px; padding-left:19px; border-top:1px solid #FFFFFF !important;">
+					<label><h:outputText value="#{vazamentoBBean.perguntaAtual.dsPergunta}" /></label>
+					<ul>
+						<h:selectOneRadio layout="pageDirection" styleClass="resposta"
+	                           		      value="#{vazamentoBBean.perguntaAtual.codRespostaSelecionado}" >
+	                      	<f:selectItems value="#{vazamentoBBean.perguntaAtual.listaRespostaAutoAtendimentoSelectItem}"/> 
+	                   	</h:selectOneRadio>			
+					</ul>
+					</ice:panelGroup>
+				</div>
+			
+				<ice:panelGroup rendered="#{vazamentoBBean.exibirAcatamento}" style="padding-left: 19px;">
+					<p><b>#{msg['trocaregistro.servico.info']}</b></p>
+				
+					<p class="quadroOrcamento" id="descServ">
+						<span>#{msg['trocaregistro.servico.descricao']}:</span><h:outputText value=" #{vazamentoBBean.orcamento.dsOrcamento}" />
+					</p>
+					
+					<p class="quadroOrcamento">
+						<span>#{msg['trocaregistro.servico.prazoatendimento']}*:</span><h:outputText value=" #{vazamentoBBean.orcamento.prazoAtendimento}" />
+					</p>
+			
+					<p>
+						<span>
+							<h:selectBooleanCheckbox value="#{vazamentoBBean.checkConfirmacao}"> #{msg['trocaregistro.confirmapedido']}</h:selectBooleanCheckbox>
+						</span>	
+					</p>
+					<p>
+						<span>
+						#{msg['autoatendimento.msg.servico.naocobrado']}						
+						</span>
+					</p>
+				</ice:panelGroup>
+				<table border="0" width="100%">
+					<tr>
+						<td align="center">			
+							<ice:panelGroup styleClass="botoes" style="clear: both;">
+								<br />
+								<ul style="float:center;">
+									<li class="claro">
+										<h:outputText rendered="#{vazamentoBBean.perguntaAtual.nrOrdemPergunta eq 1 }">
+											<ice:commandLink action="#{vazamentoBBean.retornar}" >
+													<f:param name="retornoparam" value="VOLTAR" />
+												<b><span>#{msg['agenciasatendimento.botao.voltar']} </span></b>
+											</ice:commandLink>
+										</h:outputText>   
+										<h:outputText rendered="#{vazamentoBBean.perguntaAtual.nrOrdemPergunta != 1 }">  
+											<ice:commandLink action="#{vazamentoBBean.retornar}" actionListener="#{vazamentoBBean.perguntaAnterior}">
+													<f:param name="retornoparam" value="ERRO" />
+												<b><span>#{msg['agenciasatendimento.botao.voltar']} </span></b>
+											</ice:commandLink>
+										</h:outputText>
+									</li>
+									<li class="claro">
+										<ice:commandLink  rendered="#{!vazamentoBBean.exibirBotaoConclusao}" action="#{vazamentoBBean.prosseguir}" actionListener="#{vazamentoBBean.verificaAcao}">
+											<f:param name="outcomeparam" value="PROSSEGUIR" />
+											<b><span>#{msg['agenciasatendimento.botao.prosseguir']}</span></b>
+										</ice:commandLink>
+									</li>
+									<li class="escuro">
+										<ice:commandLink  rendered="#{vazamentoBBean.exibirBotaoConclusao}" action="#{vazamentoBBean.prosseguirIdentificacao}" actionListener="#{vazamentoBBean.validaConfirmacao}">
+											<f:param name="outcomeparam" value="#{vazamentoBBean.variavelOutcome}" />
+											<b><span>#{msg['agenciasatendimento.botao.prosseguir']}</span></b>
+										</ice:commandLink>
+									</li>		
+								</ul>					
+							</ice:panelGroup>	
+						</td>
+					</tr>
+				</table>
+			</ice:panelGroup>
+		</ice:panelGroup>
+	</ui:define>
+</ui:composition>

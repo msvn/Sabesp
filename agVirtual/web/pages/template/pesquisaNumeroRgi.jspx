@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ice="http://www.icesoft.com/icefaces/component"
+    xmlns:fn="http://www.primeinformatica.com.br/functions" >
+
+  
+	<h:panelGrid>   
+
+		<!-- mensagem erro validacao -->
+		<ui:include src="../template/errovalidacao.jspx" >
+			<ui:param name="backbean" value="#{backbean}"/>
+		</ui:include>
+
+	</h:panelGrid>
+
+	<!-- popup -->
+	<ice:panelPopup id="popupRgi" 
+		draggable="false" modal="true" styleClass="corePopup"
+		visible="#{backbean.modalRendered}" autoCentre="true">
+	    <f:facet name="header">
+			<ice:panelGroup id="painelBotao" >
+				<ice:commandLink type="submit" style="color:#FFFFFF;" styleClass="btnFecharPopup"
+			    	value="Fechar" actionListener="#{backbean.atualizarModal}"/>
+			</ice:panelGroup>
+	    </f:facet>
+		<f:facet name="body">
+			<ice:panelGroup id="painelImagem" style="font-size:62.5%;">
+				<br />
+				<ice:outputLabel value="#{msg['suaconta.txt.debitoautomatico.msg15']}:" styleClass="labelInform"/>
+				<br />
+				<br />
+				<ice:graphicImage style="text-align:center;" url="/images/ex_rgi.jpg"/>			
+			</ice:panelGroup>
+	    </f:facet>
+	</ice:panelPopup>
+
+	<!-- busca RGI -->
+	<ice:panelGroup styleClass="bgrInput">
+
+		<table border="0">
+			<!-- numero rgi -->
+			<tr>
+				<td>
+					<label class="labelPesquisaRgi">#{msg['numero.rgi']}:</label>
+					<ice:inputText value="#{backbean.imovel.dsRgiParte1}" disabled="false" maxlength="8" style="width: 70px; margin-right: 10px;"/>	
+					<ice:inputText value="#{backbean.imovel.dsRgiParte2}" disabled="false" style="width: 18px;" maxlength="2"/>
+					<span class="labelExamploRgi"><h:outputText value="#{msg['exemplo.rgi']}"/></span>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="6">
+					<ice:commandLink actionListener="#{backbean.atualizarModal}" styleClass="seta mLeft160">
+						<h:outputLabel style="color:#41A7D3;" value="#{msg['suaconta.txt.debitoautomatico.localizergi']}"/>
+					</ice:commandLink>
+				</td>						
+			</tr>			
+	
+		</table>
+	</ice:panelGroup>
+
+	<!-- botoes -->
+	<table border="0" width="100%"><tr><td align="center"><!-- centralizar --> 
+		<ice:panelGroup styleClass="botoes" style="clear: both;">
+			<br />
+			<ul>
+				<li class="claro">
+					<ice:commandLink action="#{backbean.prosseguir}" actionListener="#{backbean.pesquisarRGI}" >
+						<f:param name="outcomeparam" value="#{outcomeparam}" />
+						<b><span>PROSSEGUIR</span></b>
+					</ice:commandLink>
+				</li>
+			</ul>						
+		</ice:panelGroup>
+		</td></tr></table>
+
+</ui:composition>	

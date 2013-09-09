@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+
+    <!-- =========================================================================================================== -->
+    <!-- Appenders                                                                                                   -->
+    <!-- =========================================================================================================== -->
+
+    <appender name="DEBUG_APPLICATION_LOG_FILE" class="ch.qos.logback.core.FileAppender">
+        <File>${BASE_LOG_PATH}/${application.name}-debug.log</File>
+        <Append>false</Append>
+
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} {%X{user}} %msg%n</Pattern>
+        </layout>
+    </appender>
+
+    <!-- =========================================================================================================== -->
+    <!-- Loggers                                                                                                     -->
+    <!-- =========================================================================================================== -->
+
+    <root>
+        <level value="INFO"/>
+        <appender-ref ref="DEBUG_APPLICATION_LOG_FILE"/>
+    </root>
+
+    <!-- commons =================================================================================================== -->
+
+    <logger name="org.apache">
+        <level value="INFO"/>
+    </logger>
+
+    <!-- Hibernate ================================================================================================= -->
+
+    <logger name="org.hibernate">
+        <level value="INFO"/>
+    </logger>
+
+    <logger name="javax.persistence.EntityManager">
+        <level value="INFO"/>
+    </logger>
+
+    <!-- Spring ==================================================================================================== -->
+
+    <logger name="org.springframework">
+        <level value="INFO"/>
+    </logger>
+
+    <!-- JSF ================================================================================================= -->
+
+    <logger name="javax.faces">
+        <level value="INFO"/>
+    </logger>
+
+    <logger name="com.sun.faces">
+        <level value="INFO"/>
+    </logger>
+
+    <logger name="com.icesoft">
+        <level value="INFO"/>
+    </logger>
+
+    <!-- Framework JAB ============================================================================================= -->
+
+    <logger name="com.prime.infra">
+        <level value="INFO"/>
+    </logger>
+
+    <!-- Aplicacao ================================================================================================= -->
+
+    <logger name="com.prime.app.agvirtual">
+        <level value="DEBUG"/>
+    </logger>
+
+</configuration>

@@ -1,0 +1,130 @@
+<?xml version="1.0"?>
+
+<project name="primeinfra" default="dist" basedir=".">
+
+	<property file="build.properties" />
+	
+	<path id="ear.classpath">
+        <path refid="classpath.all"/>
+    </path>
+	
+	<pathconvert property="bundled.path" refid="ear.classpath" pathsep=" ">
+        <map from="${rep.compile}/" to="libs/"/>
+        <map from="${rep.dist}/" to=""/>
+    </pathconvert>
+
+	<!-- =========================================================================================================== -->
+	<!-- Internal settings                                                                                           -->
+	<!-- =========================================================================================================== -->
+
+	<tstamp>
+		<format property="build.time" pattern="yyyy/MM/dd HH:mm" />
+	</tstamp>
+
+	<property file="src-fw/META-INF/config/framework.properties" />
+	<property name="component.name" value="${framework.name}" />
+	<property name="component.version" value="${framework.version}" />
+	<property name="component.title" value="${framework.title}" />
+	<property name="component.vendor" value="${framework.vendor}" />	
+
+	<property name="dist.dir" value="../dist" />
+	<property name="temp.dir" value="../temp" />
+	<property name="app.build" value="PRI-09-0011-02/PGM_FONTE" />
+	<property name="app.cvsroot" value=":pserver:${cvs.user}@10.10.80.205:/F53" />
+	
+	<!-- =========================================================================================================== -->
+	<!-- Cleaning tasks                                                                                              -->
+	<!-- =========================================================================================================== -->
+
+	<target name="clean" description="Clean">
+		<delete dir="${temp.dir}" />
+				
+		<mkdir dir="${dist.dir}" />
+		<mkdir dir="${temp.dir}" />
+		<mkdir dir="${temp.dir}/src-fw" />
+		<mkdir dir="${temp.dir}/classes" />
+	</target>
+
+	<!-- =========================================================================================================== -->
+	<!-- Compilation tasks                                                                                           -->
+	<!-- =========================================================================================================== -->
+
+	<target name="prepare" depends="">
+
+		<copy todir="${temp.dir}/src-fw" filtering="true">
+			<fileset dir="src-fw" />
+		</copy>
+
+        <path id="classpath.all">
+            <fileset dir="${shared-lib.dir}/compile">
+                <include name="*.jar"/>
+            </fileset>
+	        <fileset dir="${shared-lib.dir}/provided">
+                <include name="*.jar"/>
+            </fileset>
+        </path>
+	</target>
+
+	<!-- target name="dist" depends="clean,prepare,prepare-src-fw,jar" / -->
+    <target name="dist" depends="clean,prepare,prepare-src,compile,jar" />
+	
+	<target name="prepare-src">
+		<echo level="info">Preparing sources</echo>
+
+		<mkdir dir="${temp.dir}/src-fw" />
+
+		<copy todir="${temp.dir}/src-fw" filtering="true">
+			<fileset dir="src-fw" />
+		</copy>
+
+	</target>
+
+	<target name="compile" description="Compile">
+		<echo level="info">Compiling...</echo>
+		<javac srcdir="${temp.dir}/src-fw" destdir="${temp.dir}/classes" debug="true" deprecation="false" source="1.5" target="1.5">
+			<classpath refid="classpath.all" />
+			<classpath path="${temp.dir}/classes" />
+		</javac>
+	</target>
+
+    <target name="jar-temp" depends="">
+        <echo>PATH: ${bundled.path}</echo>
+
+        <jar destfile="${dist.dir}/${component.name}.jar">
+            <manifest>
+                <attribute name="Built-By" value="${user.name}"/>
+                <attribute name="Built-At" value="${build.time}"/>
+                <attribute name="Implementation-Title" value="${component.title}"/>
+                <attribute name="Implementation-Version" value="${component.version}"/>
+                <attribute name="Implementation-Vendor" value="${component.vendor}"/>
+                <attribute name="Class-Path" value="${bundled.path}"/>
+            </manifest>            
+            <fileset dir="bin"/>
+        </jar>
+    </target>
+
+    <target name="jar" depends="">
+        <echo>PATH: ${bundled.path}</echo>
+
+        <jar destfile="${dist.dir}/${component.name}.jar">
+            <manifest>
+                <attribute name="Built-By" value="${user.name}"/>
+                <attribute name="Built-At" value="${build.time}"/>
+                <attribute name="Implementation-Title" value="${component.title}"/>
+                <attribute name="Implementation-Version" value="${component.version}"/>
+                <attribute name="Implementation-Vendor" value="${component.vendor}"/>
+                <attribute name="Class-Path" value="${bundled.path}"/>
+            </manifest>
+            <fileset dir="${temp.dir}/src-fw"  includes="**/*.properties **/*.xml"/>
+            <fileset dir="${temp.dir}/classes"/>
+        </jar>
+    </target>
+	
+    <target name="checkout" depends="clean">
+    <cvs cvsroot="${app.cvsroot}" quiet="true"
+         command="checkout" package="${app.build}" 
+         dest="${temp.dir}" compression="true" passfile="app.cvspass"/>
+	</target>
+</project>
+
+	

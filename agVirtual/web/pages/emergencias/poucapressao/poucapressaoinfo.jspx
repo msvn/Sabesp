@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ice="http://www.icesoft.com/icefaces/component"
+    xmlns:fn="http://www.primeinformatica.com.br/functions" template="../../template/template.jspx">		
+<ui:define name="conteudo">
+		<ice:panelGroup styleClass="wrapper">
+			<ice:panelGroup styleClass="contaContent">	
+
+			<h3><h:outputText value="#{migalhaPaoBBean.dsSubMenu}"/> </h3>
+			<p>Aqui você informa ocorrência de pouca pressão de água.</p>
+			<p><span class="info"></span>A pouca pressão de água pode ocorrer por vários motivos. Antes de prosseguir este atendimento, por favor, verifique se:</p>
+			<ul class="duvidas">
+				<li><span>A pouca pressão de água é apenas no seu imóvel ou os seus vizinhos também estão com esse problema.</span></li>
+				<li><span>#{msg['estousemagua.aviso.l2']}</span></li>
+			</ul>	
+			<br />			
+			<p>Caso esteja aberto e a água da rua chega sem pressão até as torneiras no interior do seu imóvel, pode haver algum problema interno como, por exemplo, um vazamento.</p>
+			<p>
+				<a href="#" onclick="javascript:window.open('http://site.sabesp.com.br/site/fique-por-dentro/noticias-Detalhes.aspx?secaoId=66&amp;id=502' , '_blank', 'scrollbars=yes,width=800,menubar=no');">
+					#{msg['estousemagua.aviso.l4']}
+				</a>
+			</p>
+
+				<table border="0" width="100%">
+				<tr>
+					<td align="center">
+						<ice:panelGroup styleClass="botoes" style="clear: both;">
+							<br />
+							<ul>
+								<li class="claro">
+									<ice:commandLink action="#{poucaPressaoBBean.prosseguir}" actionListener="#{poucaPressaoBBean.inicializar}" >
+										<f:param name="outcomeparam" value="PROSSEGUIR" />
+										<b><span>PROSSEGUIR</span></b>
+									</ice:commandLink>
+								</li>
+							</ul>						
+						</ice:panelGroup>
+					</td>
+				</tr>
+				</table>
+			</ice:panelGroup>
+	</ice:panelGroup>
+</ui:define>
+</ui:composition>

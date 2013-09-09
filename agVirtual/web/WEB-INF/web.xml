@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+	<display-name>Application</display-name>
+	<context-param>
+		<description> The ServletContext init parameter consulted by the
+			StateManager to tell where the state should be saved. Valid values
+			are given as the values of the constants: client or server. If this
+			parameter is not specified, the default value is the value of the
+			constant client. </description>
+		<param-name>javax.faces.STATE_SAVING_METHOD</param-name>
+		<param-value>server</param-value>
+	</context-param>
+	
+	<!-- path imagens, incluindo a barra no http server externo -->
+    <context-param>
+        <param-name>com.path.sabesp.http.server</param-name>
+        <param-value>http://localhost:80/</param-value>
+    </context-param>
+	
+	
+	<!-- Parametro do diretorio dos uploads de arquivos utilizado pelo administrador do site Sabesp -->
+    <context-param>
+        <param-name>com.icesoft.faces.uploadDirectory</param-name>
+        <param-value>/var/www/html</param-value>
+    </context-param>
+    <context-param>
+        <param-name>com.icesoft.faces.uploadDirectoryAbsolute</param-name>
+        <param-value>true</param-value>
+    </context-param> 
+    
+	<context-param>
+		<description> Context initialization parameter name for a comma
+			delimited list of context-relative resource paths (in addition to
+			/WEB-INF/faces-config.xml which is loaded automatically if it exists)
+			containing JavaServer Faces configuration information. </description>
+		<param-name>javax.faces.CONFIG_FILES</param-name>
+		<param-value> /WEB-INF/faces-config.xml,
+			/WEB-INF/faces-navigation.xml, /WEB-INF/faces-navigationAA.xml 
+		</param-value>
+	</context-param>
+	<context-param>
+		<description> The value to use for the default extension if the webapp
+			is using url extension mapping. </description>
+		<param-name>javax.faces.DEFAULT_SUFFIX</param-name>
+		<param-value>.jspx</param-value>
+	</context-param>
+	<context-param>
+		<description>Special Debug Output for Development</description>
+		<param-name>facelets.DEVELOPMENT</param-name>
+		<param-value>true</param-value>
+	</context-param>
+	<context-param>
+		<description> Set this flag to true, if you want the JavaServer Faces
+			Reference Implementation to validate the XML in your faces-config.xml
+			resources against the DTD. Default value is false. </description>
+		<param-name>com.sun.faces.validateXml</param-name>
+		<param-value>true</param-value>
+	</context-param>
+	<context-param>
+		<description> Set this flag to true, if you want the JavaServer Faces
+			Reference Implementation to verify that all of the application
+			objects you have configured (components, converters, renderers, and
+			validators) can be successfully created. Default value is false. 
+		</description>
+		<param-name>com.sun.faces.verifyObjects</param-name>
+		<param-value>true</param-value> 
+	</context-param>
+	<!--
+		###############################################################################
+		# Start of Icefaces Context Parameters
+		###############################################################################
+	-->
+	<context-param>
+		<description> By default, ICEfaces runs in asynchronous update mode,
+			which provides support for ICEfaces unique server-initiated rendering
+			(server-push) capabilities. However, many applications do not require
+			the full capabilities provided by asynchronous update mode. In these
+			cases, it is recommended that synchronous update mode be configured.
+			Synchronous update mode can be enabled application-wide using the
+			ICEfaces context parameter, com.icesoft.faces.synchronousUpdate.
+			Typically this is set in the web.xml file of your web application. 
+		</description>
+		<param-name>com.icesoft.faces.synchronousUpdate</param-name>
+		<param-value>true</param-value>
+	</context-param>
+	<context-param>
+		<description> To allow multiple windows for a single application,
+			concurrent DOM views must be enabled. This is set through the
+			ICEfaces context parameter, com.icesoft.faces.concurrentDOMViews. 
+		</description>
+		<param-name>com.icesoft.faces.concurrentDOMViews</param-name>
+		<param-value>true</param-value>
+	</context-param>
+	<context-param>
+		<description> To cause request scope to last only for the duration of
+			a single user event, "standard request scope" must be enabled. This
+			is set through the ICEfaces context parameter,
+			com.icesoft.faces.standardRequestScope. </description>
+		<param-name>com.icesoft.faces.standardRequestScope</param-name>
+		<param-value>true</param-value>
+	</context-param>
+	<context-param>
+		<description> Resources such as JavaScript and CSS files can be
+			compressed when sent to the browser. This can improve application
+			load time in certain deployments. This configuration works
+			independently from the web-server configuration. The feature can be
+			turned on application-wide using the ICEfaces context parameter,
+			com.icesoft.faces.compressResources. </description>
+		<param-name>com.icesoft.faces.compressResources</param-name>
+		<param-value>true</param-value>
+	</context-param>
+	<context-param>
+		<description> The maximum file upload size can be specified in the
+			web.xml file of your web application </description>
+		<param-name>com.icesoft.faces.uploadMaxFileSize</param-name>
+		<param-value>3048576</param-value>
+	</context-param>
+	<context-param>
+		<description> When a connection is lost, ICEFaces can be configured to
+			redirect the browser to a custom error page. This feature can be
+			turned on application-wide using the ICEfaces context parameter,
+			com.icesoft.faces.connectionLostRedirectURI. </description>
+		<param-name>com.icesoft.faces.connectionLostRedirectURI</param-name>
+		<param-value>/agvirtual/pages/template/errosistemico.jspx</param-value>
+	</context-param>
+	
+	<context-param>
+		<description>	trata quando a sessao expira </description>
+		<param-name>com.icesoft.faces.sessionExpiredRedirectURI</param-name>
+		<param-value>/agvirtual/pages/template/errosistemico.jspx</param-value>
+	</context-param> 
+	<!-- 
+	<context-param>
+		<description> The connectionTimeout parameter defines how long, in
+			milliseconds, that the bridge will wait for a response from the
+			server for a user-initiated request before declaring the connection
+			lost. The default value is 60000 (60 seconds). </description>
+		<param-name>com.icesoft.faces.connectionTimeout</param-name>
+		<param-value>60000</param-value>
+	</context-param>
+	 -->
+	<!--
+		###############################################################################
+		# End of Icefaces Context Parameters
+		###############################################################################
+	-->
+	<!--
+		###############################################################################
+		# Start of ContextListeners
+		###############################################################################
+	-->
+
+	<!-- Deve ser o primeiro listener no web.xml -->
+	<listener>
+		<listener-class>com.icesoft.faces.util.event.servlet.ContextEventRepeater</listener-class>
+	</listener>
+
+    <listener>
+         <listener-class>com.prime.infra.config.listeners.ApplicationSessionListener</listener-class>
+    </listener>
+	
+	<listener>
+		<description> Servlet 2.4+ listener that exposes the request to the
+			current thread, through both LocaleContextHolder and
+			RequestContextHolder. To be registered as listener in web.xml.
+			Alternatively, Spring's RequestContextFilter and Spring's
+			DispatcherServlet also expose the same request context to the current
+			thread. In contrast to this listener, advanced options are available
+			there (e.g. "threadContextInheritable"). This listener is mainly for
+			use with third-party servlets, e.g. the JSF FacesServlet. Within
+			Spring's own web support, DispatcherServlet's processing is perfectly
+			sufficient. </description>
+		<listener-class>
+			org.springframework.web.context.request.RequestContextListener</listener-class>
+	</listener>
+	<listener>
+		<listener-class>
+			org.springframework.web.util.IntrospectorCleanupListener</listener-class>
+	</listener>
+	<listener>
+		<listener-class>com.prime.infra.config.ContextLoaderListener</listener-class>
+	</listener>
+	<!--
+		###############################################################################
+		# End of ContextListeners
+		###############################################################################
+	-->
+	<!--
+		###############################################################################
+		# Start of Servlet Definitions
+		###############################################################################
+	-->
+
+	<servlet>
+		<description> Don't remove this servlet. Websphere requires it. 
+		</description>
+		<servlet-name>Faces Servlet</servlet-name>
+		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+		<load-on-startup>5</load-on-startup>
+	</servlet>
+	
+	<servlet>
+         <servlet-name>uploadServlet</servlet-name>
+         <servlet-class>com.icesoft.faces.component.inputfile.FileUploadServlet</servlet-class>
+         <load-on-startup> 1 </load-on-startup>
+    </servlet>
+    <servlet-mapping>
+         <servlet-name>uploadServlet</servlet-name>
+         <url-pattern>/uploadHtml</url-pattern>
+    </servlet-mapping>
+	
+	<servlet>
+		<description> FacesServlet is a servlet that manages the request
+			processing lifecycle for web applications that are utilizing
+			JavaServer Faces to construct the user interface. </description>
+		<servlet-name>Persistent Faces Servlet</servlet-name>
+		<servlet-class>
+			com.icesoft.faces.webapp.xmlhttp.PersistentFacesServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet>
+		<servlet-name>Blocking Servlet</servlet-name>
+		<servlet-class>com.icesoft.faces.webapp.xmlhttp.BlockingServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet>
+		<servlet-name>Image Render</servlet-name>
+		<servlet-class>com.prime.infra.web.image.ImageServlet</servlet-class>
+		<init-param>
+			<description> Configures the cached images to the provided value.
+				Default value is 5. </description>
+			<param-name>com.prime.infra.web.image.MaxCachedImages</param-name>
+			<param-value>50</param-value>
+		</init-param>
+		<load-on-startup>2</load-on-startup>
+	</servlet>
+	<filter>
+		<filter-name>JAMonFilter</filter-name>
+		<filter-class>com.jamonapi.JAMonFilter</filter-class>
+	</filter>
+	<filter>
+		<filter-name>Security Filter</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+		<init-param>
+			<param-name>targetBeanName</param-name>
+			<param-value>securityFilter</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>Security Filter</filter-name>
+		<url-pattern>*.iface</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>JAMonFilter</filter-name>
+		<url-pattern>/1/*</url-pattern>
+	</filter-mapping>
+	<!--
+		###############################################################################
+		# Start of Jasper Reports Servlet Definitions
+		###############################################################################
+	-->
+	<servlet>
+		<servlet-name>Pdf Report Servlet</servlet-name>
+		<servlet-class>net.sf.jasperreports.j2ee.servlets.PdfServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet>
+		<servlet-name>Rtf Report Servlet</servlet-name>
+		<servlet-class>net.sf.jasperreports.j2ee.servlets.RtfServlet</servlet-class>
+		<load-on-startup>3</load-on-startup>
+	</servlet>
+	<servlet>
+		<servlet-name>Odt Report Servlet</servlet-name>
+		<servlet-class>net.sf.jasperreports.j2ee.servlets.OdtServlet</servlet-class>
+		<load-on-startup>3</load-on-startup>
+	</servlet>
+	<servlet>
+		<servlet-name>Xsl Report Servlet</servlet-name>
+		<servlet-class>net.sf.jasperreports.j2ee.servlets.XlsServlet</servlet-class>
+		<load-on-startup>3</load-on-startup>
+	</servlet>
+	<servlet>
+		<servlet-name>Xml Report Servlet</servlet-name>
+		<servlet-class>net.sf.jasperreports.j2ee.servlets.XmlServlet</servlet-class>
+		<load-on-startup>3</load-on-startup>
+	</servlet>
+	<!--
+		###############################################################################
+		# End of Jasper Reports Servlet Definitions
+		###############################################################################
+	-->
+	<!--
+		###############################################################################
+		# End of Servlet Definitions
+		###############################################################################
+	-->
+	<servlet-mapping>
+		<servlet-name>Pdf Report Servlet</servlet-name>
+		<url-pattern>*.pdf</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Odt Report Servlet</servlet-name>
+		<url-pattern>*.odt</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Xsl Report Servlet</servlet-name>
+		<url-pattern>*.xls</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Xml Report Servlet</servlet-name>
+		<url-pattern>*.xml</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Rtf Report Servlet</servlet-name>
+		<url-pattern>*.rtf</url-pattern>
+	</servlet-mapping>
+
+	<!-- Persistent Faces Servlet Mapping -->
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>*.jsf</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>Persistent Faces Servlet</servlet-name>
+		<url-pattern>*.iface</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Persistent Faces Servlet</servlet-name>
+		<url-pattern>/xmlhttp/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Blocking Servlet</servlet-name>
+		<url-pattern>/block/*</url-pattern>
+	</servlet-mapping>
+	<!-- 
+	<servlet-mapping>
+		<servlet-name>Image Render</servlet-name>
+		<url-pattern>*.jpg</url-pattern>
+	</servlet-mapping>
+	 -->
+	<!--
+		The session-configType defines the session parameters for this web
+		application
+	-->
+	<session-config>
+		<!--
+			The session-timeout element defines the default session timeout
+			interval for all sessions created in this web application. The
+			specified timeout must be expressed in a whole number of minutes. If
+			the timeout is 0 or less, the container ensures the default behaviour
+			of sessions is never to time out. If this element is not specified,
+			the container must set its default timeout period.
+		-->
+		<session-timeout>15</session-timeout>
+	</session-config>
+	<!--
+		The welcome-file-list contains an ordered list of welcome files
+		elements.
+	-->
+	<welcome-file-list>
+		<welcome-file>/pages/home/paginainicial.iface</welcome-file>		
+	</welcome-file-list>
+	<!--
+		The error-pageType contains a mapping between an error code or
+		exception type to the path of a resource in the web application.
+		<error-page> <error-code>500</error-code>
+		<location>/pages/error.iface</location> </error-page>
+	-->
+	
+	<error-page>
+		<error-code>500</error-code>
+		<location>/pages/template/errosistemico.iface</location>
+	</error-page>		
+	
+	<error-page>
+		<error-code>404</error-code>
+		<location>/pages/template/errosistemico.iface</location>
+	</error-page>
+</web-app>

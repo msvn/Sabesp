@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ice="http://www.icesoft.com/icefaces/component"
+    xmlns:fn="http://www.primeinformatica.com.br/functions" template="../template/template.jspx">
+
+<ui:define name="conteudo">
+<ice:panelGroup styleClass="wrapper">
+		<ice:panelGroup styleClass="contaContent">
+			<h3>Pagamento Eletrônico</h3>
+			<p></p>
+			<h3>Dados da conta</h3>
+
+			<ice:panelGroup styleClass="identificacao">
+				<h:panelGrid>   
+					<!-- mensagem erro validacao -->
+					<ui:include src="../template/errovalidacao.jspx" >
+						<ui:param name="backbean" value="#{contaBBean}"/>
+					</ui:include>
+				</h:panelGrid>
+			</ice:panelGroup>
+
+			<ice:panelGroup styleClass="formID">
+					<ul class="esquerda" style="width:100%">
+						<li><label><b>Mês de Referência:</b></label><span class="normal">
+							<h:outputText value="#{contaBBean.contaPagamentoEletronico.dtReferencia}" > <f:convertDateTime pattern="MMMM/yyyy"/>  
+							</h:outputText></span></li>
+						<li><label><b>Número da Conta:</b></label><span class="normal"><h:outputText value="#{contaBBean.contaPagamentoEletronico.numeroConta}" /></span></li>
+						<li><label><b>Vencimento</b></label><span class="normal">
+							<h:outputText value="#{contaBBean.contaPagamentoEletronico.dtVencimento}">
+								<f:convertDateTime pattern="dd/MM/yyyy"/>
+							</h:outputText></span></li> 
+						<li><label><b>Valor:</b></label><span class="normal">
+								<h:outputText value="#{contaBBean.contaPagamentoEletronico.vlTotal}"/>
+							</span>
+						</li>
+						<li><label><b>Código de Barras:</b></label><span class="normal"><ice:outputText value="#{contaBBean.contaPagamentoEletronico.codigoBarraDigitosControle}" /></span></li>
+						<li><label><b>Banco Conveniado:</b></label>
+							<ice:selectOneMenu id="documentos" onblur="desfocaliza(this);" onfocus="focaliza(this);" 
+								valueChangeListener="#{contaBBean.changeValueLinkBanco}" partialSubmit="true"
+								value="#{contaBBean.codBancoConveniado}" styleClass="texto" style="width:400px !important">
+								<f:selectItems value="#{contaBBean.listaBancosConveniados}"/>
+							</ice:selectOneMenu>
+						</li>
+					</ul>
+				<div class="clearBoth"></div>
+			</ice:panelGroup>
+			<p>Caso seu banco não esteja na lista, anote ou imprima o código de barras da(s) conta(s) desejada(s) e acesse o site de seu banco.</p>
+			<p><b>Atenção:</b> em função da comunicação de pagamento pelos bancos ocorrer de 2 a 4 dias úteis, as contas de água poderão continuar a ser exibidas como pendentes.</p>
+			<p></p>
+			<ice:panelGroup styleClass="botoes" style="clear: both;">
+				<br />
+				<table border="0" width="100%">
+				<tr>
+					<td align="center">
+						<ul style="float:center;">
+							
+							<li class="claro">
+								<ice:commandLink action="#{contaBBean.solicitaPagamentoEletronico}" target="#{contaBBean.linkBancoConveniado}" >
+									<b><span>ACESSAR BANCO</span></b>
+								</ice:commandLink>
+							</li>					
+		
+						</ul>					
+					</td>
+				</tr>
+				</table>
+			</ice:panelGroup>	
+
+		</ice:panelGroup>
+</ice:panelGroup>
+</ui:define>
+</ui:composition>		

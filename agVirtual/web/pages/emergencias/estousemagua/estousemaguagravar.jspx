@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ice="http://www.icesoft.com/icefaces/component"
+    xmlns:fn="http://www.primeinformatica.com.br/functions" template="../../template/template.jspx">
+
+<ui:define name="conteudo">	
+<ice:panelGroup styleClass="wrapper">
+		<ice:panelGroup styleClass="contaContent">
+			<h:commandButton actionListener="#{atendimentoBBean.persist}" value="Gravar"/>
+			<br />
+			Gravar - <h:outputText value="#{atendimentoBBean.persist}"/>
+			<br />
+
+<!-- 
+			<br />
+			Gravar Atendimento - <h:outputText value="#{atendimentoBBean.persistAtendimento}"/>
+			<br />
+			Gravar Log - <h:outputText value="#{atendimentoBBean.persistLog}"/>
+			<br />
+			Gravar Auto Atendimento - <h:outputText value="#{atendimentoBBean.persistAuto}"/>
+			<br />
+
+ -->
+		<div style="background-color: aqua;">
+			 <ice:commandLink actionListener="#{basicRequestBBean.concat}" value="Concat"/>
+			 <br/>Request - BBean Values: 
+			 <br/> Str: <h:outputText value="#{basicRequestBBean.str}"></h:outputText>
+		</div>
+		<div>
+			 <ice:commandLink actionListener="#{basicSessionBBean.concat}" value="Concat"/>
+			 <br/>Session - BBean Values: 
+			 <br/> Str: <h:outputText value="#{basicSessionBBean.str}"></h:outputText>
+		</div>
+
+		</ice:panelGroup>
+		
+
+</ice:panelGroup>
+</ui:define>
+</ui:composition>	

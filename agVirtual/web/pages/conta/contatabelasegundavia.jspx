@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ice="http://www.icesoft.com/icefaces/component"
+    xmlns:fn="http://www.primeinformatica.com.br/functions" template="../template/template.jspx">
+
+	<link href="#{facesContext.externalContext.requestContextPath}/css/xmlhttp/css/rime/rime.css" rel="stylesheet" type="text/css"/>
+	<link href="#{facesContext.externalContext.requestContextPath}/css/agvt.css" rel="stylesheet" type="text/css" />
+
+<ui:define name="conteudo">
+<script language="JavaScript">
+
+	function teste(element){
+		alert(element.value);
+	}
+
+</script>
+<ice:panelGroup styleClass="wrapper">
+		<ice:panelGroup styleClass="contaContent">
+
+		<!-- panel Tabela SegundaVia -->			
+		<ice:panelGroup>
+			<h3 id="titulo"><h:outputText value="#{migalhaPaoBBean.dsSubMenu}"/></h3>
+			<h:outputText rendered="#{contaBBean.renderedBotao}"> 
+				<p>Selecione a opção desejada:</p>
+			</h:outputText>				
+		</ice:panelGroup>
+
+		<ui:include src="../template/errovalidacao.jspx" >
+			<ui:param name="backbean" value="#{contaBBean}"/>
+		</ui:include>
+
+		<h:outputText rendered="#{contaBBean.renderedBotao}"> 
+		<ice:dataTable
+					rows="#{contaBBean.numLinhasPorPagina}"
+			        var="conta"
+ 					binding="#{contaBBean.componentDataTable}"
+			        value="#{contaBBean.listaContas}"
+					rowClasses="row1,row2"
+					styleClass="iceDatTbl"
+					id="table" width="100%" >
+		
+				<f:facet name="header"> 
+					<ice:columnGroup>
+						<ice:headerRow>	
+
+							<ice:column>
+								Mês de<br />referência
+							</ice:column>
+
+							<ice:column>
+								Vencimento
+							</ice:column>
+
+							<ice:column>
+								Valor<BR />(em R$)
+							</ice:column>
+
+							<ice:column>
+								Imprimir 2ª via<BR />(gratuita)
+							</ice:column>
+
+							<ice:column>
+								Receber pelo<br />correio (R$ 1,43 / conta)
+							</ice:column>
+
+							<ice:column>
+								Pagamento<br />eletrônico
+							</ice:column>
+
+
+							<ice:column>
+								<ice:outputText  value="#{msg['segundavia.table.titulo.situacao']}" escape="false" />
+							</ice:column>
+
+
+
+						</ice:headerRow>
+
+						<ice:headerRow styleClass="bgTr">	
+
+							<ice:column colspan="3">
+
+							</ice:column>
+
+							<ice:column>
+								<label for="imprimirTodas">Selecionar todas </label>
+								 <ice:selectBooleanCheckbox partialSubmit="true" id="check2via"   value="#{contaBBean.check2via}" 
+					                rendered="#{contaBBean.mulpitleSelection}"
+					                valueChangeListener="#{contaBBean.selectAll2Via}" />
+							</ice:column>
+
+							<ice:column>
+								<label for="correioTodas">Selecionar todas </label> 
+								<ice:selectBooleanCheckbox partialSubmit="true" id="checkCorreio" value="#{contaBBean.checkCorreio}"
+					                rendered="#{contaBBean.mulpitleSelection}"
+					                valueChangeListener="#{contaBBean.selectAllCorreio}" />
+							</ice:column>
+
+							<ice:column colspan="2">
+
+							</ice:column>
+
+
+
+						</ice:headerRow>
+
+
+					</ice:columnGroup>
+
+				</f:facet>
+
+				<ice:column>
+						<ice:outputLabel value="*" rendered="${conta.debitoAutomatico eq true}"/>
+						<ice:outputLabel value="#{conta.dtReferencia}" >
+							<f:convertDateTime pattern="MMM/yyyy" timeZone="#{contaBBean.timeZone}"/>
+						</ice:outputLabel>
+		        </ice:column>
+  
+        		<ice:column>
+                	<ice:outputLabel value="#{conta.dtVencimento}" >
+						<f:convertDateTime pattern="dd/MM/yyyy"	timeZone="#{noticiasBBean.timeZone}"/>
+					</ice:outputLabel>
+        		</ice:column>
+
+		        <ice:column>
+	                <ice:outputLabel value="#{conta.vlTotalAux}" />
+		        </ice:column>
+
+		        <ice:column>
+						<h:outputText rendered="${conta.bloqueioImprimir eq false}">
+							<ice:selectBooleanCheckbox partialSubmit="true"
+					             value="#{conta.imprimirSegundaVia}"
+					             valueChangeListener="#{contaBBean.selectOne2Via}" />
+						</h:outputText>
+		        </ice:column>
+
+		        <ice:column>
+						<h:outputText rendered="${conta.bloqueioCorreio eq false}">
+								<ice:selectBooleanCheckbox partialSubmit="true" id="selectOneCorreio"
+					             value="#{conta.receberPeloCorreio}"
+					             valueChangeListener="#{contaBBean.selectOneCorreio}" />
+						</h:outputText>
+		        </ice:column>
+
+		        <ice:column>
+					<ice:commandLink rendered="${conta.bloqueioPagEletronico eq false}"  action="#{contaBBean.carregaPagamentoEletronico}">
+						<f:param value="#{conta.numeroConta}" name="contaParam"/>
+	                	<ice:outputLabel value="Pagar"  />
+					</ice:commandLink>
+		        </ice:column>
+
+		        <ice:column styleClass="tdultimo">
+	                <ice:outputLabel value="#{conta.situacaoConta}" />
+		        </ice:column>
+
+		</ice:dataTable>
+		</h:outputText>
+		<br/>
+		<h:outputText rendered="#{contaBBean.renderedBotao and contaBBean.numLinhasPorPagina > 10 }"> 
+			<ui:include src="../template/paginator.jspx">
+				<ui:param name="tabela" value="table" />
+			</ui:include> 
+		</h:outputText>
+		<table border="0" width="100%">
+			<tr>
+				<td align="center">
+				<h:panelGroup style="float:center;!importante" rendered="${empty contaBBean.listaContas}" >
+					<h2><ice:outputText value="#{msg['agv.2via.lista.vazia']}" /></h2>
+				</h:panelGroup>
+				</td>
+			</tr>
+			</table>
+		<br/>		
+
+		<br class="clear" />
+		<br class="clear" />
+
+				<table border="0" width="100%">
+				<tr>
+					<td align="center">
+						<ice:panelGroup styleClass="botoes" style="clear: both;">
+						<br />
+						<ul>	
+							<li class="claro" title="VOLTAR">
+								<ice:commandLink action="#{contaBBean.retornar}">
+									<f:param name="retornoparam" value="CONTA_PESQUISA_RGI" />
+									<b><span>VOLTAR</span></b>
+								</ice:commandLink>
+							</li>
+							<h:outputText rendered="#{contaBBean.renderedBotao}"> 
+								<h:outputText rendered="#{contaBBean.renderedCorreio eq false and  contaBBean.renderedImprimir eq false}">
+									<li class="claro" title="PROSSEGUIR">
+									<ice:commandLink action="#{contaBBean.selecionarContaErro}" >
+											<b><span>PROSSEGUIR</span></b>
+										</ice:commandLink>
+									</li>
+								</h:outputText>
+								<h:outputText rendered="#{contaBBean.renderedCorreio}"> 
+									<li class="claro" title="PROSSEGUIR">
+										<ice:commandLink action="#{contaBBean.criarAcatamentoEnvioEndereco}" rendered="#{contaBBean.renderedBotao}" >
+											<b><span>PROSSEGUIR</span></b>
+										</ice:commandLink>
+									</li>
+								</h:outputText>
+								<h:outputText rendered="#{contaBBean.renderedImprimir}"> 
+									<h:outputText rendered="#{contaBBean.renderedRolEspecial}" >
+										<li class="claro" title="PROSSEGUIR">
+								         <a href="#" onclick="javascript:window.open('#{facesContext.externalContext.requestContextPath}/pages/suaconta/imprimirsegundaviaespecial.iface' , '_blank', 'scrollbars=yes,width=860,menubar=no');">
+												<b><span>PROSSEGUIR</span></b>
+								         </a>
+										</li>
+									</h:outputText>
+									<h:outputText rendered="#{contaBBean.renderedRolComum}" >
+										<li class="claro" title="PROSSEGUIR">
+								         <a href="#" onclick="javascript:window.open('#{facesContext.externalContext.requestContextPath}/pages/suaconta/imprimesegundavia.iface' , '_blank', 'scrollbars=yes,width=860,menubar=no');">
+												<b><span>PROSSEGUIR</span></b>
+								         </a>
+										</li>
+									</h:outputText>
+								</h:outputText>
+						</h:outputText>
+						</ul>						
+						</ice:panelGroup>
+					</td>
+				</tr>
+				</table>
+		</ice:panelGroup>
+
+		<h:outputText rendered="#{contaBBean.checkPrimeiro == 2}">
+				<script>
+					javascript:document.getElementById('frmhome:table:0:selectOneCorreio').click();
+				</script>
+		</h:outputText>
+
+</ice:panelGroup>
+	
+</ui:define>
+</ui:composition>				

@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE faces-config PUBLIC
+    "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.1//EN"
+    "http://java.sun.com/dtd/web-facesconfig_1_1.dtd">
+
+<faces-config>
+    <application>
+    	<view-handler>
+			com.icesoft.faces.facelets.D2DFaceletViewHandler
+        </view-handler> 
+    
+        <locale-config>
+            <default-locale>pt_BR</default-locale>
+        </locale-config>
+        <message-bundle>com.prime.app.agvirtual.message.default</message-bundle>
+    </application>
+    
+    <validator>
+        <validator-id>dateRangeValidator</validator-id>
+        <validator-class>com.prime.app.agvirtual.validator.DateRangeValidator</validator-class>
+    </validator>
+    
+    <converter>
+	 	<converter-id>DateConverterAdmin</converter-id>
+	 	<converter-class>com.prime.app.agvirtual.jsf.converter.DateConverterAdmin</converter-class>
+	</converter>
+    
+    <managed-bean>
+        <managed-bean-name>servicosBBean</managed-bean-name>
+        <managed-bean-class>
+            com.prime.app.agvirtual.web.jsf.ServicosBBean
+        </managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    
+</faces-config>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+
+    <!-- =========================================================================================================== -->
+    <!-- Appenders                                                                                                   -->
+    <!-- =========================================================================================================== -->
+
+    <appender name="DEBUG_APPLICATION_LOG_FILE" class="ch.qos.logback.core.FileAppender">
+        <File>${BASE_LOG_PATH}/${application.name}-debug.html</File>
+        <Append>true</Append>
+		<layout>HTMLLayout</layout>
+        <layout class="ch.qos.logback.classic.html.HTMLLayout">
+            <Pattern>%d{HH:mm:ss.SSS}%thread%level%logger{36}%msg%n</Pattern>
+        </layout>
+        
+        <maxFileSize>5MB</maxFileSize>
+    </appender>
+    
+    <appender name="QUERY_LOG" class="ch.qos.logback.core.FileAppender">
+        <File>${BASE_LOG_PATH}/query-log.html</File>
+        <Append>true</Append>
+		<layout>HTMLLayout</layout>
+
+        <layout class="ch.qos.logback.classic.html.HTMLLayout">
+            <Pattern>%d{HH:mm:ss.SSS}%logger{36}%msg%n </Pattern>
+        </layout>
+         <maxFileSize>5MB</maxFileSize>
+    </appender>
+    
+    <appender name="ERROR_LOG_AGV" class="ch.qos.logback.core.FileAppender">
+        <File>${BASE_LOG_PATH}/error-agv-log.html</File>
+        <Append>true</Append>
+		<layout>HTMLLayout</layout>
+
+        <layout class="ch.qos.logback.classic.html.HTMLLayout">
+            <Pattern>%d{HH:mm:ss.SSS}%level%logger{36} %msg%n </Pattern>
+        </layout>
+         <maxFileSize>5MB</maxFileSize>
+    </appender>
+    
+     <appender name="ERROR_ICE" class="ch.qos.logback.core.FileAppender">
+        <File>${BASE_LOG_PATH}/error-icefaces-log.html</File>
+        <Append>true</Append>
+		<layout>HTMLLayout</layout>
+
+        <layout class="ch.qos.logback.classic.html.HTMLLayout">
+            <Pattern>%d{HH:mm:ss.SSS} %logger{36} %msg%n </Pattern>
+        </layout>
+         <maxFileSize>5MB</maxFileSize>
+    </appender>
+
+    <!-- =========================================================================================================== -->
+    <!-- Loggers                                                                                                     -->
+    <!-- =========================================================================================================== -->
+
+    <root>
+        <level value="ERROR"/>
+        <appender-ref ref="ERROR_LOG_AGV"/>
+    </root>
+
+    <!-- commons =================================================================================================== -->
+
+    <logger name="org.apache">
+        <level value="ERROR"/>
+    </logger>
+
+    <!-- Hibernate ================================================================================================= -->
+
+    <logger name="org.hibernate">
+        <level value="ERROR"/>
+    </logger>
+
+    <logger name="javax.persistence.EntityManager">
+        <level value="ERROR"/>
+    </logger>
+
+    <!-- Spring ==================================================================================================== -->
+
+    <logger name="org.springframework">
+        <level value="ERROR"/>
+    </logger>
+
+    <!-- JSF ================================================================================================= -->
+
+    <logger name="javax.faces">
+        <level value="INFO"/>
+    </logger>
+
+    <logger name="com.sun.faces">
+        <level value="INFO"/>
+    </logger>
+
+    <logger name="com.icesoft">
+   		<appender-ref ref="ERROR_ICE"/>
+        <level value="INFO"/>
+    </logger>
+
+    <!-- Framework JAB ============================================================================================= -->
+
+    <logger name="com.prime.infra">
+        <level value="ERROR"/>
+    </logger>
+
+    <!-- Aplicacao ================================================================================================= -->
+
+    <logger name="com.prime.app.agvirtual">
+        <level value="INFO"/>
+        <appender-ref ref="DEBUG_APPLICATION_LOG_FILE"/>
+    </logger>
+    
+    <logger name="com.prime.app.agvirtual.dao.impl">
+    	<appender-ref ref="QUERY_LOG"/>
+        <level value="INFO"/>
+    </logger>
+
+</configuration>

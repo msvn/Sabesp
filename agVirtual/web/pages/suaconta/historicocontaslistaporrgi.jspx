@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ice="http://www.icesoft.com/icefaces/component"
+    xmlns:fn="http://www.primeinformatica.com.br/functions" template="../template/template.jspx">
+
+<ui:define name="conteudo">	
+
+<ice:panelGroup styleClass="wrapper">
+		<ice:panelGroup styleClass="contaContent">
+			<h3><h:outputText value="#{migalhaPaoBBean.dsSubMenu}"/> </h3>
+			<p>Este histórico não vale como atestado porque as informações podem ser alteradas em decorrência de eventuais correções / revisões.</p>
+
+			<ice:panelGroup>
+					<ice:dataTable rows="13"
+					        	   var="row" 
+								  style="width: 100%;"
+					        	   value="#{historicoContasBBean.listaHistoricoContas}"
+							       rowClasses="row1, row2"
+								   id="table" >
+						<ice:column style="padding: 10px 15px; text-align: left;">
+		                    <f:facet name="header">
+								<ice:outputText value="#{msg['suaconta.txt.consultedataproximaleituras.pesquisa.mesref']}" style="text-align: left;"/>
+							</f:facet>
+							<h:outputText value="#{row.dtReferencia}">
+								<f:convertDateTime pattern="MMMM/yyyy"/>
+							</h:outputText>
+						</ice:column>
+		                <ice:column style="padding: 10px 15px;">
+		                    <f:facet name="header">
+		                        Consumo (m3)
+		                    </f:facet>
+							<h:outputText value="#{row.quantidadeConsumo}"/>
+						</ice:column>
+						<ice:column style="padding: 10px 15px;">
+		                    <f:facet name="header">
+								#{msg['suaconta.txt.consultedataproximaleituras.pesquisa.venc']}
+							</f:facet>
+							<h:outputText value="#{row.dtVencimento}">
+								<f:convertDateTime pattern="dd/MM/yyyy"/>
+							</h:outputText>
+		                   </ice:column>
+		                <ice:column style="padding: 10px 15px;">
+		                    <f:facet name="header">
+		                       Valor faturado (em R$)
+		                    </f:facet>
+							<h:outputText value="#{row.vlTotal}">
+							</h:outputText>
+						</ice:column>
+						<ice:column style="padding: 10px 15px;">
+		                    <f:facet name="header">
+								Observações
+							</f:facet>
+
+							<h:outputText value="#{row.observacaoConta}"/>
+
+		                   </ice:column>
+					</ice:dataTable>
+				</ice:panelGroup>
+
+			<!-- table cellpadding="0" cellspacing="0" border="0" style="clear:both;">
+				<thead>
+					<tr>
+						<th class="txtL">Mês referência</th>
+						<th>Consumo (m<sup>3</sup>)</th>
+						<th>Vencimento</th>
+						<th>Valor faturado (em R$)</th>
+						<th class="txtL">Observações</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="txtL">Abril / 2010</td>
+						<td>12</td>
+						<td>04/05/2010</td>
+						<td>18,55</td>
+						<td class="last txtL">Faturamento realizado pela média mensal</td>
+					</tr>
+					<tr class="bgTr">
+						<td class="txtL">Março / 2010</td>
+						<td>30</td>
+						<td>01/04/2010</td>
+						<td>88,91</td>
+						<td class="last txtL"></td>
+					</tr>
+					<tr>
+						<td class="txtL">Fevereiro / 2010</td>
+						<td>13</td>
+						<td>03/03/2010</td>
+						<td>20,43</td>
+						<td class="last txtL"></td>
+					</tr>
+					<tr class="bgTr">
+						<td class="txtL">Janeiro / 2010</td>
+						<td>15</td>
+						<td>02/02/2010</td>
+						<td>24,29</td>
+						<td class="last txtL"></td>
+					</tr>
+					<tr>
+						<td class="txtL">Dezembro / 2009</td>
+						<td>4</td>
+						<td>04/01/2010</td>
+						<td>14,07</td>
+						<td class="last txtL"></td>
+					</tr>
+					<tr class="bgTr">
+						<td class="txtL">Novembro / 2009</td>
+						<td>4</td>
+						<td>02/12/2009</td>
+						<td>13,64</td>
+						<td class="last txtL"></td>
+					</tr>
+					<tr>
+						<td class="txtL">Outubro / 2009</td>
+						<td>5</td>
+						<td>03/11/2009</td>
+						<td>14,03</td>
+						<td class="last txtL"></td>
+					</tr>
+					<tr class="bgTr">
+						<td class="txtL">Setembro / 2009</td>
+						<td>10</td>
+						<td></td>
+						<td></td>
+						<td class="last txtL">Dados da conta não disponíveis</td>
+					</tr>
+					<tr>
+						<td class="txtL">Agosto / 2009</td>
+						<td>12</td>
+						<td></td>
+						<td></td>
+						<td class="last txtL">Dados da conta não disponíveis</td>
+					</tr>
+					<tr class="bgTr">
+						<td class="txtL">Julho / 2009</td>
+						<td>5</td>
+						<td></td>
+						<td></td>
+						<td class="last txtL">Dados da conta não disponíveis</td>
+					</tr>
+					<tr>
+						<td class="txtL">Junho / 2009</td>
+						<td>7</td>
+						<td></td>
+						<td></td>
+						<td class="last txtL">Dados da conta não disponíveis</td>
+					</tr>
+					<tr class="bgTr">
+						<td class="txtL">Maio / 2009</td>
+						<td>9</td>
+						<td></td>
+						<td></td>
+						<td class="last txtL">Dados da conta não disponíveis</td>
+					</tr>
+				</tbody>
+			</table>
+			<p>O consumo exibido refere-se ao total do consumo das contas de todos os RGI que compõem o consumo mensal do imóvel.<BR/><a href="#" onclick="carregarPagina('histContasRGI.html');">Para visualizar o consumo individual das contas de cada RGI clique aqui</a></p-->
+			<p>O consumo exibido refere-se ao total do consumo das contas de todos os RGI que compõem o consumo mensal do imóvel.<a href="#" onclick="carregarPagina('histContasRGI.html');">Para visualizar o consumo individual das contas de cada RGI clique aqui</a></p>	
+			<ice:panelGroup styleClass="botoes" style="clear: both;">
+								<br />
+								<ul style="float:center;">
+									<li class="claro">
+										<ice:commandLink action="#{historicoContasBBean.retornar}"  >
+											<b><span>Voltar</span></b>
+										</ice:commandLink>
+									</li>
+									<li class="escuro">
+										<ice:commandLink action="#{historicoContasBBean.paginaInicial}" >
+											<b><span>Concluir</span></b>
+										</ice:commandLink>
+									</li>
+								</ul>						
+			</ice:panelGroup>
+	</ice:panelGroup>
+	</ice:panelGroup>	
+	</ui:define>
+</ui:composition>	

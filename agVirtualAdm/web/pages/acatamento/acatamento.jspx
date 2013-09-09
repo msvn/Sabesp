@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ice="http://www.icesoft.com/icefaces/component"
+    xmlns:fn="http://www.primeinformatica.com.br/functions" template="../templates/template.jspx">
+	
+	 <ui:define name="content" >
+	<div class="tituloGeral" style="margin-top: 25px;">
+	         <table>
+	   	     <tr>
+		        <td width="282"><label>Acatamento Teste</label></td>
+		     </tr>
+	         </table>
+	    </div>    
+	 <form jsfc="h:form" action="">
+       <ice:panelGrid rendered="${not empty message}">
+		<div style="display: block; height: 31px; width: 957px ; margin-top: 25px" id="aviso"> 			
+			<table height="100%">
+				<tbody><tr>
+					<td><img src="#{facesContext.externalContext.requestContextPath}/images/mensagem_erro.gif" id="imgAviso"/></td>
+					<td valign="middle">
+						<span id="textoAviso">
+							<h:messages errorStyle="color: red" infoStyle="color: green" layout="table" 
+            				showSummary="true" showDetail="false" globalOnly="true"/> 
+						</span>					
+					</td>
+				</tr><tr class="escuro">
+			</tr></tbody></table>
+		</div>
+		</ice:panelGrid>
+
+		<!-- CORPO DA PAGINA -->
+		<div id="conteudo">	
+			<div id="formulario">
+				<ice:panelGroup styleClass="exampleBox inputFileContainer">
+				<br class="clear" />
+				
+				<span>Numero RGI:</span> 
+				
+				<input jsfc="h:inputText"  readonly="false"
+		          id="nrRgiLig" size="30" maxlength="30" type="text" class="desfocaliza" style="width: 90px;" onblur="desfocaliza(this)" onfocus="focaliza(this);"
+		          value="#{acatamentoBBean.acatamentoTO.nrRgiLig}" required="true" /> <h:message
+		          for="nrRgiLig" errorClass="error" fatalClass="error" warnClass="error" />
+	
+				<br class="clear" />
+				<span><b class="asterisco"></b>Grupo Serviço:</span> 
+				
+				<input jsfc="h:inputText" onblur="desfocaliza(this)" onfocus="focaliza(this);"
+		          id="cdGrpServ" size="120" maxlength="65" type="text" class="desfocaliza" style="width: 90px;"
+		          value="#{acatamentoBBean.acatamentoTO.cdGrpServ}" required="true" /> <h:message
+		          for="cdGrpServ" errorClass="error" fatalClass="error" warnClass="error" />
+
+				<br class="clear" />
+				<span><b class="asterisco"></b>Grupo Serviço:</span> 
+				
+				<input jsfc="h:inputText" onblur="desfocaliza(this)" onfocus="focaliza(this);"
+		          id="cdServCom" size="120" maxlength="65" type="text" class="desfocaliza" style="width: 90px;"
+		          value="#{acatamentoBBean.acatamentoTO.cdServCom}" required="false" /> <h:message
+		          for="cdServCom" errorClass="error" fatalClass="error" warnClass="error" />
+
+				<ice:commandButton  
+						 image="/images/pesquisar_registro.gif"    
+						 actionListener="#{acatamentoBBean.consulta}"  />
+
+				<br class="clear" />
+
+				<div id="formulario">
+	 				<ice:panelGroup styleClass="exampleBox inputFileContainer">
+						<span><b class="asterisco">*</b> Resultado.</span>
+						<br class="clear" />
+				        <ice:dataTable 
+				                width="100%"  var="row"
+				                value="#{acatamentoBBean.listaColunas}"
+				               	>
+							<ice:column>
+								<f:facet name="header">
+                             		Coluna
+                        		</f:facet> 
+								#{row.nomeColuna}			
+				            </ice:column>
+				            <ice:column>
+								<f:facet name="header">
+                             		Valor
+                        		</f:facet> 
+								#{row.valorColuna}			
+				            </ice:column>
+				        </ice:dataTable>
+					</ice:panelGroup>
+				</div>
+
+				<br class="clear" />
+				<br class="clear" />
+				<div id="botoes">
+					<ice:commandButton  action="#{subServicosBBean.atualizar}" value="Voltar" />
+				</div>
+				<br class="clear" />
+				</ice:panelGroup>
+			</div>
+		</div>
+		
+		<!-- CORPO DA PAGINA -->
+        
+	 </form>
+</ui:define>
+</ui:composition>

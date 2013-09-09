@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ice="http://www.icesoft.com/icefaces/component">
+
+
+	<ice:panelGroup styleClass="menu">
+		<ul>
+			<li>
+				<ice:commandLink id="perguntasfrequentes" onclick="javascript:window.open('http://site.sabesp.com.br/site/fale-conosco/Default.aspx?secaoId=71', '_blank');">	
+					<h:outputText value="#{msg['menu.superior.link.perguntasfrequentes']}" />
+				</ice:commandLink>
+			</li>
+			<li>
+				<ice:commandLink id="faleconosco" onclick="javascript:window.open('http://site.sabesp.com.br/site/fale-conosco/Default.aspx?secaoId=71', '_blank');">
+					<h:outputText value="#{msg['menu.superior.link.faleconosco']}" />
+				</ice:commandLink>
+			</li>
+			<li>
+				<ice:commandLink id="canaisatendimento" action="#{canaisAtendimentoBBean.carregar}">	
+					<h:outputText value="#{msg['menu.superior.link.canaisatendimento']}" />
+					<f:param name="dsMenu" value="#{msg['menu.superior.link.canaisatendimento']}" />
+					<f:param name="outcomeMenu" value="CANAISATENDIMENTO" />
+				</ice:commandLink>
+			</li>
+			<li>
+				<ice:commandLink id="mapasite">	
+					<h:outputText value="#{msg['menu.superior.link.mapasite']}" />
+				</ice:commandLink>
+			</li>
+			<li>
+				<ice:commandLink id="sitesabesp" onclick="javascript:window.open('http://www.sabesp.com.br', '_blank');">
+					<h:outputText value="#{msg['menu.superior.link.sitesabesp']}" />
+				</ice:commandLink>
+			</li>
+		</ul>
+
+	</ice:panelGroup>
+
+	<!-- 
+	<ice:panelGroup>
+		<h:commandLink value="matar sessao" actionListener="#{atendimentoBBean.matarSessao}"></h:commandLink>
+	</ice:panelGroup>
+	-->
+
+	<ice:panelGroup>
+		<h:inputHidden id="versao" value="111120101900"></h:inputHidden>
+	</ice:panelGroup> 	
+</ui:composition>

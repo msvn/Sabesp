@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ice="http://www.icesoft.com/icefaces/component"
+    xmlns:fn="http://www.primeinformatica.com.br/functions" template="../template/template.jspx">
+
+<ui:define name="conteudo">
+	<ice:panelGroup styleClass="wrapper">
+		<ice:panelGroup styleClass="contaContent">
+		
+			<h3 id="titulo"><h:outputText value="#{migalhaPaoBBean.dsSubMenu}"/></h3>
+			<div class="mensagem msgInfo">
+				<h:outputText rendered="${contaBBean.numeroContasSelecionadas > 1 }">
+					<p>Foram selecionadas  <h:outputText value=" #{contaBBean.numeroContasSelecionadas}" />  contas, será cobrada uma taxa de R$ <h:outputText value="#{contaBBean.valorEnvio2Via}" /> em conta futura. A 2ª via de conta será entregue em até 5 dias.</p>
+				</h:outputText>
+				<h:outputText rendered="${contaBBean.numeroContasSelecionadas eq 1 }">
+					<p>Foi selecionado 1 conta, será cobrada uma taxa de R$ <h:outputText value="#{contaBBean.valorEnvio2Via}" /> em conta futura. A 2ª via de conta será entregue em até 5 dias.</p>
+				</h:outputText>
+			</div>
+			
+			<h:panelGrid>   
+				<!-- mensagem erro validacao -->
+				<ui:include src="../template/errovalidacao.jspx" >
+					<ui:param name="backbean" value="#{contaBBean}"/>
+				</ui:include>
+			</h:panelGrid>	
+			<div class="boxColunas">
+
+				<ice:selectOneRadio id="rd" required="true" value="#{contaBBean.flagEndereco2Via}"  layout="spread"  partialSubmit="true">
+	                       	<f:selectItem  itemLabel="Entregar 2ª via de conta no endereço atual da conta:" itemValue="true"   />
+							<f:selectItem  itemLabel="Entregar 2ª via de conta em outro endereço" itemValue="false"  />
+                 </ice:selectOneRadio>	 	
+
+				<div class="col2">
+					<ice:radio for="rd" index="0" />	
+				</div>
+				<div class="col3">
+					<ice:radio for="rd" index="1" />
+				</div>
+			</div> 
+			<div class="boxColunas">	
+				<h:panelGroup styleClass="panelForm boxColunas"> 
+				<div class="boxDados col2">
+					<dl>
+						<dt>Endereço:</dt>
+						<dd><h:outputText value="#{contaBBean.dadosImoveisTO.endereco.dsEndereco}"/></dd>
+						<dd class="clear"></dd> 
+						
+						<dt>Bairro:</dt>
+						<dd><h:outputText value="#{contaBBean.dadosImoveisTO.endereco.nmBairro }"/></dd>
+						<dd class="clear"></dd>
+						
+						<dt>Município:</dt>
+						<dd><h:outputText value="#{contaBBean.dadosImoveisTO.endereco.nmMunicipio }"/></dd>
+						<dd class="clear"></dd>
+						
+						<dt>CEP:</dt>
+						<dd>99999-999 - MUDAR FIXO</dd>
+					</dl>
+					<!--<a class="link_ajuda" href="#" onclick="carregarPagina('2avia.html');">Não encontrei meu endereço</a>-->
+				</div>
+				</h:panelGroup  >
+				<h:panelGrid styleClass="form_segundaviaEndereco col4">
+					<fieldset class="boxForm">
+						<ol>
+							<li>
+								<label for="inp_endereco">Endereço:</label>
+									<h:inputText styleClass="w350" maxlength="100" readonly="${contaBBean.flagEndereco2Via eq true}" value="#{contaBBean.endereco2Via.dsEndereco}" />
+							</li>
+							<li>
+								<label for="inp_endereco">Nº:</label>
+									<h:inputText styleClass="w50" onkeyup="somente_numero(this);"  maxlength="10" readonly="${contaBBean.flagEndereco2Via eq true}"  value="#{contaBBean.endereco2Via.nrEndereco}" />
+									
+								
+								<span style="padding-left: 10px">Complemento:</span>
+									<h:inputText styleClass="w190" maxlength="200" readonly="${contaBBean.flagEndereco2Via eq true}"  value="#{contaBBean.endereco2Via.dsComplemento}" />
+							</li>
+							<li>
+								<label for="inp_endereco">CEP:</label>
+									<h:inputText styleClass="w89" maxlength="10" onkeyup="somente_numero(this);" readonly="${contaBBean.flagEndereco2Via eq true}"   value="#{contaBBean.endereco2Via.cdCep}" />
+									<h:graphicImage onclick="javascript:window.open('http://www.buscacep.correios.com.br/servicos/dnec/index.do');" style="border: 0px;" url="/images/buscaCEP.gif"  />
+							</li>							
+							<li>
+								<label for="sel_municipio">Município</label>
+									<h:inputText styleClass="w350" maxlength="80" readonly="${contaBBean.flagEndereco2Via eq true}"  value="#{contaBBean.endereco2Via.nmMunicipio}" />
+								<span>UF:</span>
+									<h:inputText styleClass="w50" maxlength="40" readonly="${contaBBean.flagEndereco2Via eq true}"  value="#{contaBBean.endereco2Via.dsUF}" />
+							</li>						
+						</ol>
+					</fieldset>
+				</h:panelGrid>
+			</div>
+			<!-- // -->	
+				<table border="0" width="100%">
+				<tr>
+					<td align="center">
+					<ice:panelGroup styleClass="botoes" style="clear: both;">
+					<br />
+
+						<ul>
+		
+							<li class="claro">
+								<ice:commandLink action="#{contaBBean.retornar}">
+									<f:param name="retornoparam" value="VOLTAR_LISTAGEM" />
+									<b><span>RETORNAR</span></b>
+								</ice:commandLink>
+							</li>
+							
+							<li class="claro">
+								<ice:commandLink action="#{contaBBean.solicitaAcatementoCorreio2Via}" >
+									<b><span>PROSSEGUIR</span></b>
+								</ice:commandLink>
+							</li>					
+		
+						</ul>		
+
+					</ice:panelGroup>
+					</td>
+				</tr>
+			</table>			
+						
+			
+
+		</ice:panelGroup>
+	</ice:panelGroup>
+</ui:define>
+</ui:composition>

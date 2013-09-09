@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- Created by Foster Web Solutions 
+     Web sites, Webdesign, E-commerce, E-Business, Internet Marketing  -->
+<!-- http://www.foster.com.br -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Sabesp</title>
+	<script language="JavaScript" type="text/javascript" src="/agvirtualadm/js/script.js"></script>
+	<link rel="STYLESHEET" type="text/css" href="/agvirtualadm/css/style.css" />	
+	<style type="text/css">
+	body {font-size:76%;} 
+
+<!--[if IE]>
+<style type="text/css">
+#menuSuperior ul {display:inline-block;}
+#menuSuperior ul {display:inline;}
+#menuSuperior ul li {float:left;}
+#menuSuperior {text-align:center;}
+</style>
+<![endif]-->	
+	</style>	
+</head>
+
+<body>
+<div id="global" align="center">
+	<div id="geral">
+		<!-- TOPO -->
+		<div id="topo">
+			<img src="/agvirtualadm/images/topo_canto_direito.gif" width="5" height="28" alt="" border="0" class="floatRight" />
+			<a href="#" class="floatRight"><img src="/agvirtualadm/images/portal_corporativo.gif" width="22" height="22" alt="Portal Corporativo" border="0" /> Portal Corporativo</a>
+			<img src="/agvirtualadm/images/sabesp.gif" width="32" height="28" alt="Sabesp" border="0" class="floatLeft" />
+			<h1>Agência Virtual</h1>
+		</div>
+		<!-- TOPO -->
+		<!-- TITULO / ACESSO RAPIDO -->
+		<div id="menuSuperior" style="display: none;">
+			<ul>
+				<li onclick="abreMenu(3,this);" class="normal"><a href="#nogo"><b>Noticias</b></a></li>
+				<!--<li class="current"><a href="#nogo"><b>Privacy Policy</b></a></li>-->
+				<li onclick="abreMenu(9,this);" class="normal"><a href="#nogo"><b>Conteudos da Home</b></a></li>
+				<li onclick="abreMenu(7,this);" class="normal"><a href="#nogo"><b>Servicos</b></a></li>
+				<li onclick="abreMenu(8,this);" class="normal"><a href="#nogo"><b>Subservicos</b></a></li>
+				<li onclick="abreMenu(1,this);" class="normal"><a href="#nogo"><b>Canais de Atendimento</b></a></li>
+				<li onclick="abreMenu(2,this);" class="normal"><a href="#nogo"><b>Documentos</b></a></li>
+				<li onclick="abreMenu(4,this);" class="normal"><a href="#nogo"><b>Bloqueio de Servicos</b></a></li>
+				<li onclick="abreMenu(5,this);" class="normal"><a href="#nogo"><b>Pesquisas</b></a></li>
+				<li onclick="abreMenu(6,this);" class="normal"><a href="#nogo"><b>Servicos Correlatos</b></a></li>
+			</ul>
+		</div>		
+		<div id="tituloAcesso" style="display: none;">
+			<div id="acessoRapido">
+				<ul>
+					<li class="ultimo"><a href="#"><img src="/agvirtualadm/images/ajuda.gif" width="20" height="20" alt="ajuda" border="0" /></a></li>
+				</ul>
+			</div>
+			<br class="clear" />
+			<h2>&nbsp;<span id="Titulo">Login</span></h2>
+		</div>
+		<!-- TITULO / ACESSO RAPIDO -->
+		
+
+		
+		<!-- MENU -->
+		
+	<!-- CORPO DA PAGINA -->
+	<div id="conteudo" align="center">
+		<div id="login">
+			<br class="clear" />
+			<img src="/agvirtualadm/images/boasvindas.gif" />
+			<h3></h3>
+			<div id="campos">
+				Digite seu login e senha para acessar:
+				<br /><br />
+				<form name="frm" method="post"  action="pages/noticia/noticias.iface">
+				<!-- LOGIN -->
+				<span id="Titulo">Login&nbsp;</span> <input type="text" name="login" value="" />
+				<!-- LOGIN -->
+				<br class="clear"  />
+				<!-- SENHA -->
+				<span>Senha</span> <input type="password" name="senha" value="" /> 
+				<!-- SENHA -->
+			</div>
+			<br class="clear" /><br />
+			<!-- OK -->
+			<input type="submit" name="ok" id="ok" value="OK"/>
+			</form>
+			<!-- <input type="button" name="ok" id="ok" value="OK" onclick="javascript: login();"/> -->
+		</div>
+	</div>
+	<!-- CORPO DA PAGINA -->
+	</div>
+</div>
+
+</body>
+</html>

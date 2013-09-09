@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ice="http://www.icesoft.com/icefaces/component"
+    template="../templates/templateLogin.jspx">
+    <ui:define name="content">
+		<ice:form id="login" > 
+				<div id="conteudo" align="left">
+					<div id="login"> 
+						<br class="clear" />
+						<img src="#{facesContext.externalContext.requestContextPath}/images/boasvindas.gif" />
+						<h3></h3>
+						<div id="campos">
+							Digite seu login e senha para acessar:
+							<br /><br />
+							<!-- LOGIN -->
+							<span id="Titulo">Login</span>
+								 <input jsfc="h:inputText"  onblur="desfocaliza(this)" onfocus="focaliza(this);"
+						          id="user" size="120" maxlength="65" type="text" class="texto" style="width: 250px;"
+						          value="#{loginBBean.user}"  required="false" />
+								 <h:message for="user" errorClass="error"  fatalClass="error" warnClass="error" />
+							<!-- LOGIN -->
+							<br class="clear"  />
+							<!-- SENHA --> 
+							<span>Senha</span> 
+								  <input jsfc="h:inputText"  onblur="desfocaliza(this)" onfocus="focaliza(this);"
+						          id="senha" size="120" maxlength="65" type="text" class="texto" style="width: 250px;"
+						          value="#{loginBBean.senha}"  required="false" />
+								 <h:message for="senha" errorClass="error"  fatalClass="error" warnClass="error" />
+							<!-- SENHA -->
+						<br class="clear" />
+						<h:commandButton type="Button" action="#{loginBBean.logar}" value="Ok" />
+						</div>
+						
+						<!-- OK -->
+					</div>
+				</div>
+		</ice:form>
+</ui:define>
+</ui:composition>

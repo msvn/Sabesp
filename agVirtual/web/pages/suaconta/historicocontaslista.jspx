@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ice="http://www.icesoft.com/icefaces/component"
+    xmlns:fn="http://www.primeinformatica.com.br/functions" template="../template/template.jspx">
+
+<ui:define name="conteudo">	
+
+<ice:panelGroup styleClass="wrapper">
+		<ice:panelGroup styleClass="contaContent">
+			<h3><h:outputText value="#{migalhaPaoBBean.dsSubMenu}"/> </h3>
+			<p>#{msg['historico.contas.descricao']}</p>
+
+			<!-- exibe mensagem nao ha dados -->
+			<ice:panelGroup rendered="${empty historicoContasBBean.listaContas}">
+				<div class="center"><h2>#{msg['historico.contas.nao.ha.dados']}</h2></div>
+			</ice:panelGroup>
+
+			<!-- exibe relatorio contas -->
+			<ice:panelGroup rendered="${not empty historicoContasBBean.listaContas}">
+				<ice:panelGroup>
+					<ice:dataTable rows="13"
+					        	   var="row" 
+								  style="width: 100%;"
+					        	   value="#{historicoContasBBean.listaContas}"
+							       rowClasses="row1, row2">
+						<ice:column style="padding: 10px 15px; text-align: left;">
+		                    <f:facet name="header">
+								<ice:outputText value="#{msg['suaconta.txt.consultedataproximaleituras.pesquisa.mesref']}" style="text-align: left;"/>
+							</f:facet>
+							<h:outputText value="#{row.dtReferencia}">
+								<f:convertDateTime pattern="MMMM/yyyy"/>
+							</h:outputText>
+						</ice:column>
+		                <ice:column style="padding: 10px 15px;">
+		                    <f:facet name="header">
+		                        #{msg['consumo.m3']}
+		                    </f:facet>
+							<h:outputText value="#{row.quantidadeConsumo}">
+							</h:outputText>
+						</ice:column>
+						<ice:column style="padding: 10px 15px;">
+		                    <f:facet name="header">
+								#{msg['suaconta.txt.consultedataproximaleituras.pesquisa.venc']}
+							</f:facet>
+							<h:outputText value="#{row.dtVencimento}">
+								<f:convertDateTime pattern="dd/MM/yyyy"/>
+							</h:outputText>
+		                   </ice:column>
+		                <ice:column style="padding: 10px 15px;">
+		                    <f:facet name="header">
+		                       #{msg['valor.faturado.reais']}
+		                    </f:facet>
+							<h:outputText value="#{row.vlTotal}">
+								<f:convertNumber maxFractionDigits="2" maxIntegerDigits="3"/>
+							</h:outputText>
+						</ice:column>
+						<ice:column style="padding: 10px 15px;">
+		                    <f:facet name="header">
+								#{msg['observacoes']}
+							</f:facet>
+
+							<h:outputText value="#{row.observacaoConta}"/>
+
+		                   </ice:column>
+					</ice:dataTable>
+				</ice:panelGroup>
+			
+				<ice:panelGroup styleClass="pIcePnlGrp">
+					<h:outputText>#{msg['historico.contas.msg.consumo.todos.rgis']}</h:outputText>
+					<br />
+					<ice:commandLink rendered="#{historicoContasBBean.clienteRolEspecial}" action="#{historicoContasBBean.carregaHistorioEspecial}">#{msg['historico.contas.msg.exibir.detalhe']}</ice:commandLink>
+				</ice:panelGroup>
+			</ice:panelGroup>
+
+
+			<!-- exibe botoes -->
+			<div class="center"> <!-- center -->
+				<ice:panelGroup styleClass="botoes">
+					<ul style="float:center;">
+						<li class="claro">
+							<ice:commandLink action="#{historicoContasBBean.retornar}"  >
+								<f:param name="retornoparam" value="VOLTAR" />
+								<b><span>VOLTAR</span></b>
+							</ice:commandLink>
+						</li>
+						<li class="escuro">
+							<ice:commandLink action="#{auditoriaAcessoBBean.redirectConcluirAtendimento}">
+								<b><span>CONCLUIR</span></b>
+							</ice:commandLink>
+						</li>
+					</ul>						
+				</ice:panelGroup>
+			</div>
+	</ice:panelGroup>
+</ice:panelGroup>	
+</ui:define>
+</ui:composition>	

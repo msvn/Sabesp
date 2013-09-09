@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ice="http://www.icesoft.com/icefaces/component"
+    template="../templates/template.jspx">
+    
+	<ui:define name="content">
+		<ice:form styleClass="common" id="ddd">
+		
+		<div id="calendario"></div>
+		
+			<h2>#{noticiasBBean.titulo}</h2>		
+
+		<ice:panelGroup rendered="#{noticiasBBean.existeMsgErro eq true}" style="border: 1px solid #D2D7D7; width: 95%; background-color: #EDF2F2; padding: 7px 7px 7px 7px; text-align: left; align: center; font: normal 8pt Verdana!important; height: auto;">
+		
+			<ice:graphicImage style="float:left; border: 0px; padding-right: 10px;" url="#{noticiasBBean.caminhoImagemErroSucesso}"/> 
+				<h:messages errorStyle="color: red; font: normal 8pt Verdana!important;" infoStyle="color: green; font: normal 8pt Verdana!important;" layout="table" 
+						showSummary="true" showDetail="false" globalOnly="true"/>
+		</ice:panelGroup>
+
+
+		<input type="hidden" id="cdNoticia" jsfc="h:inputHidden" value="#{noticiasBBean.noticia.cdNoticia}" />
+        
+		<!-- CORPO DA PAGINA -->
+    	<div style="overflow: auto; height: 300px; ">
+    	
+        	
+    	
+			<div id="formularioIce">
+				<div class="obrigatorios">
+					<b class="asterisco">*</b>#{msg['abc.label.camposObrigatorios']}
+				</div>
+				<br class="clear" />
+			    
+				<div id="label"><b class="asterisco">*</b> Título</div>
+
+ 				<input jsfc="h:inputText" onblur="desfocaliza(this)" onfocus="focaliza(this);"
+		          id="titulo" size="75" maxlength="60" type="text" class="texto"
+		          value="#{noticiasBBean.noticia.titulo}"  required="false" style="width: 420px;"/>
+				 <h:message for="titulo" errorClass="error"  fatalClass="error" warnClass="error" />
+				<br class="clear" />
+				<br class="clear" />
+
+				<div id="label"><b class="asterisco">*</b> Subtítulo</div>
+				
+				<div id="textarea">
+				
+					<ice:inputTextarea
+					   onblur="desfocaliza(this)" 
+					   onfocus="focaliza(this);"
+			           id="subTitulo"
+						maxlength="200" styleClass="texto" 
+						style="width:440px; height:50px;"
+			           value="#{noticiasBBean.noticia.subTitulo}"/>
+ 
+				</div>				
+				<br class="clear" />				
+				<br class="clear" />
+				
+				<!-- desc -->
+				<div id="label"><b class="asterisco">*</b> Data de Publicação</div>
+				<div id="data" style="data">
+					
+					<ice:inputHidden value="#{noticiasBBean.dataHidden}" id="dataHidden" />
+					
+					
+					
+					<h:inputText id="dia" value="#{noticiasBBean.dia}" onkeyup="somente_numero(this);" onblur="desfocaliza(this);" onfocus="focaliza(this);" styleClass="texto" size="2" />
+					<h:inputText id="mes" value="#{noticiasBBean.mes}" onkeyup="somente_numero(this);" onblur="desfocaliza(this);" onfocus="focaliza(this);" styleClass="texto" size="2" />
+					<h:inputText id="ano" value="#{noticiasBBean.ano}" onkeyup="somente_numero(this);" onblur="desfocaliza(this);" onfocus="focaliza(this);" styleClass="texto" size="4" />
+					
+					<ice:commandLink onclick="mostraCalendario();return false;" id="btCalendario" onmouseover="exibeToolTipCalendario();">
+						<ice:graphicImage value="/images/calendario.gif" style="float:left;border:0;" />
+					</ice:commandLink>
+
+				</div>
+				<br class="clear" />				
+				<br class="clear" />
+				 
+				<!-- ilust -->   
+				<div id="label">Ilustração</div>		       
+		        <ice:inputFile id="dsCaminhoImagem1" width="600" autoUpload="true"
+		                       progressListener="#{noticiasBBean.fileUploadProgress}"
+		                       actionListener="#{noticiasBBean.uploadFile}" styleClass="impFile"/>
+				<br class="clear" />
+				<!-- file progress -->	
+				<div style="padding-left: 200px;padding-top: 20px;">
+					<ice:outputProgress value="#{noticiasBBean.fileProgress}"/>
+				</div>
+				<br class="clear" />
+				<div id="label">Arquivo</div>				
+	
+				<!-- show uploaded file name -->
+				<ice:outputText id="secaoPrincipalImagem" style="background:#FFFFFF;width: 500px;text-align:left;" value="#{noticiasBBean.uploadSuccess}" />
+				<h:message for="secaoPrincipalImagem" errorClass="error" fatalClass="error" warnClass="error" />
+
+				<br class="clear" />
+				<br class="clear" />
+
+				<div id="label"><b class="asterisco">*</b> Texto</div>	
+		        <ice:inputRichText id="value"
+		                           height="275"
+		                           width="600"
+		                           value="#{noticiasBBean.noticia.textoNoticia}"
+		                           language="pt"
+		                           skin="office2003"
+								   required="false"
+								   saveOnSubmit="true"/>
+				
+				<h:message for="value" errorClass="error" fatalClass="error" warnClass="error" style="float:right;"/>
+			</div>
+			
+		</div>
+			<br class="clear" />
+			<br class="clear" />
+			<div class="new_footer_form">			
+				<ice:commandButton styleClass="botaoSabesp" action="#{noticiasBBean.atualizar}" value="Voltar" immediate="true"/>
+				<ice:commandButton styleClass="botaoSabesp" panelConfirmation="limparConfirmPanel" action="#{noticiasBBean.novaNoticia}" value="Limpar" />
+
+				<ice:commandButton styleClass="botaoSabesp" rendered="#{noticiasBBean.mostraBotaoExcluir}" panelConfirmation="deleteConfirmPanel"  action="#{noticiasBBean.excluir}" value="Excluir" />
+				<ice:commandButton  styleClass="botaoSabesp" action="#{noticiasBBean.salvar}" value="Salvar" immediate="false" />
+
+				<ice:panelConfirmation id="limparConfirmPanel" autoCentre="true"  draggable="true" styleClass="iceMnuPopVrtItemLabel" title="#{msg['tela.confirmacao.titulo']}"   message="#{msg['tela.confirmacao.texto.limpar']}"
+                    acceptLabel="#{msg['tela.confirmacao.acao.limpar']}" cancelLabel="#{msg['tela.confirmacao.acao.cancelar']}"  />
+				<ice:panelConfirmation id="deleteConfirmPanel" autoCentre="true"  draggable="true" styleClass="iceMnuPopVrtItemLabel" title="#{msg['tela.confirmacao.titulo']}"   message="#{msg['av.noticia.add.noticia.excluir']}"
+                    acceptLabel="#{msg['tela.confirmacao.acao.excluir']}" cancelLabel="#{msg['tela.confirmacao.acao.cancelar']}" />
+			</div>
+		<!-- CORPO DA PAGINA -->
+	</ice:form>
+
+</ui:define>
+
+
+
+</ui:composition>
+

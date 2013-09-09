@@ -1,0 +1,275 @@
+*{
+margin:0;
+padding:0;
+}
+BODY
+{
+    MARGIN-TOP: 4px;
+    width: 800px
+}
+TABLE
+{
+    WIDTH: 770px;
+}
+TD TABLE
+{
+    WIDTH: 100%;
+}
+.texto
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 11px;
+    PADDING-BOTTOM: 0px;
+    COLOR: #333333;
+    PADDING-TOP: 0px;
+    FONT-FAMILY: Arial, Helvetica, sans-serif;
+}
+.texto_menor
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 10px;
+    PADDING-BOTTOM: 0px;
+    COLOR: #333333;
+    PADDING-TOP: 0px;
+    FONT-FAMILY: Arial, Helvetica, sans-serif;
+}
+.label
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 10px;
+    PADDING-BOTTOM: 0px;
+    COLOR: #333333;
+    PADDING-TOP: 0px;
+    FONT-FAMILY: Arial, Helvetica, sans-serif;
+}
+.texto_destaque
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 13px;
+    PADDING-BOTTOM: 0px;
+    WIDTH: 98%;
+    COLOR: #333333;
+    PADDING-TOP: 0px;
+    FONT-FAMILY: Arial, Helvetica, sans-serif;
+}
+.volumes_valores TD DIV
+{
+    FONT-SIZE: 10px;
+}
+.l
+{
+    BORDER-LEFT: #333333 2px solid;
+}
+.r
+{
+    BORDER-RIGHT: #333333 2px solid;
+}
+.b
+{
+    BORDER-BOTTOM: #333333 2px solid;
+}
+.t
+{
+    BORDER-TOP: #333333 2px solid;
+}
+.pontilhado
+{
+    BORDER-TOP: #333333 2px dashed;
+}
+.ct
+{
+    TEXT-ALIGN: center;
+}
+.rt
+{
+    TEXT-ALIGN: right;
+}
+.cinza
+{
+    BACKGROUND-IMAGE: url(../imagens/sp_cinza.gif);
+}
+.t_b_margim
+{
+    MARGIN-TOP: 3px;
+    MARGIN-BOTTOM: 3px;
+}
+#conteudo
+{
+	display:table;
+    PADDING-RIGHT: 0px;
+    PADDING-LEFT: 0px;
+    PADDING-BOTTOM: 0px;
+    WIDTH: 770px;
+    PADDING-TOP: 0px;
+    HEIGHT: 380px;
+    TEXT-ALIGN: left;
+}
+.contido {
+        float: left;
+        margin: 0 0 0px 0px;
+		overflow:hidden;
+}
+#linhaCabec
+{
+    PADDING-RIGHT: 0px;
+    PADDING-LEFT: 0px;
+    PADDING-BOTTOM: 0px;
+    MARGIN: 1px 0px 0px 0px;
+    WIDTH: 711px;
+    PADDING-TOP: 0px;
+    HEIGHT: 35px;
+    TEXT-ALIGN: center;
+}
+#logoSabesp
+{
+    MARGIN-TOP: 1px;
+    MARGIN-BOTTOM: 0px;
+    WIDTH: 50px;
+    HEIGHT: 35px;
+    TEXT-ALIGN: center;
+}
+#imagemSabesp
+{
+    WIDTH: 19px;
+    HEIGHT: 26px;
+	padding-top: 5px;
+}
+#OCR
+{
+    PADDING-RIGHT: 0px;
+    PADDING-LEFT: 0px;
+    PADDING-BOTTOM: 0px;
+    MARGIN: 0px;
+    WIDTH: 530px;
+    PADDING-TOP: 0px;
+    HEIGHT: 35px;
+    TEXT-ALIGN: center;
+	line-height:35px;
+}
+#mesref
+{
+    PADDING-RIGHT: 0px;
+    PADDING-LEFT: 0px;
+    PADDING-BOTTOM: 0px;
+    MARGIN: 0px;
+    WIDTH: 231px;
+    PADDING-TOP: 0px;
+    HEIGHT: 35px;
+}
+#codrgi
+{
+    PADDING-RIGHT: 0px;
+    PADDING-LEFT: 0px;
+    PADDING-BOTTOM: 0px;
+    MARGIN: 0px;
+    WIDTH: 180px;
+    PADDING-TOP: 0px;
+    HEIGHT: 35px;
+ }
+#codcliente
+{
+    PADDING-RIGHT: 0px;
+    PADDING-LEFT: 0px;
+    PADDING-BOTTOM: 0px;
+    MARGIN: 0px;
+    WIDTH: 290px;
+    PADDING-TOP: 0px;
+    HEIGHT: 35px;
+}
+#nrconta
+{
+    PADDING-RIGHT: 0px;
+    PADDING-LEFT: 0px;
+    PADDING-BOTTOM: 0px;
+    MARGIN: 0px;
+    WIDTH: 289px;
+    PADDING-TOP: 0px;
+    HEIGHT: 35px;
+}
+#atencao
+{
+    PADDING-RIGHT: 0px;
+    PADDING-LEFT: 0px;
+    PADDING-BOTTOM: 0px;
+    MARGIN: 0px;
+    WIDTH: 150px;
+    PADDING-TOP: 0px;
+    HEIGHT: 107px;
+}
+#textoatencao
+{
+    PADDING-RIGHT: 15px;
+    PADDING-LEFT: 15px;
+    PADDING-BOTTOM: 0px;
+    MARGIN: 0px;
+	margin-top:0px;
+    WIDTH: 120px;
+    PADDING-TOP: 0px;
+    HEIGHT: 60px;
+	font-size:11px;
+}
+#obs
+{
+    PADDING-RIGHT: 0px;
+    PADDING-LEFT: 0px;
+    PADDING-BOTTOM: 0px;
+    MARGIN: 0px;
+    WIDTH: 611px;
+    PADDING-TOP: 0px;
+    HEIGHT: 107px;
+}
+#viaSabesp
+{
+    PADDING-RIGHT: 0px;
+    PADDING-LEFT: 0px;
+    PADDING-BOTTOM: 0px;
+    MARGIN: 0px;
+    WIDTH: 150px;
+    PADDING-TOP: 0px;
+    HEIGHT: 35px;
+    TEXT-ALIGN: center;
+}
+#vencto
+{
+    PADDING-RIGHT: 0px;
+    PADDING-LEFT: 0px;
+    PADDING-BOTTOM: 0px;
+    MARGIN: 0px;
+    WIDTH: 290px;
+    PADDING-TOP: 0px;
+    HEIGHT: 35px;
+}
+#valor
+{
+    PADDING-RIGHT: 0px;
+    PADDING-LEFT: 0px;
+    PADDING-BOTTOM: 0px;
+    MARGIN: 0px;
+    WIDTH: 319px;
+    PADDING-TOP: 0px;
+    HEIGHT: 35px;
+}
+#trans
+{
+    PADDING-RIGHT: 0px;
+    PADDING-LEFT: 0px;
+    PADDING-BOTTOM: 0px;
+    MARGIN: 0px;
+    VERTICAL-ALIGN: middle;
+    WIDTH: 763px;
+    PADDING-TOP: 2px;
+    TOP: 841px;
+    HEIGHT: 17px;
+}
+#barras
+{
+    PADDING-RIGHT: 0px;
+    PADDING-LEFT: 0px;
+    PADDING-BOTTOM: 0px;
+    MARGIN: 0px;
+    VERTICAL-ALIGN: middle;
+    WIDTH: 763px;
+    PADDING-TOP: 0px;
+    HEIGHT: 70px;
+    TEXT-ALIGN: center;
+}

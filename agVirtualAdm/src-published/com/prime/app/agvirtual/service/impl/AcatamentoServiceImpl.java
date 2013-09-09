@@ -1,0 +1,29 @@
+package com.prime.app.agvirtual.service.impl;
+
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.prime.app.agvirtual.dao.AcatamentoDao;
+import com.prime.app.agvirtual.service.AcatamentoService;
+import com.prime.app.agvirtual.to.AcatamentoTO;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+@Service
+public class AcatamentoServiceImpl implements AcatamentoService {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(AcatamentoServiceImpl.class);
+
+    @Autowired
+    AcatamentoDao acatamentoDao;
+
+    @Transactional
+	public List consulta(AcatamentoTO acatamentoTO) {
+		return acatamentoDao.consulta(acatamentoTO);
+	}
+    
+
+}

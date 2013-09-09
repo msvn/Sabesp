@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ice="http://www.icesoft.com/icefaces/component"
+    xmlns:fn="http://www.primeinformatica.com.br/functions" template="../templates/template.jspx">
+
+	<ui:define name="content" >
+	
+		<ice:form styleClass="common" id="ddd">
+		
+		<div id="calendario"></div>
+		<div id="calendarioPesquisa"></div>
+		
+	        <ice:panelGroup>
+				<ice:column rendered="#{pesquisaBBean.pesquisaTO.cdPesquisa == null}">
+					<h2>#{msg['av.pesquisa.incluir']}</h2>
+				</ice:column>
+				<ice:column rendered="#{pesquisaBBean.pesquisaTO.cdPesquisa != null}">
+					<h2>#{msg['av.pesquisa.alterar']}</h2>
+				</ice:column>
+	            
+	            <ice:panelGroup rendered="#{pesquisaBBean.editarPesquisa}" style="margin-left:20px;">
+	            	<ice:graphicImage style="float:left; border: 0px; padding-right: 10px;" url="/images/mensagem_erro.gif"/> 
+		            <ice:outputText 
+		            	value="#{msg['av.pesquisa.alterar.msg']}"
+					 	escape="false" />
+				</ice:panelGroup>
+	            <br class="clear" />
+
+				<ice:panelGroup rendered="#{pesquisaBBean.existeMsgErro eq true}" style="border: 1px solid #D2D7D7; width: 95%; background-color: #EDF2F2; padding: 7px 7px 7px 7px; text-align: left; align: center; font: normal 8pt Verdana!important; height: auto;">
+					<ice:graphicImage style="float:left; border: 0px; padding-right: 10px;" url="#{pesquisaBBean.caminhoImagemErroSucesso}"/> 
+					<h:messages errorStyle="color: red; font: normal 8pt Verdana!important;" infoStyle="color: green; font: normal 8pt Verdana!important;" layout="table" 
+						showSummary="true" showDetail="false" globalOnly="true"/>
+				</ice:panelGroup>		
+
+				<br class="clear" />
+				<div class="obrigatorios">
+					<b class="asterisco">*</b>#{msg['abc.label.camposObrigatorios']}
+				</div>
+				
+				<br class="clear" />
+				<br class="clear" />
+
+				<ice:panelGrid id="painelCampos" columns="2" columnClasses="panelQuestions">
+					
+					<ice:panelGrid id="painelNome" columns="3">
+						<ice:outputLabel value="*" style="color:#CC3300!important;" styleClass="textoTitulo"/>
+						<ice:outputLabel value="#{msg['abc.label.nome']}:" styleClass="textoTitulo"/>
+
+						<ice:column rendered="#{pesquisaBBean.pesquisaTO.cdPesquisa == null}">
+							<h:inputText id="nome" size="50" maxlength="40" onblur="desfocaliza(this);" onfocus="focaliza(this);"
+									value="#{pesquisaBBean.pesquisaTO.nmPesquisa}" styleClass="texto" tabindex="1"/>
+						</ice:column>
+						<ice:column rendered="#{pesquisaBBean.pesquisaTO.cdPesquisa != null}">
+							<h:inputText id="nome" size="50" maxlength="40" onblur="desfocaliza(this);" onfocus="focaliza(this);"
+									value="#{pesquisaBBean.pesquisaTO.nmPesquisa}" styleClass="texto" tabindex="1"/>
+						</ice:column>
+
+					</ice:panelGrid>
+					<ice:column/>
+
+
+				<table border="0">					
+					<tr>
+						<td colspan="2">
+							<h:message for="inicioVigencia" errorClass="error" fatalClass="error" warnClass="error" />
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+						
+							<table border="0">
+				
+								<tr>
+									<td>
+										<ice:outputLabel value="*" style="color:#CC3300!important;" styleClass="textoTitulo"/>
+									</td>
+									<td>	
+										<ice:outputLabel value="#{msg['abc.label.data.inicial.vigencia']}:" styleClass="textoTitulo"/>						
+									</td>
+								</tr>			
+				
+							</table>		
+						
+						</td>
+						<td>
+				
+							<ice:inputHidden value="#{pesquisaBBean.dataHidden}" id="dataHidden" />
+						
+							<h:inputText id="dia" value="#{pesquisaBBean.dia}" onkeyup="somente_numero(this);"  onblur="desfocaliza(this);" onfocus="focaliza(this);" styleClass="texto" size="2" />
+							<h:inputText id="mes" value="#{pesquisaBBean.mes}" onkeyup="somente_numero(this);"  onblur="desfocaliza(this);" onfocus="focaliza(this);" styleClass="texto" size="2" />
+							<h:inputText id="ano" value="#{pesquisaBBean.ano}" onkeyup="somente_numero(this);"  onblur="desfocaliza(this);" onfocus="focaliza(this);" styleClass="texto" size="4" />
+							
+							<ice:commandLink onclick="mostraCalendario();return false;" id="btCalendario" onmouseover="exibeToolTipCalendario();">
+								<ice:graphicImage value="/images/calendario.gif" style="float:left;border:0;" />
+							</ice:commandLink>
+										
+						</td>
+					</tr>
+				</table>
+				
+				<table border="0">					
+					<tr>
+						<td colspan="2">
+							<h:message for="inicioVigencia" errorClass="error" fatalClass="error" warnClass="error" />
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+						
+							<table border="0">
+				
+								<tr>
+									<td>
+										<ice:outputLabel value="*" style="color:#CC3300!important;" styleClass="textoTitulo"/>
+									</td>
+									<td>	
+										<ice:outputLabel value="#{msg['abc.label.data.final.vigencia']}:" styleClass="textoTitulo"/>						
+									</td>
+								</tr>			
+				
+							</table>		
+						
+						</td>
+						<td>
+				
+							<ice:inputHidden value="#{pesquisaBBean.dataHiddenFim}" id="dataHiddenFim" />
+						
+							<h:inputText id="diaFim" value="#{pesquisaBBean.diaFim}" onkeyup="somente_numero(this);" onblur="desfocaliza(this);" onfocus="focaliza(this);" styleClass="texto" size="2" />
+							<h:inputText id="mesFim" value="#{pesquisaBBean.mesFim}" onkeyup="somente_numero(this);" onblur="desfocaliza(this);" onfocus="focaliza(this);" styleClass="texto" size="2" />
+							<h:inputText id="anoFim" value="#{pesquisaBBean.anoFim}" onkeyup="somente_numero(this);" onblur="desfocaliza(this);" onfocus="focaliza(this);" styleClass="texto" size="4" />
+							
+							<ice:commandLink onclick="mostraCalendarioPesquisa();return false;" id="btCalendarioPesquisa" onmouseover="exibeToolTipCalendarioPesquisa();">
+								<ice:graphicImage value="/images/calendario.gif" style="float:left;border:0;" />
+							</ice:commandLink>
+										
+						</td>
+					</tr>
+				</table>				
+					
+					<ice:panelGrid id="leftColumn2" columns="2">
+						<ice:column style="padding: 5px;">
+							<ice:selectOneRadio id="tipoPesquisa"  partialSubmit="true" tabindex="6"
+								value="#{pesquisaBBean.pesquisaTO.tpPesquisa}" valueChangeListener="#{pesquisaBBean.tipoPesquisaChanged}">
+								<f:selectItems id="itensTipoPesquisa" value="#{pesquisaBBean.listTipoPesquisa}"/>
+								<f:converter converterId="javax.faces.Integer"/>
+							</ice:selectOneRadio>
+							<h:message for="tipoPesquisa" errorClass="error" fatalClass="error" warnClass="error" />
+						</ice:column>
+						<ice:column/>
+					</ice:panelGrid>
+					<ice:column/>
+					
+					<ice:panelGrid id="leftColumn4" columns="3">
+						<ice:column>
+							<ice:outputLabel value="*" style="color:#CC3300!important;" styleClass="textoTitulo" rendered="#{pesquisaBBean.pesquisaTO.tpPesquisa == 2}"/>
+						</ice:column>
+						<ice:column>
+							<ice:outputLabel value="#{msg['av.servicos.tabela.subservicos']}:" styleClass="textoTitulo" 
+								rendered="#{pesquisaBBean.pesquisaTO.tpPesquisa == 2}"/>
+						</ice:column>
+						<ice:column>
+							<h:selectOneMenu id="autoatendimento" onblur="desfocaliza(this);" onfocus="focaliza(this);" 
+								value="#{pesquisaBBean.pesquisaTO.agvTabAutoatendimento.cdAutoatendimento}" styleClass="texto"
+								rendered="#{pesquisaBBean.pesquisaTO.tpPesquisa == 2}" tabindex="7">
+								<f:selectItems value="#{pesquisaBBean.listaAutoatendimentos}"/>
+							</h:selectOneMenu>
+							<h:message for="autoatendimento" errorClass="error" fatalClass="error" warnClass="error" />
+						</ice:column>
+					</ice:panelGrid>
+					<ice:column/>
+
+					<ice:panelGrid id="leftColumn5" columns="3">
+						<ice:column>
+							<ice:outputLabel value="*" style="color:#CC3300!important;" styleClass="textoTitulo" rendered="#{pesquisaBBean.pesquisaTO.tpPesquisa == 2}"/>
+						</ice:column>
+						<ice:column>
+							<ice:outputLabel value="#{msg['abc.label.prioridade']}:" styleClass="textoTitulo" 
+								rendered="#{pesquisaBBean.pesquisaTO.tpPesquisa == 2}"/>
+						</ice:column>
+						<ice:column rendered="#{pesquisaBBean.pesquisaTO.tpPesquisa == 2}">
+							<h:inputText id="prioridade" size="5" maxlength="1" onblur="desfocaliza(this);" onfocus="focaliza(this);"
+								value="#{pesquisaBBean.pesquisaTO.nrPrioridade}" styleClass="texto" tabindex="8" onkeyup="somente_numero(this);">
+							</h:inputText>
+						</ice:column>	
+	 
+					</ice:panelGrid>
+					<ice:column/>
+
+					<ice:panelGroup id="painelPerguntas">
+
+						<ice:outputLabel value="#{msg['av.pesquisa.descricao.pergunta']}" styleClass="textoTitulo"/>
+						<h:inputText id="descricaoPergunta" size="60" maxlength="60" onblur="desfocaliza(this);" onfocus="focaliza(this);"
+							value="#{pesquisaBBean.perguntaTO.dsPergunta}" styleClass="texto" tabindex="9"/>
+						<ice:commandButton image="/images/incluir_registro.gif" actionListener="#{pesquisaBBean.addPergunta}" tabindex="10"/>
+
+				        <ice:dataTable id="tablePergunta" var="pergunta" value="#{pesquisaBBean.pesquisaTO.perguntaList}"
+				        	style="width: 100%;">
+				            <ice:column style="width: 95%;">
+								<ice:rowSelector 
+									styleClass=""
+									id="selected"
+	                                enhancedMultiple="false"
+									selectionListener="#{pesquisaBBean.selecionaPergunta}"
+									value="#{pergunta.selected}"
+									/>								
+				                <f:facet name="header">
+									#{msg['av.pesquisa.perguntas']}
+				                </f:facet>
+								<ice:outputText value="#{pergunta.dsPergunta}"/>
+				            </ice:column>
+				            <ice:column>
+				            	<ice:commandLink style="text-align: center;" actionListener="#{pesquisaBBean.removePergunta}">
+									<ice:graphicImage style="border: 0px;" url="/images/excluir_registro.gif"></ice:graphicImage>
+									<f:param name="dsPergunta" value="#{pergunta.dsPergunta}"/>
+				                </ice:commandLink>
+				            </ice:column>
+				        </ice:dataTable>
+
+					</ice:panelGroup>
+
+					
+					<ice:panelGroup rendered="#{pesquisaBBean.showPanelRepostasMessage}">
+			            <b><ice:outputText 
+		            		value="#{msg['av.pesquisa.showpanel.pergunta']}" style="font-size: 9pt;"/></b>
+					</ice:panelGroup>
+
+
+					<ice:panelGroup id="painelRespostas" rendered="#{pesquisaBBean.showPanelRepostas}">
+
+						<ice:outputLabel value="#{msg['av.pesquisa.descricao.resposta']}" styleClass="textoTitulo"/>
+						<h:inputText id="descricaoResposta" size="60" maxlength="60" onblur="desfocaliza(this);" onfocus="focaliza(this);"
+							value="#{pesquisaBBean.respostaTO.dsResposta}" styleClass="texto" tabindex="11"/>
+						<ice:commandButton image="/images/incluir_registro.gif" actionListener="#{pesquisaBBean.addResposta}" tabindex="12"/>
+
+				        <ice:dataTable id="tableResposta" var="resposta" value="#{pesquisaBBean.perguntaSelecionadaView.respostaList}"
+				        	style="width: 100%;">
+				            <ice:column style="width: 70%;">
+				                <f:facet name="header">
+									#{msg['av.pesquisa.respostas']}
+				                </f:facet>
+								<ice:outputText value="#{resposta.dsResposta}"/>
+				            </ice:column>
+							<ice:column style="width: 25%;">
+				                <f:facet name="header">
+									#{msg['av.pesquisa.obs.resposta']}
+				                </f:facet>
+								<ice:selectBooleanCheckbox id="checkObservacao" value="#{resposta.flagObs}" />
+				            </ice:column>
+				            <ice:column>
+				            	<ice:commandLink  style="text-align: center;" actionListener="#{pesquisaBBean.removeResposta}">
+									<ice:graphicImage style="border: 0px;" url="/images/excluir_registro.gif"></ice:graphicImage>
+									<f:param name="dsResposta" value="#{resposta.dsResposta}"/>
+				                </ice:commandLink>
+				            </ice:column>
+				        </ice:dataTable>
+
+					</ice:panelGroup>
+				</ice:panelGrid>
+	        </ice:panelGroup>
+
+			<br class="clear" />
+			<br class="clear" />
+			<div class="new_footer_form">			
+				<ice:commandButton styleClass="botaoSabesp" action="#{pesquisaBBean.atualizar}" value="#{msg['abc.label.voltar']}" />
+				<ice:column rendered="#{pesquisaBBean.pesquisaTO.cdPesquisa == null}">
+					<ice:commandButton styleClass="botaoSabesp" action="#{pesquisaBBean.validarCampos}" value="#{msg['abc.button.save']}" />
+				</ice:column>
+				<ice:column rendered="#{pesquisaBBean.pesquisaTO.cdPesquisa != null}">
+					<ice:commandButton styleClass="botaoSabesp" action="#{pesquisaBBean.validarCampos}" value="#{msg['abc.button.save']}" 
+							panelConfirmation="alterarConfirmPanel"/>
+				</ice:column>
+					<ice:commandButton styleClass="botaoSabesp" action="#{pesquisaBBean.encerrarPesquisa}" value="#{msg['abc.button.encerrar.pesquisa']}"
+							panelConfirmation="deleteConfirmPanel" rendered="#{pesquisaBBean.pesquisaTO.cdPesquisa != null}"/>
+							
+				<ice:panelConfirmation id="deleteConfirmPanel" autoCentre="true"  draggable="true" styleClass="iceMnuPopVrtItemLabel" title="#{msg['tela.confirmacao.titulo']}"   message="#{msg['av.noticia.add.pesquisa.encerra']}"
+                    acceptLabel="#{msg['tela.confirmacao.acao.pesquisa.encerrar']}" cancelLabel="#{msg['tela.confirmacao.acao.cancelar']}" />							
+				<ice:panelConfirmation id="alterarConfirmPanel" autoCentre="true"  draggable="true" styleClass="iceMnuPopVrtItemLabel" title="#{msg['tela.confirmacao.titulo']}"   message="#{msg['av.pesquisa.alterar.msg.dialog']}"
+                    acceptLabel="#{msg['tela.confirmacao.acao.ok']}" cancelLabel="#{msg['tela.confirmacao.acao.cancelar']}" />
+			</div>
+
+
+		</ice:form>  
+<script language="JavaScript" type="text/javascript">
+
+Init('#{facesContext.externalContext.requestContextPath}');
+InitPesquisa('#{facesContext.externalContext.requestContextPath}');
+WYSIWYG.attach('texto'); // default setup
+</script>			    
+	</ui:define>
+
+</ui:composition>

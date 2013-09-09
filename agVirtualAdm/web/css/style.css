@@ -1,0 +1,921 @@
+/* CSS PADRAO DO SITE 
+ESTIOS UNICOS POR PAGINA DEVEM SER CHAMADOS POR ID E ESTILOS REPETIDOS POR CLASS
+--------------------------------------------------------------------------------*/
+
+/* GERAL 
+--------------------------------------------------------------------------------*/
+
+/* Define todos os estilos gerais das páginas (Nao é reconhecido pelo Mozilla) */
+body {
+	font: normal 8pt Verdana;
+	color: #333;
+	padding: 0px;
+	margin: 0px;
+	behavior: url(cssHover.htc)
+} 
+
+/* Controla todas as tags principais */
+h1 {
+	margin: 0px;
+	padding: 0px;
+}
+
+h2 {
+	margin: 0px;
+	padding: 0px;
+}
+	
+form {
+	margin: 0px;
+	padding: 0px;
+}
+
+input{
+	font: bold 8pt Verdana;
+}
+
+a{
+	color: #0066CC;
+	text-decoration: none;
+}
+
+a:hover{
+	color: #0066CC;
+	text-decoration: underline;
+}
+
+a:visited{
+	color: #663399;
+	text-decoration: none;
+}
+
+p {
+	margin: 12px 0px 12px 0px;
+	padding: 0px;
+}
+
+/* Criada para centralizar o conteudo no Firefox */
+#global{
+	width: 100%;
+}
+
+#geral {
+	position: relative;
+	width: 100%;
+	text-align: left;
+}
+
+.frameMenu{
+	border: 0px;
+	padding: 0px 0px 0px 0px;
+	margin: 0px 0px 0px 0px;
+	width="100%";
+}
+
+.floatRight {
+	float: right;
+}
+
+.floatLeft {
+	float: left;
+}
+
+.floatLeftImg{
+	float: left;
+	margin: 0px 10px 10px 0px
+}
+
+/* 	
+	O padrao da tag lista deve ser ser margin ou padding igual a zero. 
+	caso queira colocar um valor diferente dessa em uma lista crie uma nova class usando o !important para diferenciar 
+*/
+
+ul {
+	margin: 0px;
+	padding: 0px;
+	list-style-type: none;
+}
+
+li {
+	margin: 0px;
+	padding: 0px;
+}
+
+.clear{
+	clear: both;
+}
+
+
+/* TOPO 
+--------------------------------------------------------------------------------*/
+#topo{
+	width: 100%;
+	height: 28px;
+	background: url('../images/topo_bg.gif') repeat-x;
+}
+
+#topo h1{
+	font: normal 17pt Verdana!important;
+	color: #FFF;
+	float: left;
+}
+
+#topo a{
+	font: normal 8pt Verdana!important;
+	color: #FFF;
+	text-decoration: none;
+}
+
+#topo img{
+	vertical-align: middle;
+}
+
+#tituloAcesso{
+	width: 100%;
+	height: 24px;
+	border-bottom: 1px solid #D1DFE1;
+	
+}
+
+#tituloAcesso h2{
+	float: left;
+	font: normal 14pt Verdana!important;
+	color: #009999;
+}
+
+#tituloAcesso #acessoRapido{
+	float: right;
+	background-color: #E5F1F6;
+	height: 23px;
+	padding-left:5px;
+}
+
+#tituloAcesso #acessoRapido #acesso{
+	vertical-align: middle;
+	float: left;
+	height: 20px;
+	border-right: 1px solid #FFF;
+	padding-right: 10px;
+}
+
+#tituloAcesso #acessoRapido #acesso img{
+	margin-top: 4px;
+	float: left;
+}
+
+#tituloAcesso #acessoRapido #acesso a{
+	margin: 5px 0px 0px 5px;
+	float: left;
+	display: block;
+}
+
+#tituloAcesso #acessoRapido ul{
+	margin-left: 5px;
+	float: left;
+}
+
+#tituloAcesso #acessoRapido ul li{
+	float: left;
+	padding: 1px 10px 0px 5px;
+}
+
+#tituloAcesso #acessoRapido ul .ultimo{
+	padding: 1px 5px 0px 5px!important;
+}
+
+
+/* MENU 
+--------------------------------------------------------------------------------*/
+	/*Credits: CSSpplay */
+	/*URL: http://www.cssplay.co.uk/menus/pro_seven */
+	#menuSuperior ul {margin:0 auto; padding:0; list-style:none; display:table; white-space:nowrap; list-style:none; height:2em; position:relative; font-size:0.9em;}
+	#menuSuperior li.normal {display:table-cell; margin:0; padding:0;}
+	#menuSuperior li.normal a {display:block; float:left; height:2em; line-height:2em; color:#333; text-decoration:none; font-family:arial, verdana, sans-serif; font-weight:bold; text-align:center; padding:0 0 0 12px; cursor:pointer; background:url(/agvirtualadm/images/pro_seven_0a.gif) no-repeat;}
+	#menuSuperior li.normal a b {float:left; display:block; padding:0 12px 0 0; background:url(/agvirtualadm/images /pro_seven_0b.gif) no-repeat right top;}
+	#menuSuperior li.normal a:hover {color:#000; background: url(/agvirtualadm/images/pro_seven_1a.gif) no-repeat;}
+	#menuSuperior li.normal a:hover b {background:url(/agvirtualadm/images/pro_seven_1b.gif) no-repeat right top;}
+
+	
+	#menuSuperior li.current {display:table-cell; margin:0; padding:0;}
+	#menuSuperior li.current a {display:block; float:left; height:2em; line-height:2em; color:#333; text-decoration:none; font-family:arial, verdana, sans-serif; font-weight:bold; text-align:center; padding:0 0 0 12px; cursor:pointer; background:url(/agvirtualadm/images/pro_seven_2a.gif) no-repeat;}
+	#menuSuperior li.current a b {float:left; display:block; padding:0 12px 0 0; background:url(/agvirtualadm/images/pro_seven_2b.gif) no-repeat right top;}
+	#menuSuperior li.current a:hover {color:#000; background: url(/agvirtualadm/images/pro_seven_2a.gif) no-repeat;}
+	#menuSuperior li.current a:hover b {background:url(/agvirtualadm/images/pro_seven_2b.gif) no-repeat right top;}	
+	
+	#menuSuperior{
+		float: left;
+	}
+
+
+/* CONTEUDO 
+--------------------------------------------------------------------------------*/
+#conteudo{
+	width: 100%;
+}
+
+/* TEMPLATE ERRO*/
+#erro{
+	font: normal 8pt Verdana!important;
+	color: #cc3300!important;
+	border: 1px solid #D2D7D7;
+	background: url('../images//mensagem_erro.gif') #EDF2F2 no-repeat 8px 12px;
+	padding: 10px 10px 10px 37px;
+} 
+
+/* TEMPLATE SAIR*/
+
+#sair{
+	text-align: center;
+	background-color: #E4EAEC;
+	width: 430px;
+	height: 360px;
+	margin-top: 1px;
+}
+
+#sair h3{
+	font: normal 8pt Verdana!important;
+	color: #009999;
+	font-weight: bold;
+	padding: 40px 0px 20px 0px;
+	margin: 0px!important;
+}
+
+#sair input{
+	margin: 0px 20px 0px 20px;
+	color: #ffffff;
+	background-color: #0195a7;
+	border-width:1px;
+	height: 22px;
+	padding: 0px 7px 0px 7px;	
+	text-align: center;
+}
+
+/* TEMPLATE LOGIN*/
+
+#login{
+	text-align: center;
+	background: url('../images/fundoLogin.gif');
+	width: 100%;
+	height: 600px;
+	margin-top: 1px;
+}
+
+#login h3{
+	font: bold 8pt Verdana!important;
+	color: #009999;
+	font-weight: bold;
+	padding: 40px 0px 20px 0px;
+	margin: 0px!important;
+}
+
+#login #campos{
+
+	margin: 0px 15px 0px 15px;
+	text-align: center;
+	width: 100%;
+}
+
+#login #campos input{
+	margin: 0px 0px 0px 0px;
+	width: 100px;
+}
+
+
+#login #campos span{
+	font-weight: bold;
+}
+
+
+#login #esqueceu{
+	float: left;
+	margin-top:47px;
+}
+
+#login #ok{
+	color: #ffffff;
+	background-color: #0195a7;
+	border-width:1px;
+	height: 22px;
+	padding: 0px 7px 0px 7px;	
+	text-align: center;
+}
+
+/* TEMPLATE TITULOS*/
+
+#conteudo h4{
+	background-color: #009999;
+	font: bold 8pt Verdana!important;
+	color: #FFF;
+	width: 685px;
+	height: 19px;
+	margin: 0px;
+	padding: 5px 0px 0px 5px;
+} 
+
+#conteudo h5{
+	font: bold 8pt Verdana!important;
+	width: 690px;
+	margin: 0px;
+	padding: 0px;
+	color: #333;
+}
+
+#conteudo #contentTable{
+	border: 1px solid #333;
+	width: 679px;
+	margin-top: 3px;
+	padding: 10px 0px 10px 9px;
+}
+
+#conteudo #contentTable table{
+	width: 670px; 
+}
+
+#conteudo #contentTable table tr th{
+	background-color: #3D94B4;
+	font: bold 8pt Verdana!important;
+	color: #FFF!important;
+	width: 670px;
+	height: 24px;
+	text-align: center;
+}
+
+#conteudo #contentTable table tr td{
+	padding: 0px 5px 0px 5px;
+}
+
+#conteudo #contentTable table .azul{
+	background-color: #D7EBF1;
+	width: 670px;
+	height: 24px;
+}
+
+#conteudo #contentTable table .azulTotal{
+	background-color: #D7EBF1;
+	width: 670px;
+	font-weight: bold;
+	height: 24px;
+}
+
+#conteudo #contentTable table tr .setaBaixo{
+	display: block;
+	float: right;
+	background: url('../images/ordenacao_decrescente.gif') no-repeat;
+	width: 16px;
+	height: 16px;
+	margin-right: 1px;
+}
+
+#conteudo #contentTable table tr .setaCima{
+	display: block;
+	float: right;
+	background: url('../images/ordenacao_crescente.gif') no-repeat;
+	width: 16px;
+	height: 16px;
+	margin-right: 1px;
+}
+
+#conteudo #contentTable table .claro{
+	height: 20px;
+	padding: 0px 0px 0px 5px;
+}
+
+#conteudo #contentTable table .escuro{
+	background-color: #EBEBEB;
+	height: 20px;
+	padding: 0px 0px 0px 5px;
+}
+
+#conteudo #contentTable table .claroSelecionado{
+	background-color: #EBEBEB;
+	height: 20px;
+	padding: 0px 0px 0px 5px;
+}
+
+/* TEMPLATE TABELA */
+
+
+#conteudo #tables{
+	width: 100%;
+	margin-top: 3px;
+	padding: 0px 0px 10px 0px;
+}
+
+#conteudo #tables  table{
+	width: 100%; 
+}
+
+#conteudo #tables a{
+	color: #000000;
+	text-decoration: none;
+}
+
+#conteudo #tables a:hover{
+	color: #0066CC;
+	text-decoration: underline;
+}
+
+#conteudo #tables a:visited{
+	color: #000000;
+	text-decoration: none;
+}
+
+#conteudo #tableTitulo{
+	width: 100%;
+	margin-top: 3px;
+	padding: 10px 0px 0px 0px;
+}
+
+#conteudo #tableTitulo  table{
+	width: 100%; 
+}
+
+#conteudo #tableTitulo table tr th{
+	background-color: #3D94B4;
+	font: bold 8pt Verdana!important;
+	color: #FFF!important;
+	width: 100%;
+	height: 24px;
+	text-align: center;
+}
+
+#conteudo #tables table tr th{
+	background-color: #3D94B4;
+	font: bold 8pt Verdana!important;
+	color: #FFF!important;
+	height: 24px;
+	text-align: center;
+}
+
+#conteudo #tables td{
+	cursor: pointer;
+}
+
+#conteudo #tables td.tdBloqueio{
+	cursor: default;
+}
+
+#conteudo #tables table .azul{
+	background-color: #D7EBF1;
+	width: 100%;
+	height: 24px;
+}
+
+#conteudo #tables table .azulTotal{
+	background-color: #D7EBF1;
+	width: 100%;
+	font-weight: bold;
+	height: 24px;
+}
+
+#conteudo #tables table tr .setaBaixo{
+	display: block;
+	float: right;
+	background: url('../images/ordenacao_decrescente.gif') no-repeat;
+	width: 16px;
+	height: 16px;
+	margin-right: 1px;
+}
+
+#conteudo #tables table tr .setaCima{
+	display: block;
+	float: right;
+	background: url('../images/ordenacao_crescente.gif') no-repeat;
+	width: 16px;
+	height: 16px;
+	margin-right: 1px;
+}
+
+#conteudo #tables table .claro{
+	height: 20px;
+	padding: 0px 0px 0px 5px;
+}
+
+#conteudo #tables table .escuro{
+	background-color: #EBEBEB;
+	height: 20px;
+	padding: 0px 0px 0px 5px;
+}
+
+#conteudo #tables table .claroSelecionado{
+	background-color: #FFFACD;
+	height: 20px;
+	padding: 0px 0px 0px 5px;
+}
+
+
+/* TEMPLATE AJUDA*/
+
+#conteudo #destaque{
+	clear: both;
+	display: block;
+	height: 104px;
+}
+
+#conteudo #destaque p{
+	background-color: #D7EBF1;
+	float: left;
+	width: 480px;
+	padding: 10px 15px 10px 15px;
+	height: 84px;
+	margin: 0px 1px 0px 0px!important;
+}
+
+#conteudo .listaLinks{
+	float: left;
+	width: 177px;
+}
+
+#conteudo .listaLinks li{
+	border-bottom: 1px solid #FFF;
+	height: 17px;
+	background: url('../images/link_destaque.gif') no-repeat 2px 2px #D7EBF1;
+	padding: 3px 0px 0px 20px;
+}
+
+/* TEMPLATE IMPRESSÂO */
+
+@media print{
+	#topo img{
+		display: none;
+	}
+	
+	#topo h1{
+		font: bold 17pt Verdana!important;
+		color: #3399cc;
+		float: left;
+	}
+	
+	#tituloAcesso h2{
+		float: left;
+		font: bold 14pt Verdana!important;
+		color: #009999;
+	}
+	
+	#conteudo{
+		width: 100%;
+		padding-left: 0px;
+	}
+	
+	#tituloAcesso{
+		width: 100%;
+		height: 24px;
+		border-bottom: 1px solid #D1DFE1;
+		padding-left: 0px;
+	}
+	
+	#tituloAcesso #acessoRapido{
+		display: none;
+	}
+
+	#tituloAcesso #acessoRapido #acesso{
+		display: none;
+	}
+}
+
+/* TEMPLATE TITULOS*/
+#formulario .obrigatorios{
+	color: #CC3300;
+}
+
+#formulario span{
+	display: block;
+	width: 190px;
+	float: left;
+	text-align: right;
+	font-weight: bold;
+	margin: 2px 10px 0px 0px;
+}
+
+#formulario span.titulo{
+	display: block;
+	width: 190px;
+	float: left;
+	text-align: right;
+	font-weight: bold;
+	margin: 2px 10px 0px 0px;
+	font: normal 14pt Verdana!important;
+	text-decoration: underline;
+}
+
+#formulario .asterisco{
+	color: #CC3300!important;
+	width: 5px;
+	font-weight: bold;
+	margin: 2px 0px 0px 0px;
+	float: none!important;
+}
+
+#formulario .texto{
+	float: left;
+	background-color: #E0EEF5;
+	border: 1px solid #7F9DB9;
+	font: normal 8pt Verdana!important;
+	margin: 0px 5px 4px 0px;
+}
+
+#formulario .textoDefinidos{
+	float: left;
+	background-color: #FFFFFF;
+	border: 1px solid #7F9DB9;
+	font: normal 8pt Verdana!important;
+	margin: 0px 5px 4px 0px;
+}
+
+#formulario a{
+	float: left;
+	margin: 2px 0px 0px 0px;
+	width: 120px;
+}
+
+#formulario .textoDefinidosValor{
+	float: left;
+	background-color: #FFFFFF;
+	border: 1px solid #7F9DB9;
+	font: normal 8pt Verdana!important;
+	margin: 0px 5px 4px 0px;
+	text-align: right;
+}
+
+#formulario .direita .descricao{
+	margin-left: 20px;
+	display: block;
+	float: left;
+	width: 100px;
+}
+
+#formulario .direita .barra{
+	width: 2px;
+	font-weight: normal;
+	margin: 2px 6px 0px 0px;
+}
+
+#formulario .barra{
+	width: 2px;
+	font-weight: normal;
+	margin: 2px 6px 0px 0px;
+}
+
+#formulario select{
+	width: 98px;
+	float: left;
+}
+
+#formulario .textoData{
+	float: left;
+	background-color: #E0EEF5;
+	border: 1px solid #7F9DB9;
+	font: normal 8pt Verdana!important;
+	margin: 0px 5px 4px 0px;
+}
+
+#formulario .focaliza{
+	background-color: #9FD2E2!important;
+	float: left;
+	border: 1px solid #7F9DB9;
+	font: normal 8pt Verdana!important;
+	margin: 0px 5px 4px 0px;
+}
+
+#formulario .desfocaliza{
+	background-color: #E0EEF5;
+	float: left;
+	border: 1px solid #7F9DB9;
+	font: normal 8pt Verdana!important;
+	margin: 0px 5px 4px 0px;
+}
+
+#formulario #radio{
+	float: left;
+	width: 100%;
+	margin-top: 3px;
+	margin-left: 100px;
+}
+
+#formulario #checkbox{
+	float: left;
+	width: 255px;
+	margin-top: 3px;
+}
+
+#formulario textarea{
+	background-color: #E0EEF5;
+	float: left;
+	border: 1px solid #7F9DB9;
+	font: normal 8pt Verdana!important;
+	margin: 0px 5px 4px 0px;
+}
+
+#formulario #botoes{
+	text-align: left;
+	background-color: #e4eaec;
+	width: 100%;
+	height: 32px;
+	padding: 0px 0px 0px 190px;
+}
+
+#formulario #botoes input{
+	color: #ffffff;
+	background-color: #0195a7;
+	border-width:1px;
+	height: 22px;
+	padding: 0px 7px 0px 7px;	
+	text-align: center;
+	margin: 5px 7px 0px 7px;
+}
+
+#tables input.inputBloqueio{
+	color: #ffffff;
+	background-color: #0195a7;
+	border-width:1px;
+	height: 22px;
+	padding: 0px 7px 0px 7px;	
+	text-align: center;
+	margin: 5px 7px 0px 7px;
+}
+
+#tables #botoes input.botaoBloqueio{
+	color: #ffffff;
+	background-color: #0195a7;
+	border-width:1px;
+	height: 19px;
+	text-align: center;
+	float: left;
+	margin: 0px 0px 0px 10px;
+}
+
+#formularioLista #botoes{
+	text-align: left;
+	background-color: #e4eaec;
+	width: 100%;
+	height: 32px;
+}
+
+#formularioLista #botoes input{
+	color: #ffffff;
+	background-color: #0195a7;
+	border-width:1px;
+	height: 22px;
+	padding: 0px 7px 0px 7px;	
+	text-align: center;
+	margin: 5px 7px 0px 7px;
+}
+
+.calendario{
+	float: left;
+	margin-right: 20px;
+	margin-left: 70px;
+	cursor:pointer;
+}
+
+#calendario{
+
+	display: none;
+	position: absolute;
+	top: 250px;
+	left: 500px;
+	background-color: #336666;
+	padding: 4px;
+	font: normal 8pt Verdana!important;
+	color: #FFF;
+	width: 190px;
+	height: 190px;
+}
+
+#calendario table{
+	width: 100%;
+	border: none;
+}
+
+#calendario table tr td{
+	height: 20px;
+}
+
+#calendario table tr th{
+	font: normal 8pt Verdana!important;
+	color: #00FFFF;
+	padding-top: 2px;
+}
+
+#calendario .controla{
+	font: bold 8pt Verdana!important;
+	height: 25px;
+}
+
+#calendario .controla .esquerda{
+	float: left;
+	vertical-align: middle;
+	dispaly: block;
+}
+
+#calendario .controla{
+	width: 190px;
+}
+
+#calendario .controla .direita{
+	float: right;
+	vertical-align: middle;
+	dispaly: block;
+}
+
+#calendario .mes{
+	display:none;
+}
+		
+#calendario table tr td .marcado{
+	background-color: #339999;
+	display: block;
+	height: 17px;
+	padding-top: 3px;
+}
+		
+#calendario table tr td span{
+	cursor:pointer;
+}
+
+#calendario .mes{
+	text-align: center;
+}
+
+/* TEMPLATE PAGINACAO*/
+
+#conteudo #itens{
+	float: right;
+	color: #009999;
+}
+
+#conteudo #nomeLista{
+	float: left;
+	color: #009999;
+}
+
+#conteudo #controlePaginacao{
+	border-top: 1px solid #E4EAEC;
+	margin-top: 1px;
+	background-color: #E4EAEC;
+	color: #009999;
+	width: 560px;
+	text-align: center;
+	padding: 5px;
+	padding-left: 130px;
+}
+
+#conteudo #controlePaginacao #irPara{
+	float: right;
+}
+
+#conteudo #controlePaginacao #linksControle{
+	float: left;
+	width: 360px;
+}
+
+
+#conteudo #controlePaginacao .ok{
+	color: #ffffff;
+	background-color: #0195a7;
+	border-width:1px;
+	height: 22px;
+	padding: 0px 3px 0px 3px;	
+	text-align: center;
+}
+
+#conteudo #controlePaginacao .botao{
+	color: #ffffff;
+	background-color: #0195a7;
+	border-width:1px;
+	height: 22px;
+	padding: 0px 5px 0px 5px;	
+	text-align: center;
+	margin: 5px 7px 0px 7px;
+}
+
+#aviso {
+	border: 1px solid #DAA520;
+	width: 95%;
+	background-color: #FFFACD;
+	padding: 5px 5px 5px 5px;
+	text-align: left;
+	align: center;
+}
+
+#aviso img.valign{
+	width: 0px;
+	height:100%;
+	vertical-align:middle;
+}
+
+/* ROPDAPE 
+--------------------------------------------------------------------------------*/
+
+
+#botaoSabesp {
+background-color:#0195A7;
+border-width:1px;
+color:#FFFFFF;
+height:22px;
+margin:5px 7px 0;
+padding:0 7px;
+text-align:center;
+}
+
+	

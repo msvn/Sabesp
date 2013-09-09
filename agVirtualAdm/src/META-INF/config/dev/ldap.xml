@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       					   http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd">
+
+	<bean id="contextSource"
+		class="org.springframework.ldap.pool.factory.PoolingContextSource">
+		<property name="contextSource" ref="contextSourceTarget" />
+	</bean>
+
+	<bean id="contextSourceTarget" class="org.springframework.ldap.core.support.LdapContextSource">
+		<property name="url" value="ldap://corp25.ti.sabesp.com.br:389" />
+		<property name="base" value="ou=sistemas,O=SABESP.COM" />
+		<property name="userDn" value="uid=bindAgVirt,ou=agvirt,ou=sistemas,O=SABESP.COM" />
+		<property name="password" value="sabesp99" />
+		<property name="pooled" value="true" />
+		<property name="baseEnvironmentProperties">
+			<map>
+				<entry key="java.naming.referral" value="follow" />
+				<entry key="com.sun.jndi.ldap.connect.timeout" value="10000" />
+			</map>
+		</property>
+	</bean>
+
+	<bean name="ldapTemplate"
+		class="org.springframework.ldap.core.simple.SimpleLdapTemplate">
+		<constructor-arg type="org.springframework.ldap.core.ContextSource"
+			ref="contextSourceTarget" />
+	</bean>
+
+</beans>

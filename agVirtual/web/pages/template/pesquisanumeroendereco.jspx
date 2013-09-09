@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ice="http://www.icesoft.com/icefaces/component">
+    
+
+
+				<ice:panelGroup styleClass="boxrgiresultadopesquisa">
+						<ice:panelGrid border="0" columns="2" style="font-size: 12px;clear: both;width:280px;">
+
+							<ice:outputLabel style="font-weight:bold;padding:5px;"><h:outputText value="#{msg['pesquisa.txt.titulo.endereco']}" /></ice:outputLabel>
+
+							<h:outputText value="#{backbean.nomeEnderecoView}"/>
+
+							<ice:outputLabel style="font-weight:bold;padding:5px;"><h:outputText value="#{msg['suaconta.txt.debitoautomatico.bairro']}" /></ice:outputLabel>
+ 
+							<h:outputText value="#{backbean.nomeBairroView}"/>
+
+							<ice:outputLabel style="font-weight:bold;padding:5px;"><h:outputText value="#{msg['pesquisa.txt.titulo.municipio']}" /></ice:outputLabel>
+
+							<h:outputText value="#{backbean.nomeMunicipioSelecionadoView}"/>
+ 
+
+						</ice:panelGrid>
+				</ice:panelGroup>
+
+				<ice:panelGroup styleClass="boxrgipesquisa">
+					
+						<table border="0" style="font-size: 12px;clear: both;width:280px;">
+							<tr>
+								<td><h:outputText value="#{msg['pesquisa.txt.titulo.pesquisarnumero']}" /></td>
+								<td><h:inputText styleClass="inputfiltrorgi" value="#{backbean.numeroEnderecoView}" /></td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									<ice:panelGroup styleClass="botoes">
+													<ul style="float:left;">
+														<li class="claro"><ice:commandLink actionListener="#{backbean.pesquisarEndereco}" ><b><span>PESQUISAR ENDEREÇO</span></b></ice:commandLink></li>
+													</ul>						
+									</ice:panelGroup>
+								</td>
+							</tr>
+						</table>
+					
+				</ice:panelGroup>
+
+				<br/>
+
+				<ice:panelGroup style="clear: both;">
+					
+					<ice:dataTable
+						rows="5"
+				        var="endereco"
+				        value="#{backbean.dadosImoveisTO.listaNumerosEndereco}"
+						rowClasses="row1,row2"
+						width="100%"
+						id="table">
+
+						<ice:column>
+							<ice:rowSelector id="selected"
+		                                 multiple="#{false}"
+		                                 enhancedMultiple="#{false}"                                 
+		                                 preStyleOnSelection="false" 
+										 selectionListener="#{backbean.selecionaRegistroEndereco}" >										
+							</ice:rowSelector>
+							<f:facet name="header">
+								<ice:outputLabel value="Número do Imóvel" />
+							</f:facet>
+							<ice:outputLabel value="#{endereco.nrEndereco}" />
+						</ice:column>
+
+						<ice:column>
+							<f:facet name="header">
+								<ice:outputLabel value="Complemento" />
+							</f:facet>
+							<ice:outputLabel value="#{endereco.dsComplemento}" />
+						</ice:column>
+
+					</ice:dataTable>
+					<ui:include src="../template/paginator.jspx">
+						<ui:param name="tabela" value="table" />
+					</ui:include>				
+				</ice:panelGroup>	
+
+
+				<table border="0" width="100%">
+				<tr>
+					<td align="center">
+						<ice:panelGroup styleClass="botoes" style="clear: both;">
+						<br />
+
+						<ul>
+		
+							<li class="claro">
+								<ice:commandLink action="#{backbean.retornar}">
+									<f:param name="retornoparam" value="#{retornoparam}" />
+									<b><span>VOLTAR</span></b>
+								</ice:commandLink>
+							</li>
+							
+							<li class="claro">
+								<ice:commandLink action="#{backbean.prosseguir}">
+									<f:param name="outcomeparam" value="#{outcomeparam}" />
+									<b><span>PROSSEGUIR</span></b>
+								</ice:commandLink>
+							</li>					
+		
+						</ul>					
+						
+						</ice:panelGroup>
+					</td>
+				</tr>
+				</table>
+
+
+</ui:composition>  

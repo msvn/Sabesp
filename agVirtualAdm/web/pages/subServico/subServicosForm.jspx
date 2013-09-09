@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ice="http://www.icesoft.com/icefaces/component"
+    xmlns:fn="http://www.primeinformatica.com.br/functions" template="../templates/template.jspx">
+	
+	 <ui:define name="content" >
+     	<ice:form styleClass="common" id="ddd">
+			<h2>#{subServicosBBean.titulo}</h2>		
+				
+			<ice:panelGroup rendered="${subServicosBBean.existeMsgErro eq true}" style="border: 1px solid #D2D7D7; width: 95%; background-color: #EDF2F2; padding: 7px 7px 7px 7px; text-align: left; align: center; font: normal 8pt Verdana!important; height: auto;">
+				<ice:graphicImage style="float:left; border: 0px; padding-right: 10px;" url="#{subServicosBBean.caminhoImagemErroSucesso}"/> 
+				<h:messages errorStyle="color: red; font: normal 8pt Verdana!important;"  infoStyle="color: green; font: normal 8pt Verdana!important;" layout="table" 
+				showSummary="true" showDetail="false" globalOnly="true"/>
+			</ice:panelGroup>
+
+			<input type="hidden" id="cdSubservico" jsfc="h:inputHidden" value="#{subServicosBBean.subServico.cdSubservico}"/>
+
+
+		<!--  >/ice:panelGrid-->
+
+		<!-- CORPO DA PAGINA -->
+    	<div style="overflow: auto; height: 300px; ">
+    	
+    		<div id="calendario"></div>
+    		
+			<div id="formularioIce">				
+				<div class="obrigatorios">
+					<b class="asterisco">*</b> campos obrigatórios
+				</div>
+				<br class="clear" />
+
+
+				<div id="label">Última Atualização</div> 
+				
+				 <input jsfc="h:inputText"  readonly="false"
+		          id="dataAtualizacao" size="30" maxlength="30" type="text" class="desfocaliza" style="width: 90px;"
+		          value="#{subServicosBBean.dataAtualizacaoTO}" required="false" onkeypress="javascript:return false;" /> <h:message
+		          for="name" errorClass="error" fatalClass="error" warnClass="error" />
+				
+				<br class="clear" />
+				<br class="clear" />
+				<div id="label"><b class="asterisco">*</b> Nome</div>
+				
+				 <input jsfc="h:inputText" onblur="desfocaliza(this)" onfocus="focaliza(this);"
+		          id="dsSubservico" size="120" maxlength="65" type="text" class="desfocaliza" style="width: 250px;"
+		          value="#{subServicosBBean.subServico.dsSubservico}" required="false" />
+				<br class="clear" />
+				<br class="clear" />
+
+				<div id="label"><b class="asterisco">*</b> Data de Publicação</div>
+				<div id="data" style="data"> 
+				
+					<ice:inputHidden value="#{subServicosBBean.dataHidden}" id="dataHidden" />
+					
+					<h:inputText id="dia" value="#{subServicosBBean.dia}" onkeyup="somente_numero(this);"  onblur="desfocaliza(this);" onfocus="focaliza(this);" styleClass="texto" size="2" />
+					<h:inputText id="mes" value="#{subServicosBBean.mes}" onkeyup="somente_numero(this);"  onblur="desfocaliza(this);" onfocus="focaliza(this);" styleClass="texto" size="2" />
+					<h:inputText id="ano" value="#{subServicosBBean.ano}" onkeyup="somente_numero(this);"  onblur="desfocaliza(this);" onfocus="focaliza(this);" styleClass="texto" size="4" />
+					
+					<ice:commandLink onclick="mostraCalendario();return false;" id="btCalendario" onmouseover="exibeToolTipCalendario();">
+						<ice:graphicImage value="/images/calendario.gif" style="float:left;border:0;" />
+					</ice:commandLink>
+ 												
+				</div>
+				<br class="clear" />				
+				<br class="clear" />
+
+				<div id="label"><b class="asterisco">*</b> Prazo para atendimento</div>
+					
+					<ice:inputTextarea 
+						id="dsPrazoAtend"
+                        onblur="desfocaliza(this);" 
+                        onfocus="focaliza(this);" 
+	                    maxlength="50" 
+	                    styleClass="desfocaliza" 
+	                    style="width:320px;height:50px;"
+	                    value="#{subServicosBBean.subServico.dsPrazoAtend}"/>	
+					
+						Ex.: "10 dias úteis"
+						
+
+				<br class="clear" />
+				<br class="clear" />
+
+				<div id="label">Formas de pagamento</div>
+				
+					<ice:inputTextarea 
+						id="dsFormaPgto"
+                        onblur="desfocaliza(this);" 
+                        onfocus="focaliza(this);" 
+	                    maxlength="50" 
+	                    styleClass="desfocaliza" 
+	                    style="width:320px;height:50px;"
+	                    value="#{subServicosBBean.subServico.dsFormaPgto}"/>				
+						Ex.: "Débito em conta"<h:message
+			           for="name" errorClass="error" fatalClass="error" warnClass="error" />
+
+				<br class="clear" />
+				<br class="clear" />
+
+				<div id="label"><b class="asterisco">*</b> Condições para execução</div>
+				
+				<ice:inputTextarea 
+						id="dsCondExec"
+                        onblur="desfocaliza(this);" 
+                        onfocus="focaliza(this);" 
+	                    maxlength="200" 
+	                    styleClass="desfocaliza" 
+	                    style="width:320px;height:50px;"
+	                    value="#{subServicosBBean.subServico.dsCondExec}"/>
+						<h:message
+			           		for="dsCondExec" errorClass="error" fatalClass="error" warnClass="error" />
+						Digite as condições para que o serviço seja executado
+
+				<br class="clear" />
+				<br class="clear" />
+				
+				<div id="label"> Exibir Guia de Serviços</div>
+				<input jsfc="h:selectBooleanCheckbox"
+	            id="flagPublicGuia" size="15" type="text" class="campoTexto"
+	            value="#{subServicosBBean.subServico.flagPublicGuia}" /> <h:message
+	            for="name" errorClass="error" fatalClass="error" warnClass="error" />
+					Define se o subserviço será exibido no Guia de Serviços
+
+				<br class="clear" />	
+				<br class="clear" />
+
+				<div id="label">Exibir Tabela de preços</div>
+
+				<input jsfc="h:selectBooleanCheckbox"
+	            id="flagPublicTabPrecos" size="15" type="text" class="campoTexto"
+	            value="#{subServicosBBean.subServico.flagPublicTabPrecos}" required="false" /> <h:message
+	            for="name" errorClass="error" fatalClass="error" warnClass="error" />	
+				Define se o subserviço será exibido na Tabela de Preços
+
+				<br class="clear" />	
+				<br class="clear" />
+	
+					
+				<div id="label"> Código do Grupo do Serviço no CSI</div>	
+				
+				 <input jsfc="h:inputText" onblur="desfocaliza(this)" onfocus="focaliza(this);"
+		          id="cdServicoCsi" size="80" maxlength="2" type="text" class="desfocaliza" style="width: 50px;"
+		          value="#{subServicosBBean.subServico.cdServicoCsi}" /> 
+				  <h:message for="cdServicoCsi" errorClass="error" fatalClass="error" warnClass="error" />
+
+				<div id="label"> Código do Serviço Comercial no CSI</div>	
+
+				 <input jsfc="h:inputText" onblur="desfocaliza(this)" onfocus="focaliza(this);"
+		          id="cdSerCom" size="80" maxlength="4" type="text" class="desfocaliza" style="width: 50px;"
+		          value="#{subServicosBBean.subServico.cdSerCom}" /> 
+				  <h:message for="cdSerCom" errorClass="error" fatalClass="error" warnClass="error" />
+	
+				<div id="label"> Código do serviço Executado no CSI</div>	
+	
+				 <input jsfc="h:inputText" onblur="desfocaliza(this)" onfocus="focaliza(this);"
+		          id="cdServExe" size="80" maxlength="3" type="text" class="desfocaliza" style="width: 50px;"
+		          value="#{subServicosBBean.subServico.cdServExe}" /> 
+				  <h:message for="cdServExe" errorClass="error" fatalClass="error" warnClass="error" />
+
+
+				<br class="clear" />	
+				<br class="clear" />
+
+				<div id="label"> Descrição para Preço</div>
+				
+				 <input jsfc="h:inputText" onblur="desfocaliza(this)" onfocus="focaliza(this);"
+		          id="dsPreco" size="80" maxlength="50" type="text" class="desfocaliza" style="width: 250px;" 
+		          value="#{subServicosBBean.subServico.dsPreco}" /> 
+				 <h:message for="dsPreco" errorClass="error" fatalClass="error" warnClass="error" />
+				 Preencher apenas quando não se deseja que o preço seja consultado no CSI
+
+				<br class="clear" />	
+				<br class="clear" />
+
+				<div id="label">Link na Agência Virtual</div>
+				
+				<input jsfc="h:inputText" onblur="desfocaliza(this)" onfocus="focaliza(this);"
+		          id="dsLink" size="80" maxlength="65" type="text" class="desfocaliza" style="width: 250px;"
+		          value="#{subServicosBBean.subServico.dsLink}" required="false" /> <h:message
+		          for="name" errorClass="error" fatalClass="error" warnClass="error" />
+					Ex.: http://www.sabesp.com.br/
+
+				<br class="clear" />	
+				<br class="clear" />
+
+				
+<!--
+				<div id="formulario">
+	 				<ice:panelGroup styleClass="exampleBox inputFileContainer">
+						<span><b class="asterisco">*</b> Documentos.</span>
+						<select id="documentos"  jsfc="h:selectOneMenu" onblur="desfocaliza(this)" onfocus="focaliza(this);" 
+								value="#{subServicosBBean.codDocumento}" style="width:270px" class="texto">
+							<f:selectItems value="#{subServicosBBean.listaDocumentos}"/>
+						</select>
+						<ice:commandButton  
+						 image="/images/incluir_registro.gif"    
+						 actionListener="#{subServicosBBean.adicionarDocumento}"  />
+						<h:message for="codDocumento" errorClass="error" fatalClass="error" warnClass="error" />
+						<ice:outputText
+			                value="#{msgs['av.subservicos.form.listagem.documento']}"/>
+				        <ice:dataTable
+				                width="650px"  var="row"
+				                value="#{subServicosBBean.listaDocumentoAdicionados}"
+				               	>
+				            <ice:column>
+				                <f:facet name="header">
+									<ice:outputLabel value="Documento"/>
+				                </f:facet>
+								#{row.nmDocumento}			
+				            </ice:column>
+				            <ice:column>
+				               <ice:commandLink   
+										value="delete"  
+				                        actionListener="#{subServicosBBean.excluirDocumento}">
+				                    <f:param  name="codDocumentoParam" value="#{row.cdDocumento}"/>
+				                </ice:commandLink>
+				            </ice:column>
+				        </ice:dataTable>
+					</ice:panelGroup>
+
+					<ice:panelGroup styleClass="exampleBox inputFileContainer">
+						<span><b class="asterisco">*</b> Canais de Atendimento.</span>
+						<select id="canaisAtendimento"  jsfc="h:selectOneMenu" onblur="desfocaliza(this)" onfocus="focaliza(this);" 
+								value="#{subServicosBBean.codCanalAtendimento}" style="width:270px" class="texto">
+							<f:selectItems value="#{subServicosBBean.listaCanalAtendimento}" />
+						</select>
+							<ice:commandButton  
+							 image="/images/incluir_registro.gif"    
+							 actionListener="#{subServicosBBean.adicionarCanalAtendimento}"  />
+							<h:message for="addCanal" errorClass="error" fatalClass="error" warnClass="error" />
+						<ice:outputText
+			                value="#{msgs['av.subservicos.form.listagem.canal']}"/>
+				        <ice:dataTable
+				                width="650px"  var="row"
+				                value="#{subServicosBBean.listaCanalAtendimentoAdicionados}"
+				               	>
+				            <ice:column>
+				                <f:facet name="header">
+				                    <ice:outputLabel
+				                            value="Canal de Atendimento"/>
+				                </f:facet>
+								#{row.nmCanalAtend}			
+				            </ice:column>
+				            <ice:column>
+				                <ice:commandLink   
+										value="delete"  
+				                        actionListener="#{subServicosBBean.excluirCanalAtendimento}">
+				                    <f:param id="codCanalAtendimentoParam" name="codCanalAtendimentoParam" value="#{row.cdCanalAtend}"/>
+				                </ice:commandLink>
+				            </ice:column>
+				        </ice:dataTable>
+
+					</ice:panelGroup>
+				</div>
+-->
+			</div>
+		</div>
+
+			<br class="clear" />
+			<br class="clear" />
+			<div class="new_footer_form">			
+					<ice:commandButton styleClass="botaoSabesp" action="#{subServicosBBean.atualizar}" value="Voltar" immediate="true" />
+					<ice:commandButton styleClass="botaoSabesp" panelConfirmation="limparConfirmPanel"  action="#{subServicosBBean.novoSubServ}" value="Limpar" />
+
+					<ice:column rendered="#{subServicosBBean.subServico.cdSubservico != null}">
+						<ice:commandButton styleClass="botaoSabesp" panelConfirmation="deleteConfirmPanel" action="#{subServicosBBean.excluir}" value="Excluir" />
+					</ice:column>
+					
+					<ice:commandButton styleClass="botaoSabesp" action="#{subServicosBBean.salvar}" value="Salvar" />
+
+					<ice:panelConfirmation id="limparConfirmPanel"  title="#{msg['tela.confirmacao.titulo']}"   message="#{msg['tela.confirmacao.texto.limpar']}"
+                     acceptLabel="#{msg['tela.confirmacao.acao.limpar']}" cancelLabel="#{msg['tela.confirmacao.acao.cancelar']}" />
+					<ice:panelConfirmation id="deleteConfirmPanel"  title="#{msg['tela.confirmacao.titulo']}"   message="#{msg['av.noticia.add.subservivo.excluir']}"
+                     acceptLabel="#{msg['tela.confirmacao.acao.excluir']}" cancelLabel="#{msg['tela.confirmacao.acao.cancelar']}" />
+
+			</div>
+		<!-- CORPO DA PAGINA -->
+        
+	 </ice:form>
+	 
+<script language="JavaScript" type="text/javascript">
+
+Init('#{facesContext.externalContext.requestContextPath}');
+WYSIWYG.attach('texto'); // default setup
+</script>		 
+	 
+</ui:define>
+
+
+</ui:composition>

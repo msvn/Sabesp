@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Ant-Version: Apache Ant 1.7.1
+Created-By: 11.0-b16 (Sun Microsystems Inc.)
+Built-By: TE44872
+Built-At: 2009/07/24 09:16
+Implementation-Title: Framework Java Prime
+Implementation-Version: trunk
+Implementation-Vendor: Prime
+

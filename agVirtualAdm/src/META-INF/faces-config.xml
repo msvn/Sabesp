@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE faces-config PUBLIC
+    "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.1//EN"
+    "http://java.sun.com/dtd/web-facesconfig_1_1.dtd">
+<faces-config>
+    <application>
+        <variable-resolver> com.prime.infra.web.jsf.AutowireCapableVariableResolver </variable-resolver>
+        <view-handler> com.icesoft.faces.facelets.D2DFaceletViewHandler </view-handler>
+    </application>
+    <converter>
+        <converter-for-class> com.prime.infra.report.ExportOption </converter-for-class>
+        <converter-class> com.prime.infra.web.jsf.converter.ExportOptionConverter </converter-class>
+    </converter>
+    <converter>
+	 	<converter-id>EnumConverter</converter-id>
+	 	<converter-class>com.prime.infra.converter.EnumConverter</converter-class>
+	</converter>
+</faces-config>

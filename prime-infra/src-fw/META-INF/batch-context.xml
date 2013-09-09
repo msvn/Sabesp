@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+                           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd
+                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+    <context:annotation-config/>
+
+    <!-- =========================================================================================================== -->
+    <!-- Carrega arquivos de customizacao                                                                            -->
+    <!-- =========================================================================================================== -->
+
+    <context:property-placeholder location="classpath:META-INF/config/batch.properties"/>
+
+    <import resource="classpath:batch.xml"/>
+
+    <!-- =========================================================================================================== -->
+    <!-- Faz o "boot" da aplicacao                                                                                   -->
+    <!-- =========================================================================================================== -->
+
+    <bean id="batchRunner" class="com.prime.infra.batch.BatchRunner">
+        <property name="taskManager" ref="taskManager"/>
+        <property name="taskType" value="${batchRunner.taskType}"/>
+        <property name="consumer" ref="consumer"/>
+        <property name="producer" ref="producer"/>
+    </bean>
+
+    <bean id="taskManager" class="com.prime.infra.batch.TaskManager" destroy-method="stop">
+        <property name="poolSize" value="${batchRunner.poolSize}"/>
+        <property name="flushFrequency" value="${batchRunner.flushFrequency}"/>
+        <property name="sharedOutput" value="${batchRunner.sharedOutput}"/>
+    </bean>
+
+</beans>

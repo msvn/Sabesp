@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ice="http://www.icesoft.com/icefaces/component">
+    
+
+
+				<ice:panelGroup styleClass="boxrgiresultadopesquisa">
+						<ice:panelGrid border="0" columns="2" style="font-size: 12px;clear: both;width:280px;">
+
+							<ice:outputLabel style="font-weight:bold;padding:5px;"><h:outputText value="#{msg['pesquisa.txt.titulo.endereco']}" /></ice:outputLabel>
+							<h:outputText value="#{backbean.nomeEnderecoView}"/>
+
+							<ice:outputLabel style="font-weight:bold;padding:5px;"><h:outputText value="#{msg['pesquisa.txt.titulo.municipio']}" /></ice:outputLabel>
+							<h:outputText value="#{backbean.nomeMunicipioSelecionadoView}"/>
+
+						</ice:panelGrid>
+				</ice:panelGroup>
+
+				<ice:panelGroup styleClass="boxrgipesquisa">
+					
+						<table border="0" style="font-size: 12px;clear: both;width:280px;">
+							<tr>
+								<td colspan="2"><h2><h:outputText value="#{msg['pesquisa.txt.titulo.novapesquisa']}" /></h2></td>
+							</tr>
+							<tr>
+								<td><h:outputText value="#{msg['pesquisa.txt.titulo.digiteendereco']}" /></td>
+								<td><h:inputText styleClass="inputfiltrorgi" value="#{backbean.nomeEnderecoView}" /></td>
+							</tr>
+							<tr>
+								<td><h:outputText value="#{msg['pesquisa.txt.titulo.selecionemunicipio']}" /></td>
+								<td>
+									<ice:selectOneMenu 
+				                        value="#{backbean.idMunicipioSelecionadoView}">
+					                    <f:selectItems value="#{backbean.comboMunicipio}"/>
+									</ice:selectOneMenu>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									<ice:panelGroup styleClass="botoes">
+													<ul style="float:left;">
+														<li class="claro"><ice:commandLink action="#{backbean.pesquisarEndereco}" ><b><span>PESQUISAR ENDEREÇO</span></b></ice:commandLink></li>
+													</ul>						
+									</ice:panelGroup>
+								</td>
+							</tr>
+						</table>
+					
+				</ice:panelGroup>
+
+				<br/>
+
+				<ice:panelGroup style="clear: both;">
+					
+					<ice:dataTable
+						rows="5"
+				        var="imovel"
+				        value="#{backbean.dadosImoveisTO.listaEndereco}"
+						rowClasses="row1,row2"
+						width="100%"
+						id="table">
+
+						<ice:column>
+							<ice:rowSelector id="selected"
+		                                 multiple="#{false}"
+		                                 enhancedMultiple="#{false}"                                 
+		                                 preStyleOnSelection="false" 
+										 selectionListener="#{backbean.selecionaRegistroEndereco}" >										
+							</ice:rowSelector>
+							<f:facet name="header">
+								<ice:outputLabel value="Endereço" />
+							</f:facet>
+							<ice:outputLabel value="#{imovel.dsEndereco}" />
+						</ice:column>
+
+						<ice:column>
+							<f:facet name="header">
+								<ice:outputLabel value="Bairro" />
+							</f:facet>
+							<ice:outputLabel value="#{imovel.nmBairro}" />
+						</ice:column>
+
+					</ice:dataTable>
+					<ui:include src="../template/paginator.jspx">
+						<ui:param name="tabela" value="table" />
+					</ui:include>				
+				</ice:panelGroup>	
+
+				<table border="0" width="100%">
+				<tr>
+					<td align="center">
+						<ice:panelGroup styleClass="botoes" style="clear: both;">
+						<br />
+
+						<ul>
+		
+							<li class="claro">
+								<ice:commandLink action="#{backbean.retornar}">
+									<f:param name="retornoparam" value="#{retornoparam}" />
+									<b><span>VOLTAR</span></b>
+								</ice:commandLink>
+							</li>
+							
+							<li class="claro">
+								<ice:commandLink action="#{backbean.prosseguir}" actionListener="#{backbean.carregarNumerosEndereco}">
+									<f:param name="outcomeparam" value="#{outcomeparam}" />
+									<b><span>PROSSEGUIR</span></b>
+								</ice:commandLink>
+							</li>					
+		
+						</ul>					
+						
+						</ice:panelGroup>
+					</td>
+				</tr>
+				</table>
+
+
+</ui:composition>  

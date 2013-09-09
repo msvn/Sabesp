@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ice="http://www.icesoft.com/icefaces/component">
+
+	<!-- erro rgi invalido -->	
+	<ice:panelGroup rendered="#{backbean.rgiinvalido eq true}">
+		<br/>
+		<p><span class="aviso"></span><h:outputText value="#{msg['numero.rgi.invalido']}"/>.</p>
+		<p style="margin-left: 30px;"><h:outputText value="#{msg['numero.rgi.informado']}"/><h:outputText value=" "/> : <h:outputText value=" "/> <b><h:outputText value="#{backbean.imovel.dsRgi}"/></b></p> 
+	</ice:panelGroup>
+
+</ui:composition>

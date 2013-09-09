@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ice="http://www.icesoft.com/icefaces/component"
+    template="../templates/template.jspx">
+    
+	<ui:define name="content" >
+		<h2>#{msg['av.bloqueio.editar']}</h2>
+   
+
+        <form jsfc="h:form" action="" name="form" style="background:#ffffff;margin:0px;padding:0px;">
+
+		<h:messages errorStyle="color: red" infoStyle="color: green" layout="table" 
+            				showSummary="true" showDetail="false" globalOnly="false"/>
+		
+		<input type="hidden" id="cdBloqueio" jsfc="h:inputHidden" value="#{bloqueioBBean.bloqueioTO.cdBloqueio}"/>
+		<input type="hidden" id="edit" jsfc="h:inputHidden" value="#{bloqueioBBean.edit}"/>
+		
+		<div id="tables" style="width: 45%; float: left;padding-left:20px;">
+			<br class="clear" />
+			
+			
+			<br class="clear" />
+			
+			<ice:panelGroup styleClass="exampleBox inputFileContainer">
+			        <ice:dataTable rendered="${bloqueioBBean.bloqueioTO.todosMunicipios eq false}"
+			                width="350px"  var="row"
+			                value="#{bloqueioBBean.listaUfsAdicionados}"
+			               	>
+			            <ice:column>
+							<f:facet name="header">
+			                            Município
+			                </f:facet>
+							#{row.nome}			
+			            </ice:column>
+			        </ice:dataTable>
+					<!--  ice:outputText value="#{msgs['av.bloqueio.todosMunicipios']}"
+						rendered="#{bloqueioBBean.bloqueioTO.todosMunicipios}" / -->
+
+					<ice:outputText value="#{msg['av.bloqueio.todosMunicipios']}"
+						rendered="#{bloqueioBBean.bloqueioTO.todosMunicipios}" />
+
+			</ice:panelGroup>
+
+			<br class="clear" />
+			
+			<br class="clear" />	
+		</div>
+
+		<div id="tables" style="width: 45%; float: right">
+			<br class="clear" />
+			<br class="clear" />	
+			<ice:panelGroup styleClass="exampleBox inputFileContainer">
+			        <ice:dataTable  rendered="${bloqueioBBean.bloqueioTO.todoasFuncionalidades eq false}"
+			                width="350px"  var="row"
+			                value="#{bloqueioBBean.listaServicosAdicionados}"
+			               	>
+			            <ice:column>
+							<f:facet name="header">
+			                            Serviço
+			                </f:facet>
+							#{row.dsItemMenu}			
+			            </ice:column>
+			        </ice:dataTable>
+					<ice:outputText value="#{msg['av.bloqueio.todasFuncionalidades']}" 
+						rendered="#{bloqueioBBean.bloqueioTO.todoasFuncionalidades}" />
+			</ice:panelGroup>	
+			<br class="clear" />
+			<br class="clear" />			
+		</div>					
+		<br class="clear" />
+		<div id="formulario">
+			<br class="clear" />
+			<br class="clear" />
+			<br class="clear" />
+			
+			<div class="divch">Descrição</div>
+
+				<input jsfc="h:inputText" 
+		         id="descricao" size="120" maxlength="65" type="text" class="desfocaliza" style="width: 250px;"
+		         value="#{bloqueioBBean.bloqueioTO.descricao}" readonly="true" required="false" />
+				<h:message for="descricao" errorClass="error"  fatalClass="error" warnClass="error" />
+
+			<br class="clear" />
+			<br class="clear" />
+			<div class="divch">Data do Bloqueio</div>
+			<input jsfc="h:inputText"  readonly="true"
+		          id="dataBloqueio" size="30" maxlength="30" type="text" class="desfocaliza" style="width: 90px; align:right;"
+		          value="#{bloqueioBBean.bloqueioTO.dataBloqueio}"  required="false"  /> <h:message
+		          for="dataBloqueio" errorClass="error" fatalClass="error" warnClass="error" />
+			<br class="clear" />
+			<br class="clear" />
+			<div class="divch">Mensagem</div>
+			<div id="textarea">
+
+					<ice:inputTextarea 
+						id="mensagem"
+                        onblur="desfocaliza(this);" 
+                        onfocus="focaliza(this);" 
+	                    maxlength="200"	                    
+	                    styleClass="texto" 
+	                    style="width:380px;height:50px;"
+	                    readonly="true"
+	                    value="#{bloqueioBBean.bloqueioTO.mensagem}"/>
+					<h:message   for="mensagem" errorClass="error" fatalClass="error" warnClass="error" />
+
+			</div>				
+			<br class="clear" />
+			<br class="clear" />
+		</div>
+			
+		<div class="new_footer_form">
+				<h:commandButton styleClass="botaoSabesp" action="#{bloqueioBBean.atualizar}" value="Voltar" />
+				<ice:commandButton styleClass="botaoSabesp" action="#{bloqueioBBean.excluir}" panelConfirmation="deleteConfirmPanel" value="Excluir" />
+				
+				<ice:panelConfirmation id="deleteConfirmPanel" autoCentre="true"  draggable="true" styleClass="iceMnuPopVrtItemLabel" title="#{msg['tela.confirmacao.titulo']}"   message="#{msg['av.noticia.add.bloqueio.excluir']}"
+                    acceptLabel="#{msg['tela.confirmacao.acao.excluir']}" cancelLabel="#{msg['tela.confirmacao.acao.cancelar']}" />
+				
+				
+		</div>
+		</form>
+			<!-- CORPO DA PAGINA -->
+	 </ui:define>
+</ui:composition>
+

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ice="http://www.icesoft.com/icefaces/component"
+    xmlns:fn="http://www.primeinformatica.com.br/functions" template="../template/template.jspx">
+
+	<link href="#{facesContext.externalContext.requestContextPath}/css/agvt.css" rel="stylesheet" type="text/css" />
+	<script language="JavaScript" type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/js/DD_belatedPNG.js"></script>
+
+	<ui:define name="conteudo">
+
+		<ice:panelGroup styleClass="wrapper">
+			<ice:panelGroup styleClass="contaContent" >
+
+				<h3><h:outputText value="#{msg['tace.titulo']}"/></h3>
+
+				<ice:panelGrid columns="2" columnClasses="taceColumnLeft, taceColumnRight">
+					<ice:panelGroup>
+						<ice:outputText value="#{msg['tace.label']}" escape="false"/>
+					</ice:panelGroup>
+					
+					<ice:panelGroup>
+						<ice:graphicImage value="../../images/tace.GIF"/>
+					</ice:panelGroup>
+				</ice:panelGrid>
+
+				<ice:panelGroup styleClass="botoes">
+					<ul>	
+						<li class="claro"><ice:commandLink action="#{conteudoPaginaInicialBBean.carregar}" actionListener="#{migalhaPaoBBean.limpaCampos}"><b><span>#{msg['tace.botao.continuaratendimento']}</span></b></ice:commandLink></li>
+						<li class="escuro"><ice:commandLink action="RELATORIOATENDIMENTO" ><b><span>#{msg['tace.botao.concluir']}</span></b></ice:commandLink></li>
+					</ul>						
+				</ice:panelGroup>
+			</ice:panelGroup>
+
+		</ice:panelGroup>
+	</ui:define>
+
+</ui:composition>

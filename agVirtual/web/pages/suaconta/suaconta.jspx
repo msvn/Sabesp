@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ice="http://www.icesoft.com/icefaces/component"
+    xmlns:fn="http://www.primeinformatica.com.br/functions" template="../template/template.jspx">
+
+	<link href="#{facesContext.externalContext.requestContextPath}/css/agvt.css" rel="stylesheet" type="text/css" />
+	<script language="JavaScript" type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/js/DD_belatedPNG.js"></script>
+	
+	<ui:define name="title">
+   		<ui:insert name="title">#{msg['agvritualAdm.title']}</ui:insert>
+  	</ui:define>
+
+	<ui:define name="conteudo">
+
+		<ice:panelGroup styleClass="wrapper">
+			<ice:panelGroup styleClass="contaContent">
+
+				<h3><h:outputText value="#{msg['menu.navegacao.link.suaconta']}"/></h3>
+				<p><h:outputText value="#{msg['suaconta.txt.encontreabaixoservicos']}"/></p>
+
+				<ice:panelGrid columns="2" columnClasses="subMenuGrupoLeftColumnSuaConta, subMenuGrupoRightColumn" styleClass="subMenuGrupo">
+					<ice:panelGroup>
+						<h:dataTable var="subMenu" value="#{menuBBean.firstColumn.itensAcesso}"
+									 styleClass="subMenuTabela" headerClass="subMenuTabelaTitulo" cellpadding="2" cellspacing="2">
+							<f:facet name="header">
+								<h:outputText value="#{menuBBean.firstColumn.dsItemMenu}"/>
+							</f:facet>
+							<h:column>
+								<!-- Caso seja site externo executa outra ação -->
+								<h:commandLink onclick="javascript:window.open('#{subMenu.dsLink}', '_blank');" rendered="${subMenu.siteExterno eq true}">
+									<h:outputText styleClass="subMenuTabelaItem" value="#{subMenu.dsItemMenu}"/>
+								</h:commandLink>
+
+								<!-- Caso não seja site externo a navegação deve ser feita pelo faces -->
+								<h:commandLink action="#{subMenuBBean.direcionarSubMenu}" rendered="${subMenu.siteExterno eq false}">
+									<h:outputText styleClass="subMenuTabelaItem" value="#{subMenu.dsItemMenu}"/>
+									<f:param name="cdSubMenu" value="#{subMenu.cdItemMenu}"/>
+									<f:param name="dsSubMenu" value="#{subMenu.dsItemMenu}"/>
+									<f:param name="outcomeSubMenu" value="#{subMenu.dsLink}"/>
+									<f:param name="cdAutoAtendimento" value="#{subMenu.autoAtendimento.cdAutoatendimento}"/>
+								</h:commandLink>
+				            </h:column>
+						</h:dataTable>
+					</ice:panelGroup>
+
+					<ice:panelGroup>
+						<h:dataTable var="subMenu" value="#{menuBBean.secondColumn.itensAcesso}"
+									 styleClass="subMenuTabela" headerClass="subMenuTabelaTitulo" cellpadding="2" cellspacing="2">
+							<f:facet name="header">
+								<h:outputText value="#{menuBBean.secondColumn.dsItemMenu}"/>
+							</f:facet>
+							<h:column>
+								<!-- Caso seja site externo executa outra ação -->
+								<h:commandLink onclick="javascript:window.open('#{subMenu.dsLink}', '_blank');" rendered="${subMenu.siteExterno eq true}">
+									<h:outputText styleClass="subMenuTabelaItem" value="#{subMenu.dsItemMenu}"/>
+								</h:commandLink>
+
+								<!-- Caso não seja site externo a navegação deve ser feita pelo faces -->
+								<h:commandLink action="#{subMenuBBean.direcionarSubMenu}" rendered="${subMenu.siteExterno eq false}">
+									<h:outputText styleClass="subMenuTabelaItem" value="#{subMenu.dsItemMenu}"/>
+									<f:param name="cdSubMenu" value="#{subMenu.cdItemMenu}"/>
+									<f:param name="dsSubMenu" value="#{subMenu.dsItemMenu}"/>
+									<f:param name="outcomeSubMenu" value="#{subMenu.dsLink}"/>
+									<f:param name="cdAutoAtendimento" value="#{subMenu.autoAtendimento.cdAutoatendimento}"/>
+								</h:commandLink>
+				            </h:column>
+						</h:dataTable>
+					</ice:panelGroup>
+				</ice:panelGrid>
+
+			</ice:panelGroup>
+		</ice:panelGroup>
+
+	</ui:define>
+</ui:composition>	

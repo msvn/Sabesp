@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ice="http://www.icesoft.com/icefaces/component"
+    xmlns:fn="http://www.primeinformatica.com.br/functions" template="templates/template.jspx">
+    <ui:define name="content">
+        <h1><h:outputFormat value="#{msg['abc.title.resultados.busca']}">
+            <f:param value="#{buscaBBean.texto}"></f:param>
+        </h:outputFormat></h1>
+        <ui:repeat value="#{buscaBBean.estoques}" var="estoque">
+            <p><h:outputLink
+                value="#{facesContext.externalContext.requestContextPath}/pages/detalhes.iface">
+                <f:param name="estoque" value="#{estoque.codigo}" />
+                <f:param name="fromPage" value="categoria" />
+                <img
+                    src="#{fn:getImageUrl('productImage', estoque.produto.codigo)}"
+                    class="float-left" width="80" height="80"
+                    alt="#{estoque.produto.nomeTitulo}" />
+            </h:outputLink> <br />
+            #{estoque.produto.nomeTitulo} <br />
+            #{estoque.produto.nomeArtista} <br />
+            <h:outputText value="#{estoque.produto.anoLancamento}">
+                <f:convertDateTime type="date" />
+            </h:outputText> <br />
+            <h:outputText value="#{estoque.preco}">
+                <f:convertNumber type="currency" groupingUsed="true"
+                    minFractionDigits="2" />
+            </h:outputText><br />
+            </p>
+            <br />
+        </ui:repeat>
+        <p><a jsfc="h:outputLink" value="javascript:window.back()"><img
+            src="#{facesContext.externalContext.requestContextPath}/images/seta_voltar.gif"
+            style="border: none" alt="#{msg['abc.label.voltar']}" /></a></p>
+    </ui:define>
+</ui:composition>

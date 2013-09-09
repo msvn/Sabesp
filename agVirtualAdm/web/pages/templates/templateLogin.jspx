@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ice="http://www.icesoft.com/icefaces/component" version="2.0">
+<f:loadBundle basename="com.prime.app.agvirtual.message.default" var="msg" />
+<head>
+<title><ui:insert name="title">#{msg['agv.title']}</ui:insert></title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="Description"
+    content="Information architecture, Web Design, Web Standards." />
+<meta name="Keywords" content="your, keywords" />
+<meta name="Distribution" content="Global" />
+<meta name="Author" content="Prime" />
+<meta name="Robots" content="index,follow" />
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+
+<link href="#{facesContext.externalContext.requestContextPath}/xmlhttp/css/rime/rime.css" rel="stylesheet" type="text/css"/>
+<link href="#{facesContext.externalContext.requestContextPath}/css/selectInputDate.css" rel="stylesheet" type="text/css" />
+<link href="#{facesContext.externalContext.requestContextPath}/css/default.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+<!-- body starts here -->
+<div id="main"><ui:insert name="content">Content</ui:insert></div>
+<!-- body ends here -->
+
+<!-- footer starts here -->
+<div class="footer">
+	<ui:insert name="footer">
+    <p>© 2010 &nbsp;<strong>#{msg['abc.footer.title.company']}</strong>
+    #{msg['abc.footer.designed.by']}: <a href="http://www.primeinformatica.com.br/">
+    primeinformatica </a> | Valid: <a href="http://validator.w3.org/check/referer">
+    XHTML </a> | <a href="http://jigsaw.w3.org/css-validator/check/referer"> CSS
+    </a> | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a jsfc="h:outputLink"
+        value="#{facesContext.externalContext.requestContextPath}/pages/populateDB.iface">
+    #{msg['abc.label.populate.tables']} </a> | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a jsfc="h:outputLink"
+        value="#{facesContext.externalContext.requestContextPath}/logout.jsp">#{msg['abc.label.logout']}</a></p>
+	</ui:insert>
+</div>
+<!-- footer ends here -->
+</body>
+</html>

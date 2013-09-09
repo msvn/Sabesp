@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ice="http://www.icesoft.com/icefaces/component">
+ 	
+		<!-- exibe painel com dados do imovel identificado e funcoes para finalizar atendimento -->
+		<ice:panelGroup id="pglogado" rendered="#{imovelIdentificadoBBean.dadosImovelIdentificado != null}" styleClass="boxLogado fontResize" > 
+		
+			<img src="#{facesContext.externalContext.requestContextPath}/images/img-usuario.gif" width="32" height="32" alt="Foto do usuário" />
+			<ice:panelGroup styleClass="dados">
+				<strong><h:outputText value="#{imovelIdentificadoBBean.dadosImovelIdentificado.cliente.nmCLiente}"/></strong>
+				<em>RGI:<h:outputText value="#{imovelIdentificadoBBean.dadosImovelIdentificado.imovel.numeroRGIToBoleto}"/> | <h:outputText value="#{imovelIdentificadoBBean.dadosImovelIdentificado.nomeEndereco}"/> - <h:outputText value="#{imovelIdentificadoBBean.dadosImovelIdentificado.endereco.nmMunicipio}"/></em>
+			</ice:panelGroup>
+			<ul>
+				<li><h:commandLink target="conteudo" action="#{auditoriaAcessoBBean.redirectIdenficiaRgi}">Alterar imóvel</h:commandLink></li>
+				<li><h:commandLink  actionListener="#{auditoriaAcessoBBean.concluirAtendimento}" action="#{auditoriaAcessoBBean.redirectConcluirAtendimento}">Relatório de atendimento</h:commandLink></li>
+				<li class="sair"><h:commandLink action="#{auditoriaAcessoBBean.sair}">Sair</h:commandLink></li>
+			</ul>
+			<ice:panelConfirmation id="ConfirmPanel"  title="#{msg['tela.confirmacao.titulo']}"   message="#{msg['menu.user.msg.sair']}"
+                   acceptLabel="#{msg['tela.confirmacao.menu.ok']}" cancelLabel="#{msg['tela.confirmacao.menu.cancelar']}" />
+		</ice:panelGroup>
+
+		<ice:panelGroup styleClass="boxAcessibilidade">
+			<ul class="caminhoDePao" style="display:block" id="migalha">
+				<li><h:outputText value="#{msg['migalhadepao.label']}" rendered="${migalhaPaoBBean.dsMenu != ''}" /></li>
+				<li><h:commandLink action="#{conteudoPaginaInicialBBean.carregar}" actionListener="#{migalhaPaoBBean.limpaCampos}" rendered="${migalhaPaoBBean.dsMenu != ''}">
+						#{msg['migalhadepao.home.label']} 
+					</h:commandLink>
+				</li>
+
+				<li>
+					<h:outputText value="#{msg['migalhadepao.seta.label']}" rendered="${migalhaPaoBBean.dsMenu != ''}" />
+					<ice:commandLink action="#{menuBBean.redirectLink}">
+						<h:outputText value="#{migalhaPaoBBean.dsMenu}"/>
+					</ice:commandLink>
+				</li>
+				
+				<li>
+					<h:outputText value="#{msg['migalhadepao.seta.label']}" rendered="${migalhaPaoBBean.dsSubMenu != ''}"/>
+					<ice:commandLink action="#{subMenuBBean.direcionarSubMenu}">
+						<h:outputText value="#{migalhaPaoBBean.dsSubMenu}" />
+					</ice:commandLink>
+				</li>
+			</ul>
+			
+			<h:commandLink styleClass="fonte diminuiFonte" title="Diminuir fonte">Diminuir fonte</h:commandLink>
+			<h:commandLink styleClass="fonte aumentaFonte" title="Aumentar fonte">Aumentar fonte</h:commandLink>
+		</ice:panelGroup>
+		
+</ui:composition>

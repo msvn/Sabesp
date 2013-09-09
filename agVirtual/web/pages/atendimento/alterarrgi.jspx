@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ice="http://www.icesoft.com/icefaces/component"
+    xmlns:fn="http://www.primeinformatica.com.br/functions" template="../template/template.jspx">
+
+<ui:define name="conteudo">	
+<ice:panelGroup styleClass="wrapper">
+		<ice:panelGroup styleClass="contaContent">
+		
+			<h3>Alterar Imóvel</h3>
+			<br />
+			<p><h:outputText value="#{msg['atendimento.sera.encerrado']}"></h:outputText>   <b><h:outputText value="#{alterarRgiBBean.dadosImovelIdentificado.imovel.dsRgi}" /></b></p>
+			<p></p>
+			<div id="botoes">
+			</div>		
+			
+			<ice:panelGroup styleClass="botoes" style="clear: both;">
+				<br />
+
+				<ul style="float:center;">
+
+					<li class="claro">
+						<ice:commandLink action="#{auditoriaAcessoBBean.paginaInicial}">
+							<b><span>CANCELAR</span></b>
+						</ice:commandLink>
+					</li>
+					
+					<li class="escuro">
+						<ice:commandLink action="#{alterarRgiBBean.identificarRgi}" actionListener="#{alterarRgiBBean.apagaRgi}">
+							<f:param name="outcomeparam" value="IDENTIFICA_RGI"></f:param>
+							<b><span>CONFIRMAR</span></b>
+						</ice:commandLink>
+					</li>					
+
+				</ul>					
+						
+			</ice:panelGroup>
+		</ice:panelGroup>
+</ice:panelGroup>
+</ui:define>
+</ui:composition>	

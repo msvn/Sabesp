@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ice="http://www.icesoft.com/icefaces/component">
+    
+	<h:panelGrid>   
+
+		<!-- mensagem erro validacao -->
+		<ui:include src="../template/errovalidacao.jspx" >
+			<ui:param name="backbean" value="#{backbean}"/>
+		</ui:include>
+
+	</h:panelGrid>
+
+	<!-- popup -->
+	<ice:panelPopup id="popupRgi" 
+		draggable="false" modal="true" styleClass="corePopup"
+		visible="#{backbean.modalRendered}" autoCentre="true">
+	    <f:facet name="header">
+			<ice:panelGroup id="painelBotao" >
+				<ice:commandLink type="submit" style="color:#FFFFFF;" styleClass="btnFecharPopup"
+			    	value="Fechar" actionListener="#{backbean.atualizarModal}"/>
+			</ice:panelGroup>
+	    </f:facet>
+		<f:facet name="body">
+			<ice:panelGroup id="painelImagem" style="font-size:62.5%;">
+				<br />
+				<ice:outputLabel value="#{msg['suaconta.txt.debitoautomatico.msg15']}:" styleClass="labelInform"/>
+				<br />
+				<br />
+				<ice:graphicImage style="text-align:center;" url="/images/ex_rgi.jpg"/>			
+			</ice:panelGroup>
+	    </f:facet>
+	</ice:panelPopup>
+
+	<!-- busca rgi / endereco -->
+	<ice:panelGroup styleClass="bgrInput">
+		
+		<!-- APENAS: declara radio button -->
+		<ice:selectOneRadio id="rd" required="true" value="#{backbean.radioSelecionada}" 
+			layout="spread" styleClass="inputNb" partialSubmit="true">
+			<f:selectItem itemLabel=" Número do RGI: " itemValue="PROSSEGUIR_RGI" />
+			<f:selectItem itemLabel=" Endereço: " itemValue="PROSSEGUIR_ENDERECO"/>
+		</ice:selectOneRadio>
+
+		<table border="0" style="padding-left: 60px;">
+			<!-- numero rgi -->
+			<tr>
+				<td align="right"><ice:radio for="rd" index="0" /></td>
+				<td nowrap="nowrap" style="padding-left: 10px;">
+					<ice:inputText value="#{backbean.imovel.dsRgiParte1}" disabled="false" maxlength="8" style="width: 70px; margin-right: 10px;"/>	
+					<ice:inputText value="#{backbean.imovel.dsRgiParte2}" disabled="false" style="width: 18px;" maxlength="2"/>
+					<span style="color: #8C9FAB; text-align: center;"><h:outputText value="#{msg['exemplo.rgi']}"/></span>  
+				</td>
+			</tr>
+			<tr>
+				<td colspan="6" style="padding-bottom: 10px;">
+					<ice:commandLink actionListener="#{backbean.atualizarModal}" styleClass="seta">
+						<h:outputLabel style="color:#41A7D3;" value="#{msg['suaconta.txt.debitoautomatico.localizergi']}"/>
+					</ice:commandLink>
+				</td>						
+			</tr>			
+			
+			<!-- endereco -->
+			<tr>
+				<td align="right"><ice:radio for="rd" index="1" /></td>
+				<td style="padding-left: 10px;" colspan="2"><ice:inputText value="#{backbean.nomeEnderecoView}" styleClass="w255"/></td>
+				<td> </td>
+				<td></td>
+			</tr>
+			<tr>
+				<td colspan="6">
+						<ice:panelGroup styleClass="label_exemplo">
+							<h:outputText value="#{msg['exemplo']}"/><br />
+							<h:outputText value="#{msg['exemplo.endereco']}"/><br />
+							<h:outputText value="#{msg['exemplo.endereco2']}"/>
+						</ice:panelGroup>
+				</td>
+			</tr>	
+			<tr><td colspan="6" height="10"></td></tr>
+			<!-- municipio -->
+			<tr>
+				<td align="right"><ice:outputLabel value="#{msg['pesquisa.txt.titulo.municipio']}"/></td>
+				<td style="padding-left: 10px;">
+					<ice:selectOneMenu 
+	                       value="#{backbean.idMunicipioSelecionadoView}">
+	                    <f:selectItems value="#{backbean.comboMunicipio}" />
+					</ice:selectOneMenu>							
+				</td>
+			</tr>
+			<!--<tr>
+				<td colspan="6">
+					<ice:panelGroup styleClass="label_exemplo">
+						<h:outputText value="#{msg['obs.nao.utilizar.titulo']}"/>
+					</ice:panelGroup>							
+				</td>
+			</tr> -->	
+		</table>
+	</ice:panelGroup>
+
+
+				<!-- RGI + endereço 
+				<ice:panelGroup styleClass="bgrInput" style="font-size: 1.4em;"> 
+	           	        <ice:selectOneRadio id="rd" required="true" value="#{backbean.radioSelecionada}" 
+							layout="spread" styleClass="inputNb" partialSubmit="true">
+	                       	<f:selectItem itemLabel=" Numero do RGI: " itemValue="PROSSEGUIR_RGI" />
+							<f:selectItem itemLabel=" Endereço: " itemValue="PROSSEGUIR_ENDERECO"/>
+	                    </ice:selectOneRadio>
+	
+						<table border="0" style="padding-left: 50px;">
+							<tr>
+								<td><ice:radio for="rd" index="0" /></td>
+								<td nowrap="nowrap"><ice:inputText value="#{backbean.imovel.dsRgi}" disabled="false" /></td>
+								<td style="color: #8C9FAB;font-size: 62.5%;">Exemplo: 99999999/99</td>
+							</tr>
+							<tr>
+								<td colspan="6">
+									<ice:commandLink actionListener="#{backbean.atualizarModal}" styleClass="teste">
+										<h:outputLabel style="color:#41A7D3;" value="#{msg['suaconta.txt.debitoautomatico.localizergi']}"/>
+									</ice:commandLink>
+								</td>						
+							</tr>
+							<tr>
+								<td colspan="6" height="10"></td>
+							</tr>
+						</table>
+						<table border="0" style="padding-left: 50px;">
+							<tr>
+								<td width="130" align="right"><ice:radio for="rd" index="1" /></td>
+								<td><ice:inputText value="#{backbean.nomeEnderecoView}" styleClass="w255"/></td>
+								<td> </td>
+								<td></td>
+							</tr>
+							<tr>
+								<td colspan="6">
+										<ice:panelGroup styleClass="label_exemplo">
+											Exemplo:<br />
+											Para Avenida Paulista, digite apenas Paulista.<br />
+											Para Avenida Barão de Mauá, digite apenas Mauá.									
+										</ice:panelGroup>
+								</td>
+							</tr>	
+							<tr>
+								<td colspan="6" height="10"></td>
+							</tr>				
+						</table>
+						<table border="0" style="padding-left: 50px;">
+							<tr>
+								<td width="130" align="right"><ice:outputLabel value="Município: "/></td>
+								<td>
+									<ice:selectOneMenu 
+				                        value="#{backbean.idMunicipioSelecionadoView}">
+					                    <f:selectItems value="#{backbean.comboMunicipio}" />
+									</ice:selectOneMenu>							
+								</td>
+							</tr>
+							<tr>
+								<td colspan="6">
+									<ice:panelGroup styleClass="label_exemplo">
+										Obs.: Não utilizar título, preposição, acentuação ou aspas.									
+									</ice:panelGroup>							
+								</td>
+							</tr>
+						</table>
+	 
+				</ice:panelGroup>m fi -->
+
+				<table border="0" width="100%">
+				<tr>
+					<td align="center">
+						<ice:panelGroup styleClass="botoes" style="clear: both;">
+							<br />
+							<ul>
+								<li class="claro">
+									<ice:commandLink action="#{backbean.prosseguir}" actionListener="#{backbean.definirPesquisaRGIEndereco}" >
+										<f:param name="outcomeparam" value="#{backbean.radioSelecionada}" />
+										<b><span>PROSSEGUIR</span></b>
+									</ice:commandLink>
+								</li>
+							</ul>						
+						</ice:panelGroup>
+					</td>
+				</tr>
+				</table>
+
+</ui:composition>    

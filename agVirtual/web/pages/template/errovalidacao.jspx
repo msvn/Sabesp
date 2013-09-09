@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ice="http://www.icesoft.com/icefaces/component">
+
+	<ice:panelGroup rendered="#{backbean.existeMsgErroValidacao eq true}" styleClass="box_msg_validacao">
+			<span class="aviso" > </span>
+			<h:messages errorClass="erro" infoClass="aviso" layout="table" 
+					showSummary="true" showDetail="false" globalOnly="true"/>
+	</ice:panelGroup>
+
+	<br/>
+
+</ui:composition>

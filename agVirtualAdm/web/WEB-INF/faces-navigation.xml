@@ -1,0 +1,560 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE faces-config PUBLIC
+    "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.1//EN"
+    "http://java.sun.com/dtd/web-facesconfig_1_1.dtd">
+<faces-config>
+
+	<navigation-rule>
+
+		<from-view-id>/pages/*</from-view-id>
+
+       <navigation-case>
+            <from-outcome>NOTICIA</from-outcome>
+            <to-view-id>/pages/noticia/noticias.iface</to-view-id>
+        </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>CONTEUDO</from-outcome>
+            <to-view-id>/pages/conteudo/conteudoForm.iface</to-view-id>
+        </navigation-case>        
+        
+        <navigation-case>
+            <from-outcome>SERVICO</from-outcome>
+            <to-view-id>/pages/servico/servicos.iface</to-view-id>
+        </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>SUBSERVICO</from-outcome>
+            <to-view-id>/pages/subServico/subServicos.iface</to-view-id>
+        </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>CANAISATENDIMENTO</from-outcome>
+            <to-view-id>/pages/canalAtendimento/canaisAtendimento.iface</to-view-id>
+        </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>DOCUMENTOS</from-outcome>
+            <to-view-id>/pages/documento/documentos.iface</to-view-id>
+        </navigation-case>        
+        
+        <navigation-case>
+            <from-outcome>BLOQUEIO</from-outcome>
+            <to-view-id>/pages/bloqueio/bloqueio.iface</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>SERVICOSCORRELATOS</from-outcome>
+            <to-view-id>/pages/servicoCorrelato/servicosCorrelatos.iface</to-view-id>
+        </navigation-case>
+        
+		<navigation-case>
+            <from-outcome>PESQUISA</from-outcome>
+            <to-view-id>/pages/pesquisa/pesquisa.iface</to-view-id>
+            <redirect/>
+        </navigation-case>        
+        
+        <navigation-case>
+            <from-outcome>ACATAMENTO</from-outcome>
+            <to-view-id>/pages/acatamento/acatamento.iface</to-view-id>
+        </navigation-case>   
+        
+        <navigation-case>
+            <from-outcome>SQL</from-outcome>
+            <to-view-id>/pages/sql/client.jspx</to-view-id>
+        </navigation-case>
+	</navigation-rule>	
+
+	<!-- SQLClient -->
+    <navigation-rule>
+        <description>Sistema SQLClient</description>
+        <from-view-id>/pages/sql/client.jspx</from-view-id>
+        <navigation-case>
+            <from-outcome>SQL</from-outcome>
+            <to-view-id>/pages/sql/client.jspx</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <!-- SQLClient -->  
+    
+    <!-- Login -->
+    <navigation-rule>
+        <description>Login</description>
+        <from-view-id>/pages/login/login.jspx</from-view-id>
+        <navigation-case>
+            <from-outcome>NOTICIA</from-outcome>
+            <to-view-id>/pages/noticia/noticias.iface</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+      <!-- // Login -->
+    
+    <!-- Acatamento -->
+    
+    <navigation-rule>
+        <description>Sistema CRUD Noticia</description>
+        <from-view-id>/pages/acatamento/acatamento.jspx</from-view-id>
+        <navigation-case>
+            <from-outcome>EDIT</from-outcome>
+            <to-view-id>/pages/acatamento/acatamento.iface</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <!-- Fim Acatamento -->
+
+	<!-- Aba Noticia -->
+	
+	<navigation-rule>
+        <description>Sistema CRUD Noticia</description>
+        <from-view-id>/pages/noticia/noticiasLista.jspx</from-view-id>
+        <navigation-case>
+            <from-outcome>EDIT</from-outcome>
+            <to-view-id>/pages/noticia/noticiaForm.iface</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+	<navigation-rule>
+        <description>Sistema CRUD Noticia</description>
+        <from-view-id>/pages/noticia/noticias.jspx</from-view-id>
+        <navigation-case>
+            <from-outcome>EDIT</from-outcome>
+            <to-view-id>/pages/noticia/noticiaForm.iface</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>NOVO</from-outcome>
+            <to-view-id>/pages/noticia/noticiaForm.iface</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>ATUALIZA</from-outcome>
+            <to-view-id>/pages/noticia/noticias.jspx</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>REMOVE</from-outcome>
+            <to-view-id>/pages/noticia/noticias.jspx</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <description>Sistema CRUD Noticia</description>
+     	<from-view-id>/pages/noticia/noticiaForm.jspx</from-view-id>
+        <navigation-case>
+            <from-outcome>EDIT</from-outcome>
+            <to-view-id>/pages/noticia/noticiaForm.iface</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>NOVO</from-outcome>
+            <to-view-id>/pages/noticia/noticiaForm.iface</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>ATUALIZA</from-outcome>
+            <to-view-id>/pages/noticia/noticias.jspx</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>REMOVE</from-outcome>
+            <to-view-id>/pages/noticia/noticias.jspx</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <!-- Fim Aba Noticia-->
+    
+    <!-- Aba Serviço -->
+    <navigation-rule>
+        <description>Sistema CRUD Serviço</description>
+        <from-view-id>/pages/servico/servicos.jspx</from-view-id>
+        <navigation-case>
+            <from-outcome>EDIT</from-outcome>
+            <to-view-id>/pages/servico/servicosForm.jspx</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>NOVO</from-outcome>
+            <to-view-id>/pages/servico/servicosForm.jspx</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>ATUALIZA</from-outcome>
+            <to-view-id>/pages/servico/servicos.jspx</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>RemoveSuccess</from-outcome>
+            <to-view-id>/pages/servico/servicos.jspx</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+     <navigation-rule>
+        <description>Sistema CRUD Serviço</description>
+        <from-view-id>/pages/servico/servicosForm.jspx</from-view-id>
+        <navigation-case>
+            <from-outcome>EDIT</from-outcome>
+            <to-view-id>/pages/servico/servicosForm.jspx</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>NOVO</from-outcome>
+            <to-view-id>/pages/servico/servicosForm.jspx</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>ATUALIZA</from-outcome>
+            <to-view-id>/pages/servico/servicos.jspx</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>RemoveSuccess</from-outcome>
+            <to-view-id>/pages/servico/servicos.jspx</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+     <!-- Fim Aba Serviço -->
+    
+    <!-- Aba Sub Serviço -->
+    <navigation-rule>
+        <description>Sistema CRUD Sub Serviço</description>
+        <from-view-id>/pages/subServico/subServicos.jspx</from-view-id>
+        <navigation-case>
+            <from-outcome>EDIT</from-outcome>
+            <to-view-id>/pages/subServico/subServicosForm.iface</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>NOVO</from-outcome>
+            <to-view-id>/pages/subServico/subServicosForm.iface</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>ATUALIZA</from-outcome>
+            <to-view-id>/pages/subServico/subServicos.jspx</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>RemoveSuccess</from-outcome>
+            <to-view-id>/pages/subServico/subServicos.jspx</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <description>Sistema CRUD Sub Serviço</description>
+        <from-view-id>/pages/subServico/subServicosForm.jspx</from-view-id>
+        <navigation-case>
+            <from-outcome>EDIT</from-outcome>
+            <to-view-id>/pages/subServico/subServicosForm.iface</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>NOVO</from-outcome>
+            <to-view-id>/pages/subServico/subServicosForm.iface</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>ATUALIZA</from-outcome>
+            <to-view-id>/pages/subServico/subServicos.jspx</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>REMOVE</from-outcome>
+            <to-view-id>/pages/subServico/subServicos.jspx</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <!-- Fim SubServiço -->
+    
+    
+    <!-- Aba Documento -->
+    <navigation-rule>
+        <description>Sistema CRUD Documento</description>
+        <from-view-id>/pages/documento/documentos.jspx</from-view-id>
+        <navigation-case>
+            <from-outcome>EDIT</from-outcome>
+            <to-view-id>/pages/documento/documentoForm.iface</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>NOVO</from-outcome>
+            <to-view-id>/pages/documento/documentoForm.iface</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>ATUALIZA</from-outcome>
+            <to-view-id>/pages/documento/documentos.jspx</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>REMOVE</from-outcome>
+            <to-view-id>/pages/documento/documentos.jspx</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <description>Sistema CRUD Documento</description>
+        <from-view-id>/pages/documento/documentoForm.jspx</from-view-id>
+        <navigation-case>
+            <from-outcome>EDIT</from-outcome>
+            <to-view-id>/pages/documento/documentoForm.iface</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>NOVO</from-outcome>
+            <to-view-id>/pages/documento/documentoForm.iface</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>ATUALIZA</from-outcome>
+            <to-view-id>/pages/documento/documentos.jspx</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>REMOVE</from-outcome>
+            <to-view-id>/pages/documento/documentos.jspx</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <!-- Fim Aba Documento -->
+    
+    
+    <!-- Aba Canal de Atendimento -->
+    <navigation-rule>
+        <description>Sistema CRUD Canal Atendimento</description>
+        <from-view-id>/pages/canalAtendimento/canaisAtendimento.jspx</from-view-id>
+        
+        <navigation-case>
+            <from-outcome>EDIT</from-outcome>
+            <to-view-id>/pages/canalAtendimento/canalAtendimentoForm.iface</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>NOVO</from-outcome>
+            <to-view-id>/pages/canalAtendimento/canalAtendimentoForm.iface</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>ATUALIZA</from-outcome>
+            <to-view-id>/pages/canalAtendimento/canaisAtendimento.jspx</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>REMOVE</from-outcome>
+            <to-view-id>/pages/canalAtendimento/canaisAtendimento.jspx</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <description>Sistema CRUD Canal Atendimento</description>
+       <from-view-id>/pages/canalAtendimento/canalAtendimentoForm.jspx</from-view-id>
+        <navigation-case>
+            <from-outcome>EDIT</from-outcome>
+            <to-view-id>/pages/canalAtendimento/canalAtendimentoForm.iface</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>NOVO</from-outcome>
+            <to-view-id>/pages/canalAtendimento/canalAtendimentoForm.iface</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>ATUALIZA</from-outcome>
+            <to-view-id>/pages/canalAtendimento/canaisAtendimento.jspx</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>REMOVE</from-outcome>
+            <to-view-id>/pages/canalAtendimento/canaisAtendimento.jspx</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+	<!-- Final Aba Canal de Atendimento -->
+	
+	<!-- Aba Bloqueio de Serviço -->
+	<navigation-rule>
+        <description>Sistema CRUD Bloqueio</description>
+       <from-view-id>/pages/bloqueio/bloqueioForm.jspx</from-view-id>
+        <navigation-case>
+            <from-outcome>EDIT</from-outcome>
+            <to-view-id>/pages/bloqueio/bloqueioForm.iface</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>NOVO</from-outcome>
+            <to-view-id>/pages/bloqueio/bloqueioForm.iface</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>ATUALIZA</from-outcome>
+            <to-view-id>/pages/bloqueio/bloqueio.jspx</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>REMOVE</from-outcome>
+            <to-view-id>/pages/bloqueio/bloqueio.jspx</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <description>Sistema CRUD Bloqueio</description>
+       <from-view-id>/pages/bloqueio/bloqueio.jspx</from-view-id>
+        <navigation-case>
+            <from-outcome>EDIT</from-outcome>
+            <to-view-id>/pages/bloqueio/editBloqueioForm.iface</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>NOVO</from-outcome>
+            <to-view-id>/pages/bloqueio/bloqueioForm.iface</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>ATUALIZA</from-outcome>
+            <to-view-id>/pages/bloqueio/bloqueio.jspx</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>REMOVE</from-outcome>
+            <to-view-id>/pages/bloqueio/bloqueio.jspx</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+     <navigation-rule>
+        <description>Sistema CRUD Bloqueio</description>
+       <from-view-id>/pages/bloqueio/editBloqueioForm.jspx</from-view-id>
+        <navigation-case>
+            <from-outcome>EDIT</from-outcome>
+            <to-view-id>/pages/bloqueio/editBloqueioForm.iface</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>NOVO</from-outcome>
+            <to-view-id>/pages/bloqueio/bloqueioForm.iface</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>ATUALIZA</from-outcome>
+            <to-view-id>/pages/bloqueio/bloqueio.jspx</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>REMOVE</from-outcome>
+            <to-view-id>/pages/bloqueio/bloqueio.jspx</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <!-- Fim Bloqueio de Serviço -->
+    
+    <!-- Aba Serviços Correlatos -->
+     <navigation-rule>
+        <description>Sistema CRUD Bloqueio</description>
+       <from-view-id>/pages/servicoCorrelato/servicosCorrelatos.jspx</from-view-id>
+        <navigation-case>
+            <from-outcome>EDIT</from-outcome>
+            <to-view-id>/pages/servicoCorrelato/servicosCorrelatosForm.iface</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>NOVO</from-outcome>
+            <to-view-id>/pages/servicoCorrelato/servicosCorrelatosForm.iface</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>ATUALIZA</from-outcome>
+            <to-view-id>/pages/servicoCorrelato/servicosCorrelatos.jspx</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>REMOVE</from-outcome>
+            <to-view-id>/pages/servicoCorrelato/servicosCorrelatos.jspx</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <description>Sistema CRUD Bloqueio</description>
+       <from-view-id>/pages/servicoCorrelato/servicosCorrelatosForm.jspx</from-view-id>
+        <navigation-case>
+            <from-outcome>EDIT</from-outcome>
+            <to-view-id>/pages/servicoCorrelato/servicosCorrelatosForm.iface</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>NOVO</from-outcome>
+            <to-view-id>/pages/servicoCorrelato/servicosCorrelatosForm.iface</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>ATUALIZA</from-outcome>
+            <to-view-id>/pages/servicoCorrelato/servicosCorrelatos.jspx</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>REMOVE</from-outcome>
+            <to-view-id>/pages/servicoCorrelato/servicosCorrelatos.jspx</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <!-- Aba Pesquisa -->
+     <navigation-rule>
+        <description>Sistema CRUD Pesquisa</description>
+       <from-view-id>/pages/pesquisa/pesquisa.jspx</from-view-id>
+        <navigation-case>
+            <from-outcome>EDIT</from-outcome>
+            <to-view-id>/pages/pesquisa/pesquisaForm.iface</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>NOVO</from-outcome>
+            <to-view-id>/pages/pesquisa/pesquisaForm.iface</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>ATUALIZA</from-outcome>
+            <to-view-id>/pages/pesquisa/pesquisa.jspx</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>REMOVE</from-outcome>
+            <to-view-id>/pages/pesquisa/pesquisa.jspx</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <description>Sistema CRUD Pesquisa</description>
+       <from-view-id>/pages/pesquisa/pesquisaForm.jspx</from-view-id>
+        <navigation-case>
+            <from-outcome>EDIT</from-outcome>
+            <to-view-id>/pages/pesquisa/pesquisaForm.iface</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>NOVO</from-outcome>
+            <to-view-id>/pages/pesquisa/pesquisaForm.iface</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>ATUALIZA</from-outcome>
+            <to-view-id>/pages/pesquisa/pesquisa.jspx</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>REMOVE</from-outcome>
+            <to-view-id>/pages/pesquisa/pesquisa.jspx</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <!-- Fim Aba Servicos Correlatos -->
+	
+    <navigation-rule>
+        <description>Login do sistema</description>
+        <from-view-id>/pages/login.jspx</from-view-id>
+        <navigation-case>
+            <from-outcome>Success</from-outcome>
+            <to-view-id>/pages/noticias.iface</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>Pagamento</from-outcome>
+            <to-view-id>/pages/sistema/pagamento.iface</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>Error</from-outcome>
+            <to-view-id>/pages/login.jspx</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>NovoCliente</from-outcome>
+            <to-view-id>/pages/clienteForm.iface</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>Logout</from-outcome>
+            <to-view-id>/</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <description>Confirmação do Pedido</description>
+        <from-view-id>/pages/sistema/pedido.jspx</from-view-id>
+        <navigation-case>
+            <from-outcome>PDF</from-outcome>
+            <to-view-id>/report.pdf</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>EXCEL</from-outcome>
+            <to-view-id>/report.xsl</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>RTF</from-outcome>
+            <to-view-id>/report.rtf</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>ODT</from-outcome>
+            <to-view-id>/report.odt</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>XML</from-outcome>
+            <to-view-id>/report.xml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    
+     <!-- Aba Conteúdos da Home -->
+     <navigation-rule>
+		<description>Sistema CRUD Conteudo</description>
+       	<from-view-id>/pages/conteudo/conteudoForm.jspx</from-view-id>
+        <navigation-case>
+            <from-outcome>EDIT</from-outcome>
+            <to-view-id>/pages/conteudo/conteudoForm.iface</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>ATUALIZA</from-outcome>
+            <to-view-id>/pages/conteudo/conteudoForm.jspx</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <!-- Fim Conteúdos da Home -->
+    
+</faces-config>

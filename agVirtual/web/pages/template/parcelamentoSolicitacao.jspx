@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ice="http://www.icesoft.com/icefaces/component">
+
+	<link href="#{facesContext.externalContext.requestContextPath}/css/agvt.css" rel="stylesheet" type="text/css" />
+
+
+	<div class="contaContent" style="border-top:0px !important;">
+			<p><b>Com base nas respostas acima, será aberto o seguinte serviço:</b></p>
+
+			<p class="quadroOrcamento" id="descServ">
+				<span>Descrição:</span><h:outputText value=" #{backbean.orcamento.dsOrcamento}" />
+			</p>
+			
+			<p class="quadroOrcamento">
+				<span>Prazo de Atendimento*:</span><h:outputText value=" #{backbean.orcamento.prazoAtendimento}" />
+			</p>
+
+			<h:outputText rendered="#{!backbean.orcamento.pago}">
+				<p id="msgCobranca" class="quadroOrcamento">
+					<span class="aviso" style="margin-left: 10px"></span>
+					<h:outputText value="#{backbean.orcamento.msgCobranca}"/>
+				</p>
+			</h:outputText>
+			
+			<h:outputText rendered="#{backbean.orcamento.pago}">
+				<p id="msgCobranca" class="quadroOrcamento">
+					<span class="aviso" style="margin-left: 10px"></span>
+					<h:outputText value="#{backbean.orcamento.msgCobranca} "/>  
+					<h:commandLink id="canaisatendimento" action="#{canaisAtendimentoBBean.carregar}">
+						<f:param name="dsMenu" value="#{msg['menu.superior.link.canaisatendimento']}" />
+						<f:param name="outcomeMenu" value="CANAISATENDIMENTO" />
+						<h:outputText value=" #{msg['menu.superior.link.canaisatendimento']}" />
+					</h:commandLink>
+				</p>
+			</h:outputText>
+			
+			<h:outputText rendered="#{backbean.orcamento.pago}">
+			<p class="quadroOrcamento">
+				<span>Preço*:</span> 
+				<h:outputText  rendered="#{backbean.orcamento.precoFixo == true}" value=" #{backbean.orcamento.valorTotal}" />
+				<h:outputText rendered="#{backbean.orcamento.precoFixo == false}" value=" #{msg['orcamento.valor.variavel']}" title="#{msg['orcamento.valor.variavel']}" />
+				<br/>
+
+				<h:outputText rendered="#{backbean.orcamento.pagamentoAvista}">
+					<label style="margin-left:15px">Este valor pode ser pago a vista.</label>
+				</h:outputText>
+				<h:outputText rendered="#{backbean.orcamento.pagamentoAvista == false}">
+					<label style="margin-left:15px">Este valor pode ser dividido em até <h:outputText value=" #{backbean.orcamento.maxParcelas} " /> parcelas fixas sem juros</label>
+					<div class="quadroOrcamento" style="width:100%">
+						<ul class="esquerda quadroOrcamento semMargem">
+							<li><label>Forma de Pagamento:</label></li>
+							<li>
+							<h:outputText rendered="#{backbean.orcamento.maxParcelas lt 6}">
+								<ice:selectOneRadio value="#{backbean.qtParcelas}" layout="spread" 
+										partialSubmit="true">
+									<f:selectItems value="#{backbean.orcamento.listaParcelas}"/>
+								</ice:selectOneRadio>
+							</h:outputText>
+							<h:outputText rendered="#{backbean.orcamento.maxParcelas gt 6}">
+								<ice:selectOneMenu value="#{backbean.qtParcelas}" layout="spread"  style="width:85px"
+										partialSubmit="true" >
+									<f:selectItems value="#{backbean.orcamento.listaParcelas}"/>
+								</ice:selectOneMenu>
+							</h:outputText>
+							</li>
+						</ul>
+					</div>
+				</h:outputText>
+			</p>
+			<h:outputText rendered="#{backbean.orcamento.pagamentoParcelado}">
+				<br/>
+				<p class="quadroOrcamento"><br/>
+					<ul class="esquerda quadroOrcamento semMargem">
+						<li>
+							Você optou pelo pagamento em <b><h:outputText value=" #{backbean.qtParcelas}" /> parcelas.</b>
+						</li>
+						<li> 
+							<label ><h:outputText value="#{backbean.qtParcelas}"/> parcelas de <b><h:outputText value=" R$ #{backbean.valorParcela}" /></b>.</label>
+						</li>
+					</ul>
+				</p>
+			</h:outputText>
+			<h:outputText rendered="#{backbean.orcamento.pagamentoAvista == false}" >
+			<p class="quadroOrcamento">
+				<h:outputText>*O prazo poderá ser alterado caso o serviço a ser executado seja diferente do solicitado.</h:outputText>
+				<h:outputText>  **O preço informado será confirmado pelo técnico da Sabesp.</h:outputText>
+			</p>
+			</h:outputText>
+			<p></p>
+			
+			<div class="questionario">			
+				<label class="labelask">Você aprova o orçamento?</label>
+					<br/>
+					<ul>
+					<h:selectOneRadio value="#{backbean.radioConfirmacao}" styleClass="resposta" layout="pageDirection">
+								<f:selectItems value="#{backbean.listaSimNao}"/>
+					</h:selectOneRadio>
+					</ul>
+			</div>
+			</h:outputText>
+
+			<h:outputText rendered="#{backbean.orcamento.pago == false}">
+				<p>
+					<span>
+						<h:selectBooleanCheckbox value="#{backbean.checkConfirmacao}">Sim, confirmo o pedido</h:selectBooleanCheckbox>
+					</span>	
+				</p>
+			</h:outputText>
+		</div>
+
+</ui:composition>		
+		

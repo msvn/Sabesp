@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+
+    <!-- =========================================================================================================== -->
+    <!-- Appenders                                                                                                   -->
+    <!-- =========================================================================================================== -->
+
+     <appender name="DEBUG_APPLICATION_LOG_FILE" class="ch.qos.logback.core.FileAppender">
+        <File>${BASE_LOG_PATH}/${application.name}-debug.html</File>
+        <Append>true</Append>
+		<layout>HTMLLayout</layout>
+        <layout class="ch.qos.logback.classic.html.HTMLLayout">
+            <Pattern>%d{HH:mm:ss.SSS} %-5level %logger{36} {User:|AgVirtualAdmin|} %msg%n</Pattern>
+        </layout>
+        
+        <maxFileSize>5MB</maxFileSize>
+    </appender>
+
+    <!-- =========================================================================================================== -->
+    <!-- Loggers                                                                                                     -->
+    <!-- =========================================================================================================== -->
+
+    <root>
+        <level value="INFO"/>
+        <appender-ref ref="DEBUG_APPLICATION_LOG_FILE"/>
+    </root>
+
+    <!-- commons =================================================================================================== -->
+
+    <logger name="org.apache">
+        <level value="ERROR"/>
+    </logger>
+
+    <!-- Hibernate ================================================================================================= -->
+
+    <logger name="org.hibernate">
+        <level value="ERROR"/>
+    </logger>
+
+    <logger name="javax.persistence.EntityManager">
+        <level value="ERROR"/>
+    </logger>
+
+    <!-- Spring ==================================================================================================== -->
+
+    <logger name="org.springframework">
+        <level value="ERROR"/>
+    </logger>
+
+    <!-- JSF ================================================================================================= -->
+
+    <logger name="javax.faces">
+        <level value="ERROR"/>
+    </logger>
+
+    <logger name="com.sun.faces">
+        <level value="ERROR"/>
+    </logger>
+
+    <logger name="com.icesoft">
+        <level value="ERROR"/>
+    </logger>
+
+    <!-- Framework JAB ============================================================================================= -->
+
+    <logger name="com.prime.app.infra">
+    	<appender-ref ref="DEBUG_APPLICATION_LOG_FILE"/>
+        <level value="INFO"/>
+    </logger>
+
+    <!-- Aplicacao ================================================================================================= -->
+
+    <logger name="com.prime.app.agvirtual">
+    	<appender-ref ref="DEBUG_APPLICATION_LOG_FILE"/>
+        <level value="INFO"/>
+    </logger>
+
+</configuration>

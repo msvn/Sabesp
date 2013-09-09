@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ice="http://www.icesoft.com/icefaces/component">
+    
+	<!-- footer -->
+	<div id="footer" class="rodape">
+		<ice:panelGroup styleClass="boxInnerRodape">
+			
+			<ice:outputLabel styleClass="emergencias">
+				<h:outputText value="#{msg['footer.txt.paraemergencia']}" />
+			</ice:outputLabel>
+		
+			<ice:panelGroup styleClass="boxTelefones">
+				<dl>
+					<dt><h:outputText value="#{msg['footer.txt.regiaometropolitana']}" /></dt>
+						<dd><h:outputText value="#{msg['footer.txt.numero08000119911']}" /></dd>
+					<dt><h:outputText value="#{msg['footer.txt.interiorlitoral']}" /></dt>
+						<dd><h:outputText value="#{msg['footer.txt.numero0800550195']}" /></dd>
+					<dt><h:outputText value="#{msg['footer.txt.ouvidoria']}" /></dt>
+						<dd><h:outputText value="#{msg['footer.txt.numero08005500565']}" /></dd>
+					<dt><h:outputText value="#{msg['footer.txt.sauarsesp']}" /></dt>
+						<dd><h:outputText value="#{msg['footer.txt.numero08007716883']}" /></dd>
+				</dl>
+		
+			</ice:panelGroup>
+		
+			<ice:panelGroup styleClass="boxMenu">
+		
+				<ul>
+					<li>
+						<ice:commandLink action="#{menuBBean.redirectLink}">
+							<h:outputText value="#{msg['footet.txt.suaconta']}" />
+							<f:param name="cdMenu" value="#{menuBBean.suaConta}"/>
+							<f:param name="outcomeMenu" value="SUBMENUSUACONTA"/>
+						</ice:commandLink>
+					</li>
+					<li>
+						<ice:commandLink action="#{menuBBean.redirectLink}">
+							<h:outputText value="#{msg['footet.txt.ligacoesaguaesgoto']}" />
+							<f:param name="cdMenu" value="#{menuBBean.ligacoesAguaEsgoto}"/>
+							<f:param name="outcomeMenu" value="SUBMENULIGACOESAGUAESGOTO"/>
+						</ice:commandLink>
+					</li>
+					<li>
+						<ice:commandLink action="#{menuBBean.redirectLink}">	
+							<h:outputText value="#{msg['footet.txt.consertos']}" />
+							<f:param name="cdMenu" value="#{menuBBean.consertos}"/>
+							<f:param name="outcomeMenu" value="SUBMENUCONSERTOS"/>
+						</ice:commandLink>
+					</li>
+					<li>
+						<ice:commandLink action="#{menuBBean.redirectLink}">	
+							<h:outputText value="#{msg['footet.txt.emergencias']}" />
+							<f:param name="cdMenu" value="#{menuBBean.emergencias}"/>
+							<f:param name="outcomeMenu" value="SUBMENUEMERGENCIAS"/>
+						</ice:commandLink>
+					</li>
+					<li>
+						<ice:commandLink action="#{menuBBean.redirectLink}">
+							<h:outputText value="#{msg['footet.txt.corporativo']}" />
+							<f:param name="cdMenu" value="#{menuBBean.corporativo}"/>
+							<f:param name="outcomeMenu" value="SUBMENUCORPORATIVO"/>
+						</ice:commandLink>
+					</li>
+					<li>
+						<ice:commandLink action="#{menuBBean.redirectLink}">
+							<h:outputText value="#{msg['footet.txt.dicasinformacoes']}" />
+							<f:param name="cdMenu" value="#{menuBBean.dicasInformacoes}"/>
+							<f:param name="outcomeMenu" value="SUBMENUDICASINFORMACOES"/>
+						</ice:commandLink>
+					</li>
+				</ul>
+				<ul>
+					<li>
+						<ice:commandLink action="#{menuBBean.redirectLink}">
+							<h:outputText value="#{msg['menu.navegacao.link.tarifaslink']}" />
+							<f:param name="cdMenu" value="#{menuBBean.tarifas}"/>
+							<f:param name="outcomeMenu" value="SUBMENUTARIFAS"/>
+						</ice:commandLink>
+					</li>
+					<li>
+						<ice:commandLink onclick="javascript:window.open('http://site.sabesp.com.br/site/fale-conosco/Default.aspx?secaoId=71' , '_blank');">
+							<h:outputText value="#{msg['footet.txt.perguntasfrequentes']}" />
+						</ice:commandLink>
+					</li>
+					<li>
+						<ice:commandLink onclick="javascript:window.open('http://site.sabesp.com.br/site/fale-conosco/Default.aspx?secaoId=71' , '_blank');">
+							<h:outputText value="#{msg['footet.txt.faleconosco']}" />
+						</ice:commandLink>
+					</li>
+					<li>
+						<ice:commandLink action="#{canaisAtendimentoBBean.carregar}">	
+							<h:outputText value="#{msg['footet.txt.canaisatendimento']}" />
+							<f:param name="dsMenu" value="#{msg['menu.superior.link.canaisatendimento']}" />
+							<f:param name="outcomeMenu" value="CANAISATENDIMENTO" />
+						</ice:commandLink>
+					</li>
+					<li>
+						<ice:commandLink>
+							<h:outputText value="#{msg['footer.txt.nomesite']}" />
+						</ice:commandLink>
+					</li>
+				</ul>
+		
+			</ice:panelGroup>
+		
+			<ice:panelGroup styleClass="assinatura">
+				<h:outputText value="#{msg['footer.txt.agenciavirtualtodosdireitos']}" />
+			</ice:panelGroup>
+		
+		</ice:panelGroup>
+	</div>
+</ui:composition>

@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ice="http://www.icesoft.com/icefaces/component"
+    xmlns:fn="http://www.primeinformatica.com.br/functions" template="../template/template.jspx">
+
+	<ui:define name="conteudo">
+		<ice:panelGroup id="painelPrincipal" styleClass="wrapper">
+			<ice:panelGroup styleClass="contaContent" rendered="#{debitoAutomaticoBBean.telaSucesso == false}">
+
+				<ice:panelGroup id="painelTitulo">
+					<h3 id="titulo">#{msg['suaconta.txt.debitoautomatico.titulo']}</h3>
+				</ice:panelGroup>
+				<br />
+				<ice:panelGroup id="painelMensagens">
+					<ice:outputLabel value="#{msg['suaconta.txt.debitoautomatico.msg1']}" styleClass="labelInform"/>
+					
+					<br />
+					<br />
+					<ice:outputLabel value="#{msg['suaconta.txt.debitoautomatico.msg3']}" styleClass="subItemSeta"/>
+					<br />
+					<ice:outputLabel value="#{msg['suaconta.txt.debitoautomatico.msg4']}" styleClass="subItemSeta"/>
+					<br />
+					<ice:outputLabel value="#{msg['suaconta.txt.debitoautomatico.msg5']}" styleClass="subItemSeta"/>
+					<br />
+					<ice:outputLabel value="#{msg['suaconta.txt.debitoautomatico.msg6']}" styleClass="subItemSeta"/>
+					<br />
+					<ice:outputLabel value="#{msg['suaconta.txt.debitoautomatico.msg7']}" styleClass="subItemSeta"/>
+					<br />
+					<ice:outputLabel value="#{msg['suaconta.txt.debitoautomatico.msg8']}" styleClass="subItemSeta"/>
+					<br />
+					<br />
+
+					<ice:outputLabel value="#{msg['suaconta.txt.debitoautomatico.msg9']}" styleClass="labelInform"/>
+					<br />
+					<br />
+					<ice:outputLabel value="#{msg['suaconta.txt.debitoautomatico.msg10']}" styleClass="labelInform"/>
+					<br />
+					<br />
+					<ice:outputLabel value="#{msg['suaconta.txt.debitoautomatico.msg11']}" styleClass="labelInform"/>
+					<br />
+					<br />
+				</ice:panelGroup>
+
+				<ice:panelGroup id="painelSubtitulo">
+					<h3 id="titulo">#{msg['suaconta.txt.debitoautomatico.subtitulo']}</h3>
+				</ice:panelGroup>
+				<br />
+				<ice:outputLabel styleClass="imagemConcluido"/>
+				<ice:outputLabel value="#{msg['suaconta.txt.debitoautomatico.msg12']}" styleClass="labelInform" style="font-weight: bold;"/>
+				<br />
+				<br />
+				<h:panelGrid>   
+
+					<!-- mensagem erro validacao -->
+					<ui:include src="../template/errovalidacao.jspx" >
+						<ui:param name="backbean" value="#{debitoAutomaticoBBean}"/>
+					</ui:include>
+
+				</h:panelGrid>
+				<ice:panelGrid id="painelForm" columns="2" columnClasses="tablesAlign" styleClass="panelForm">
+					
+					<ice:panelGrid id="painelEsquerda" columns="2"							
+							columnClasses="colunaLabel,colunaInput">
+
+						<ice:outputLabel value="#{msg['suaconta.txt.debitoautomatico.nome']}:" styleClass="labelInform"/>
+						<ice:inputText id="nome" value="#{debitoAutomaticoBBean.debitoAuto.nome}" 
+							styleClass="inputTextForm" size="50" maxlength="50"/>
+						
+						<ice:outputLabel value="#{msg['suaconta.txt.debitoautomatico.rg']}:" styleClass="labelInform"/>
+						<ice:column>
+							<ice:inputText id="rg" value="#{debitoAutomaticoBBean.debitoAuto.rg}" 
+								styleClass="inputTextForm" size="15" maxlength="15"/>
+							<ice:outputLabel value="#{msg['suaconta.txt.debitoautomatico.pessoafisica']}" styleClass="avisoSemDestaque"/>
+						</ice:column>
+						
+						<ice:outputLabel value="#{msg['suaconta.txt.debitoautomatico.rgi']}:" styleClass="labelInform"/>
+						<ice:column>
+							<ice:inputText id="rgi" value="#{debitoAutomaticoBBean.debitoAuto.rgi}" 
+								styleClass="inputTextForm" size="15" maxlength="10"/>
+							<ice:commandLink actionListener="#{debitoAutomaticoBBean.atualizarModal}" styleClass="linkLocalizeRgi">
+								<h:outputLabel value="#{msg['suaconta.txt.debitoautomatico.localizergi']}"/>
+							</ice:commandLink>
+						</ice:column>
+						
+						<ice:outputLabel value="#{msg['suaconta.txt.debitoautomatico.cpfcnpj']}:" styleClass="labelInform"/>
+						<ice:inputText id="cpfCnpj" value="#{debitoAutomaticoBBean.debitoAuto.cpfCnpj}" 
+							styleClass="inputTextForm" size="15" maxlength="15"/>
+
+					</ice:panelGrid>
+
+					<ice:panelGrid id="painelDireita" columns="2" width="100%"							
+							columnClasses="colunaLabel,colunaInput">
+
+						<ice:outputLabel value="#{msg['suaconta.txt.debitoautomatico.endereco']}:" styleClass="labelInform"/>
+						<ice:inputText id="endereco" value="#{debitoAutomaticoBBean.debitoAuto.endereco}" 
+							styleClass="inputTextForm" size="45" maxlength="50"/>
+
+						<ice:outputLabel value="#{msg['suaconta.txt.debitoautomatico.bairro']}:" styleClass="labelInform"/>
+						<ice:column>
+							<ice:inputText id="bairro" value="#{debitoAutomaticoBBean.debitoAuto.bairro}" 
+								styleClass="inputTextForm" size="15" maxlength="30"/>
+	
+							<ice:outputLabel value=" #{msg['suaconta.txt.debitoautomatico.cidade']}: " styleClass="labelInform"/>
+							<ice:inputText id="cidade" value="#{debitoAutomaticoBBean.debitoAuto.cidade}" 
+								styleClass="inputTextForm" size="15" maxlength="25"/>
+						</ice:column>
+
+						<ice:outputLabel value="#{msg['suaconta.txt.debitoautomatico.telefone']}:" styleClass="labelInform"/>
+						<ice:column>
+							<ice:inputText id="ddd" value="#{debitoAutomaticoBBean.debitoAuto.ddd}" 
+								styleClass="inputTextForm" style="width:23px; margin:8px 10px 0 0;" maxlength="2"/>
+							<ice:inputText id="telefone" value="#{debitoAutomaticoBBean.debitoAuto.telefone}" 
+								styleClass="inputTextForm" size="15" maxlength="8"/>
+						</ice:column>
+
+					</ice:panelGrid>
+					<br />
+					<br />
+					<br />
+					<br />
+					<ice:panelGrid id="painelEsquerdaBanco" columns="2"
+							columnClasses="colunaLabel,colunaInput">
+
+						<ice:outputLabel value="#{msg['suaconta.txt.debitoautomatico.nomebanco']}:" styleClass="labelInform"/>
+						<ice:inputText id="nomeBanco" value="#{debitoAutomaticoBBean.debitoAuto.nomeBanco}" 
+							styleClass="inputTextForm" size="50" maxlength="50"/>
+						
+						<ice:outputLabel value="#{msg['suaconta.txt.debitoautomatico.bairro']}:" styleClass="labelInform"/>
+						<ice:inputText id="bairroBanco" value="#{debitoAutomaticoBBean.debitoAuto.bairroBanco}" 
+							styleClass="inputTextForm" size="50" maxlength="30"/>
+
+					</ice:panelGrid>
+
+					<ice:panelGrid id="painelDireitaBanco" columns="2" width="100%"
+							columnClasses="colunaLabel,colunaInput">
+
+						<ice:outputLabel value="#{msg['suaconta.txt.debitoautomatico.banco']}:" styleClass="labelInform"/>
+						<ice:inputText id="cdBanco" value="#{debitoAutomaticoBBean.debitoAuto.cdBanco}" 
+							styleClass="inputTextForm" size="15" maxlength="15"/>
+
+						<ice:outputLabel value="#{msg['suaconta.txt.debitoautomatico.conta']}:" styleClass="labelInform"/>
+						<ice:inputText id="conta" value="#{debitoAutomaticoBBean.debitoAuto.contaCorrente}" 
+							styleClass="inputTextForm" size="15" maxlength="15"/>
+
+						<ice:outputLabel value="#{msg['suaconta.txt.debitoautomatico.agencia']}:" styleClass="labelInform"/>
+						<ice:inputText id="agencia" value="#{debitoAutomaticoBBean.debitoAuto.agencia}" 
+							styleClass="inputTextForm" size="15" maxlength="15"/>
+
+					</ice:panelGrid>
+
+					<ice:panelGrid id="painelObs" columns="1" width="100%" style="font-size:62.5%;">
+						<ice:outputLabel value="#{msg['suaconta.txt.debitoautomatico.msg13']}" styleClass="labelInform"/>
+					</ice:panelGrid>
+
+				</ice:panelGrid>
+
+				<ice:panelGroup id="painelBotoes" styleClass="botoes" style="clear: both;">
+					<br />
+					<table border="0" width="100%">
+						<tr>
+							<td align="center">
+							<ul style="float:center;">
+								<li class="claro"><ice:commandLink action="#{debitoAutomaticoBBean.imprimir}"  
+									target="_blank"  ><b><span>IMPRIMIR</span></b></ice:commandLink></li>
+							</ul>
+							</td>
+						</tr>
+					</table>
+				</ice:panelGroup>
+
+				<ice:panelPopup id="popupRgi" 
+					draggable="false" modal="true" styleClass="corePopup"
+					visible="#{debitoAutomaticoBBean.modalRendered}" autoCentre="true">
+				    <f:facet name="header">
+						<ice:panelGroup id="painelBotao" >
+							<ice:commandLink type="submit" style="color:#FFFFFF;" styleClass="btnFecharPopup"
+						    	value="Fechar" actionListener="#{debitoAutomaticoBBean.atualizarModal}"/>
+						</ice:panelGroup>
+				    </f:facet>
+					<f:facet name="body">
+						<ice:panelGroup id="painelImagem" style="font-size:62.5%;">
+							<br />
+							<ice:outputLabel value="#{msg['suaconta.txt.debitoautomatico.msg15']}:" styleClass="labelInform"/>
+							<br />
+							<br />
+							<ice:graphicImage style="text-align:center;" url="/images/ex_rgi.jpg"/>			
+						</ice:panelGroup>
+				    </f:facet>
+				</ice:panelPopup>
+
+			</ice:panelGroup>
+
+			<ice:panelGroup styleClass="contaContent" rendered="#{debitoAutomaticoBBean.telaSucesso == true}">
+				
+				<ice:panelGroup id="painelTitulo">
+					<h3 id="titulo">#{msg['suaconta.txt.debitoautomatico.titulo']}</h3>
+				</ice:panelGroup>
+				<br />
+				<ice:outputLabel styleClass="imagemConcluido2"/>
+				<ice:outputLabel value="#{msg['suaconta.txt.debitoautomatico.msg14']}" styleClass="labelInform"/>
+				<br />
+				<br />
+				<ice:panelGroup id="painelBotoes" styleClass="botoes" style="clear: both;">
+					<br />
+					<ul style="float:center;">
+						<li class="claro"><ice:commandLink  actionListener="#{debitoAutomaticoBBean.voltar}"><b><span>VOLTAR</span></b></ice:commandLink></li>
+						<li class="escuro"><ice:commandLink  target="_blank" action="#{debitoAutomaticoBBean.concluir}" ><b><span>CONCLUIR</span></b></ice:commandLink></li>
+					</ul>
+				</ice:panelGroup>
+				<script>
+					window.open('#{facesContext.externalContext.requestContextPath}/pages/export/pdfs/report.pdf' , '_blank', 'scrollbars=yes,width=900,menubar=no');
+				</script>
+			</ice:panelGroup>
+		</ice:panelGroup>
+	</ui:define>
+</ui:composition>

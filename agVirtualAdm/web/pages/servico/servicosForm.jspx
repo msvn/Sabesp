@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ice="http://www.icesoft.com/icefaces/component"
+    xmlns:fn="http://www.primeinformatica.com.br/functions" template="../templates/template.jspx">
+<ui:define name="content" >
+	 <form jsfc="h:form" id="form" styleClass="common" style="width:100%">
+        <input type="hidden" id="cdServico" jsfc="h:inputHidden" value="#{servicosBBean.servico.cdServico}" />
+		<!-- input type="hidden"  id="listaSubServicoAdicionados" jsfc="h:inputHidden" value="#{servicosBBean.listaSubServicoAdicionados}"/-->
+		<!-- CORPO DA PAGINA -->
+		<div id="conteudo">	
+			<h2>
+					<h:outputText value="Novo Serviço" rendered="#{!servicosBBean.mostraTituloNovo}"/>
+					<h:outputText value="Alterar Serviço" rendered="#{servicosBBean.mostraTituloNovo}"/>
+
+			</h2>
+			<div id="formulario">
+				
+				
+				<br class="clear" />
+				<ice:panelGroup rendered="${servicosBBean.existeMsgErro eq true}" style="border: 1px solid #D2D7D7; width: 95%; background-color: #EDF2F2; padding: 7px 7px 7px 7px; text-align: left; align: center; font: normal 8pt Verdana!important; height: auto;">
+						<ice:graphicImage style="float:left; border: 0px; padding-right: 10px;" url="#{servicosBBean.caminhoImagemErroSucesso}"/> 
+						<h:messages errorStyle="color: red; font: normal 8pt Verdana!important;" infoStyle="color: green; font: normal 8pt Verdana!important;" layout="table" 
+								showSummary="true" showDetail="false" globalOnly="true"/>
+				</ice:panelGroup>
+
+				<div class="obrigatorios"><b class="asterisco">*</b> campos obrigatórios</div>
+				<br class="clear" />
+				<div class="divch"><b class="asterisco">*</b> Nome</div>
+				
+				<ice:inputText
+					onblur="desfocaliza(this);" 
+					onfocus="focaliza(this);"
+			        id="nmServico" 
+			        size="120" 
+			        maxlength="50" 
+			        style="width: 250px;"
+			        styleClass="desfocaliza"
+		          	value="#{servicosBBean.servico.nmServico}"/>
+	
+				<br class="clear" />
+				
+				<br class="clear" />
+				<div class="divch"><b class="asterisco">*</b> Categoria</div>
+					<ice:selectOneMenu 
+						id="codCategoria"
+						styleClass="desfocaliza" 
+						onblur="desfocaliza(this);"
+						onfocus="focaliza(this);"
+						value="#{servicosBBean.codCategoria}">
+						
+						<f:selectItems value="#{servicosBBean.listCategorias}"/>
+						
+					</ice:selectOneMenu>
+				
+
+				<br class="clear" />
+
+				<br class="clear" />
+					<div class="divch"><b class="asterisco">*</b> Observação</div>
+						<ice:inputTextarea 
+							id="dsObservacao"
+	                        onblur="desfocaliza(this);" 
+	                        onfocus="focaliza(this);" 
+		                    maxlength="200" 
+		                    styleClass="texto" 
+		                    style="width:560px;height:50px;"
+		                    value="#{servicosBBean.servico.dsObservacao}"/>
+					
+				<br class="clear" />
+				<br class="clear" />
+				<br class="clear" />
+				<h:message  for="codSubServico" errorClass="error" fatalClass="error" warnClass="error" />
+				<!-- OBS: Comentado subserviço -->
+
+				<div class="divch"> Escolha os subserviços e clique no ícone '+'.</div>
+					<ice:selectOneMenu 
+						id="codSubServico"
+						styleClass="desfocaliza" 
+						onblur="desfocaliza(this);"
+						onfocus="focaliza(this);"
+						value="#{servicosBBean.codSubServico}">
+						
+						<f:selectItems value="#{servicosBBean.listSubServico}"/>
+						
+					</ice:selectOneMenu>				
+
+					<ice:commandButton  
+ 					 image="/images/incluir_registro.gif"    
+					 actionListener="#{servicosBBean.adicionaSubServ}" />
+				<br class="clear" />
+
+				
+				<ice:panelGroup style="padding-left: 200px;">
+			        <ice:outputText
+			                value="#{msgs['av.subservicos.form.listagem.titulo']}"/>
+			        <ice:dataTable width="450px" var="row" value="#{servicosBBean.listaSubServicoAdicionados}">
+			            <ice:column>
+			                <f:facet name="header">
+			                    <ice:outputLabel value="Nome Subserviço"/>
+			                </f:facet>
+							#{row.dsSubservico}			
+			            </ice:column>
+
+						<ice:column>
+							<ice:commandLink  style="text-align: center;" actionListener="#{servicosBBean.excluirSubServ}">
+								<ice:graphicImage style="border: 0px;" url="/images/excluir_registro.gif"></ice:graphicImage>
+								 <f:param id="codSubServ" name="codSubServ" value="#{row.cdSubservico}"/>
+			                </ice:commandLink>
+			            </ice:column>
+			        </ice:dataTable>
+			    </ice:panelGroup>
+			    
+			</div>
+		</div>
+		
+			<br class="clear" />
+			<br class="clear" />
+			<div class="new_footer_form">			
+					<ice:commandButton styleClass="botaoSabesp"  action="#{servicosBBean.atualizar}" value="Voltar" />
+					<ice:commandButton styleClass="botaoSabesp"  panelConfirmation="limparConfirmPanel" action="#{servicosBBean.novoServico}" value="Limpar" />
+
+					<ice:column rendered="#{servicosBBean.servico.cdServico != null}">
+						<ice:commandButton styleClass="botaoSabesp"  panelConfirmation="deleteConfirmPanel" action="#{servicosBBean.excluir}" value="Excluir" />
+					</ice:column>
+					
+					<ice:commandButton styleClass="botaoSabesp"  action="#{servicosBBean.salvar}" value="Salvar" />
+
+					<ice:panelConfirmation id="limparConfirmPanel"  title="#{msg['tela.confirmacao.titulo']}"   message="#{msg['tela.confirmacao.texto.limpar']}"
+                     acceptLabel="#{msg['tela.confirmacao.acao.limpar']}" cancelLabel="#{msg['tela.confirmacao.acao.cancelar']}" />
+
+					<ice:panelConfirmation id="deleteConfirmPanel"  title="#{msg['tela.confirmacao.titulo']}"   message="#{msg['av.servicos.add.servico.excluir']}"
+                     acceptLabel="#{msg['tela.confirmacao.acao.excluir']}" cancelLabel="#{msg['tela.confirmacao.acao.cancelar']}" />
+
+			</div>
+		<!-- CORPO DA PAGINA -->
+	 </form>
+</ui:define>
+
+</ui:composition>

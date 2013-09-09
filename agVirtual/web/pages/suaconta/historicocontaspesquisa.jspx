@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ice="http://www.icesoft.com/icefaces/component"
+    xmlns:fn="http://www.primeinformatica.com.br/functions" template="../template/template.jspx">
+
+<ui:define name="conteudo">	
+<ice:panelGroup styleClass="wrapper">
+		<ice:panelGroup styleClass="contaContent">
+			<h3><h:outputText value="#{migalhaPaoBBean.dsSubMenu}"/> </h3>
+
+			<p>Aqui você consulta o histórico de contas de consumo dos últimos 12 meses.</p>
+
+			<ui:include src="../template/pesquisaNumeroRgi.jspx">
+				<ui:param name="backbean" value="#{historicoContasBBean}" /> 
+				<ui:param name="outcomeparam" value="PROSSEGUIR" />
+			</ui:include>	
+		</ice:panelGroup>
+</ice:panelGroup>
+</ui:define>
+</ui:composition>	

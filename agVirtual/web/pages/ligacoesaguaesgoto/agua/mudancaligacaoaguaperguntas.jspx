@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ice="http://www.icesoft.com/icefaces/component"
+    xmlns:fn="http://www.primeinformatica.com.br/functions" template="../../template/template.jspx">
+
+<ui:define name="conteudo"> 
+<ice:panelGroup styleClass="wrapper">
+		<ice:panelGroup styleClass="contaContent" style="padding-left: 0px;">
+		<ice:panelGroup style="padding-left: 19px;">
+			<h3><h:outputText value="#{msg['ligacoesaguaesgoto.txt.mudarlocalligacaoagua']}"/></h3>
+
+
+			<ice:panelGroup rendered="#{ligacaoAguaBBean.exibirTextoParcial}">
+			
+				<p><h:outputText value="#{msg['ligacoesaguaesgoto.txt.solicitacaomudancalocalsualigacaoagua']}"/></p>
+	
+				<p><h:outputText value="#{msg['ligacoesaguaesgoto.txt.ilustracao']}"/></p>
+			
+			</ice:panelGroup>
+			
+			<ice:panelGroup rendered="#{ligacaoAguaBBean.exibirAcatamento}">
+				<p><h:outputText value="#{msg['autoatendimento.esgotoentupido.titulo.paraprosseguir']}" /></p>
+			</ice:panelGroup>
+
+			<h:panelGrid>   
+				<!-- mensagem erro validacao -->
+				<ui:include src="../../template/errovalidacao.jspx" >
+					<ui:param name="backbean" value="#{ligacaoAguaBBean}"/>
+				</ui:include>
+			</h:panelGrid>
+		</ice:panelGroup>
+
+
+			<ui:repeat value="#{ligacaoAguaBBean.listaPerguntasRespondidas}"  var="pergunta">	
+				<ice:panelGroup rendered="#{pergunta.codRespostaSelecionado != null}" styleClass="contaContent" style="padding-left:19px; border-top:0px !important; border-bottom:1px solid #B5E0F3 !important;">
+					<div class="questionario">
+						<label><span class="info"></span><h:outputText value="#{pergunta.dsPergunta}" /></label>
+					</div>
+					<p id="maisresidencias">R:<h:outputText value=" " /><h:outputText value="#{pergunta.dsRespostaSelecionada}" /></p>
+				</ice:panelGroup>		
+			</ui:repeat>
+					
+			<div class="questionario">
+				<ice:panelGroup rendered="#{ligacaoAguaBBean.perguntaAtual != null}" styleClass="contaContent" style="padding-left:19px; border-top:1px solid #FFFFFF !important;">
+				<label><h:outputText value="#{ligacaoAguaBBean.perguntaAtual.dsPergunta}" /></label>
+			
+				<ice:graphicImage rendered="#{ligacaoAguaBBean.perguntaAtual.nrOrdemPergunta eq 1 }" url="/images/posicao_cavalete.jpg"  style="float: right; vertical-align: top"  width="375" height="235"  />
+		
+				<ul>
+					<h:selectOneRadio   styleClass="resposta" layout="pageDirection"
+                           		      value="#{ligacaoAguaBBean.perguntaAtual.codRespostaSelecionado}" >
+                      	<f:selectItems value="#{ligacaoAguaBBean.perguntaAtual.listaRespostaAutoAtendimentoSelectItem}"/> 
+                   	</h:selectOneRadio>			
+				</ul>
+				</ice:panelGroup>
+			</div>
+
+		<h:outputText rendered="#{ligacaoAguaBBean.exibirAcatamento}" >
+			<ui:include src="../../template/parcelamentoSolicitacao.jspx">
+				<ui:param name="backbean" value="#{ligacaoAguaBBean}" />
+			</ui:include>
+		</h:outputText>	
+		
+		<ice:panelGroup rendered="#{ligacaoAguaBBean.exibirAcatamento}" style="padding-left: 19px;" >
+		
+			<p>
+				<h:outputText value="#{msg['autoatendimento.aprovarorcamento.maioridade']}" />
+				<br/><br/>
+				 <ice:selectBooleanCheckbox 
+				 	partialSubmit="true"
+			        value="#{ligacaoAguaBBean.checkAprovarOrcamento}"/>
+			     <ice:outputText value=" " />Sim, sou maior de 18 anos.   	
+			</p>
+
+
+		</ice:panelGroup>
+		
+	<table border="0" width="100%">
+			<tr>
+			<td align="center">			
+			<ice:panelGroup styleClass="botoes" style="clear: both;">
+				<br />
+				<ul style="float:center;">
+					<li class="claro">
+						<h:outputText rendered="#{ligacaoAguaBBean.perguntaAtual.nrOrdemPergunta eq 1 }">
+							<ice:commandLink action="#{ligacaoAguaBBean.retornar}" >
+									<f:param name="retornoparam" value="VOLTAR" />
+								<b><span>VOLTAR </span></b>
+							</ice:commandLink>
+						</h:outputText>   
+						<h:outputText rendered="#{ligacaoAguaBBean.perguntaAtual.nrOrdemPergunta != 1 }">  
+							<ice:commandLink action="#{ligacaoAguaBBean.retornar}" actionListener="#{ligacaoAguaBBean.perguntaAnterior}">
+									<f:param name="retornoparam" value="ERRO" />
+								<b><span>VOLTAR </span></b>
+							</ice:commandLink>
+						</h:outputText>
+					</li>
+					<li class="claro">
+						<ice:commandLink  rendered="#{!ligacaoAguaBBean.exibirBotaoConclusao}" action="#{ligacaoAguaBBean.prosseguir}" actionListener="#{ligacaoAguaBBean.verificaAcao}">
+							<f:param name="outcomeparam" value="PROSSEGUIR" />
+							<b><span>PROSSEGUIR</span></b>
+						</ice:commandLink>
+					</li>
+					<li class="escuro">
+						<ice:commandLink  rendered="#{ligacaoAguaBBean.exibirBotaoConclusao}" action="#{ligacaoAguaBBean.prosseguir}" actionListener="#{ligacaoAguaBBean.confirmaAcatamento}">
+							<f:param name="outcomeparam" value="PROSSEGUIR_CLIENTE" />
+							<b><span>PROSSEGUIR</span></b>
+						</ice:commandLink>
+					</li>		
+				</ul>					
+			</ice:panelGroup>	
+		</td>
+	</tr></table>
+</ice:panelGroup>
+</ice:panelGroup>
+</ui:define>
+</ui:composition>
+		
+

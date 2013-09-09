@@ -1,0 +1,490 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:jsp="http://java.sun.com/JSP/Page"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ice="http://www.icesoft.com/icefaces/component"
+	  xmlns:fn="http://www.primeinformatica.com.br/functions">
+
+<f:loadBundle basename="com.prime.app.agvirtual.message.default" var="msg" />
+
+<head>
+	<script type="text/javascript" src="../js/default.js"></script>
+						 <script type="text/javascript">
+						 /* <![CDATA[ */
+						 function ImprimeBarras(cBarras)
+							{
+								var nContador;
+								cTexto = new String(cBarras);
+								for(nContador=0;nContador < cTexto.length ; nContador++)
+								{
+									
+									document.write("<img src='../../images/");
+									if((nContador % 2) == 1)
+									{document.write("b")}
+									else
+									{document.write("p")}
+							
+									document.write( ".gif' width=");
+									document.write(cTexto.charAt(nContador));
+									document.write(" height=50 border=0>");
+								}
+							}
+						  /* ]]> */
+						 </script>
+	<link href="#{facesContext.externalContext.requestContextPath}/css/agvt.css" rel="stylesheet" type="text/css" />
+	<script language="JavaScript" type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/js/DD_belatedPNG.js"></script>
+</head>
+
+<body>	
+
+	<ice:form id="frmSegundaVia">
+
+		<h:outputText rendered="#{contaBBean.listaContasImpressaoSegundaVia != null}"> 
+			<ui:repeat value="#{contaBBean.listaImpressao}" var="conta">
+				
+	
+			<ice:panelGroup id="painelPrincipal" styleClass="wrapper" >
+				<ice:panelGroup styleClass="contaContent">
+					<ice:panelGrid id="painelGeral" columns="2" styleClass="panelImpressao">
+						<ice:graphicImage url="/images/logo_sabe.gif" height="51" width="40" />
+						<ice:column>
+							<ice:outputLabel value="#{msg['segundavia.txt.boleto.titulo']}" styleClass="labelTituloBoleto" />
+							<br />
+							<ice:outputLabel value="#{msg['segundavia.txt.boleto.subtitulo']}" styleClass="labelSimplesBoleto" />
+						</ice:column>
+					</ice:panelGrid>
+					<hr size="1" width="595" align="left"/>
+					<br />
+	
+					<ice:panelGrid id="painelRgi" columns="5" width="595" 
+						columnClasses="columnBoletoBold, columnBoleto, columnBoletoBold, 
+									   columnBoletoBold, columnBoletoBold">
+						<ice:outputLabel value="#{msg['segundavia.txt.boleto.rgi']}" />
+						<ice:outputLabel value="#{msg['segundavia.txt.boleto.codificacao']}" />
+						<ice:outputLabel value="#{msg['segundavia.txt.boleto.conta']}" />
+						<ice:outputLabel value="#{msg['segundavia.txt.boleto.hidrometro']}" />
+						<ice:outputLabel value="#{msg['segundavia.txt.boleto.mes']}" />
+						
+						<ice:panelGroup style="background-color: #cccccc;">
+							<ice:outputText value="#{conta.imovel.numeroRGIToBoleto}" />
+						</ice:panelGroup>
+						<ice:outputText value="#{conta.cdSabesp}" />
+						<ice:outputText value="#{conta.numeroConta}" />
+						<ice:outputText value="#{conta.codigoHidrometro}" />
+						<ice:panelGroup style="background-color: #cccccc;">
+							<h:outputText value="#{conta.dtVencimento}">
+								<f:convertDateTime pattern="MMMM/yyyy"/>
+							</h:outputText>
+						</ice:panelGroup>
+					</ice:panelGrid>
+					<br />
+					<ice:panelGrid id="painelEndereco" columns="3" width="595" 
+						columnClasses="columnBoletoLeft, columnBoleto, columnBoleto">
+						<ice:outputLabel value="#{msg['segundavia.txt.boleto.endereco']}" />
+						<ice:outputLabel value="#{msg['segundavia.txt.boleto.consumom3']}" />
+						<ice:outputLabel value="#{msg['segundavia.txt.boleto.mediam3']}" />
+						
+						<ice:outputText value="#{conta.imovel.endereco.enderecoCompleto}" />
+						<ice:outputText value="#{conta.quantidadeConsumo}" />
+						<ice:outputText value="#{conta.qtMedia}" />
+					</ice:panelGrid>
+					<br />
+
+					<!--  conta normal -->
+					<ice:panelGroup rendered="#{conta.contaNormal.exibir}">
+						<table width="595" style="tablesAlign" border="0">
+							<tr>
+								<td>
+									<ice:outputLabel value="#{msg['segundavia.txt.boleto.contanormal']}" styleClass="columnBoletoBold"/>
+								</td>
+								<td>
+									<ice:outputLabel value="#{msg['segundavia.txt.boleto.discr.faturamento']}" styleClass="columnBoleto" /> 
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<!-- panel informativo conta normal -->
+									<ice:panelGrid id="painelInf" columns="2" width="380" columnClasses="tablesAlignMiddle" rendered="#{conta.contaNormal.exibir}">
+										<ice:panelGroup id="painelInformativo1" style="padding-right: 30px; line-height: 12px;">
+											<ice:outputLabel value="#{msg['segundavia.txt.boleto.pagamentoatraso']}" styleClass="columnBoleto"/>
+											<br /><br />
+											<ice:outputLabel value="#{msg['segundavia.txt.boleto.inform1']}" styleClass="columnBoleto"/>
+											<br /><br />
+											<ice:outputLabel value="#{msg['segundavia.txt.boleto.inform2']}" styleClass="columnBoletoBold"/>
+										</ice:panelGroup>
+						
+										<ice:panelGroup id="painelInformativo2" style="text-align: center; line-height: 30px;">
+											<ice:outputLabel value="#{msg['segundavia.txt.boleto.inform3']} " styleClass="labelTituloBoleto"/> <h:outputText value='#{conta.dtEmissao}' styleClass="labelTituloBoleto" ><f:convertDateTime pattern="dd/MM/yyyy"/> </h:outputText>
+										</ice:panelGroup>
+									</ice:panelGrid>
+									<!-- panel informativo conta normal -->
+								</td>
+								<td valign="top">
+									<table border="0" width="100%">
+										<tr>
+											<td><ice:outputText value="Água" styleClass="columnBoleto" /></td>
+											<td align="right"><ice:outputText value="#{conta.vlAgua}" styleClass="columnBoleto" /></td>
+										</tr>
+										<tr>
+											<td><ice:outputText value="Esgoto" styleClass="columnBoleto" /></td>
+											<td align="right"><ice:outputText value="#{conta.vlEsgoto}" styleClass="columnBoleto" /></td>
+										</tr>
+										
+										<ice:panelGroup rendered="#{conta.renderedMulta}">
+										<tr>
+											<td><ice:outputText value="Multa" styleClass="columnBoleto" /></td>
+											<td align="right"><ice:outputText value="#{conta.contaNormal.vlMulta}" styleClass="columnBoleto" /></td>
+										</tr>
+										</ice:panelGroup>
+
+										<ice:panelGroup rendered="#{conta.renderedAtualizacaoMonetaria}">
+										<tr>
+											<td><ice:outputText value="At.Monetária" styleClass="columnBoleto" /></td>
+											<td align="right"><ice:outputText value="#{conta.contaNormal.vlAtualizacaoMonetaria}" styleClass="columnBoleto" /></td>
+										</tr>
+										</ice:panelGroup>
+
+										<ice:panelGroup rendered="#{conta.renderedJurosMora}">
+										<tr>
+											<td><ice:outputText value="Juros de Mora" styleClass="columnBoleto" /></td>
+											<td align="right"><ice:outputText value="#{conta.contaNormal.vlJurosMora}" styleClass="columnBoleto" /></td>
+										</tr>
+										</ice:panelGroup>
+
+										<ice:panelGroup rendered="#{conta.renderedDebito}">
+										<tr>
+											<td><ice:outputText value="Débito" styleClass="columnBoleto" /></td>
+											<td align="right"><ice:outputText value="#{conta.contaNormal.vlDebitos}" styleClass="columnBoleto" /></td>
+										</tr>
+										</ice:panelGroup>
+
+										<ice:panelGroup rendered="#{conta.renderedCredito}">
+										<tr>
+											<td><ice:outputText value="Crédito" styleClass="columnBoleto" /></td>
+											<td align="right"><ice:outputText value="#{conta.contaNormal.vlCreditos}" styleClass="columnBoleto" /></td>
+										</tr>
+										</ice:panelGroup>
+
+										<ice:panelGroup rendered="#{conta.renderedServico}">
+										<tr>
+											<td><ice:outputText value="Crédito" styleClass="columnBoleto" /></td>
+											<td align="right"><ice:outputText value="#{conta.contaNormal.vlServico}" styleClass="columnBoleto" /></td>
+										</tr>
+										</ice:panelGroup>
+
+										<ice:panelGroup rendered="#{conta.renderedRetencao}">
+										<tr>
+											<td><ice:outputText value="Crédito" styleClass="columnBoleto" /></td>
+											<td align="right"><ice:outputText value="#{conta.contaNormal.vlRetencao}" styleClass="columnBoleto" /></td>
+										</tr>
+										</ice:panelGroup>
+
+
+									</table>
+								</td>
+							</tr>
+						</table>
+					</ice:panelGroup>
+					<br />	
+
+					<!--  conta reformada -->
+					<ice:panelGroup rendered="#{conta.contaReformada.exibir}">
+						<table width="595" style="tablesAlign" border="0">
+							<tr>
+								<td>
+									<ice:outputLabel value="CONTA REFORMADA" styleClass="columnBoletoBold"/>
+								</td>
+								<td>
+									<ice:outputLabel value="#{msg['segundavia.txt.boleto.discr.faturamento']}" styleClass="columnBoleto" /> 
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<!-- panel informativo conta reformada -->
+									<ice:panelGrid id="painelInf" columns="2" width="380" columnClasses="tablesAlignMiddle" rendered="#{conta.contaReformada.exibir}">
+										<ice:panelGroup id="painelInformativo1" style="padding-right: 30px; line-height: 12px;">
+											<ice:outputLabel value="#{msg['segundavia.txt.boleto.pagamentoatraso']}" styleClass="columnBoleto"/>
+											<br /><br />
+											<ice:outputLabel value="#{msg['segundavia.txt.boleto.inform1']}" styleClass="columnBoleto"/>
+											<br /><br />
+											<ice:outputLabel value="#{msg['segundavia.txt.boleto.inform2']}" styleClass="columnBoletoBold"/>
+										</ice:panelGroup>
+						
+										<ice:panelGroup id="painelInformativo2" style="text-align: center; line-height: 30px;">
+											<ice:outputLabel value="#{msg['segundavia.txt.boleto.inform3']} 25/6/2010" styleClass="labelTituloBoleto"/>
+										</ice:panelGroup>
+									</ice:panelGrid>
+									<!-- panel informativo conta reformada -->
+								</td>
+								<td valign="top">
+									<table border="0" width="100%">
+										<tr>
+											<td><ice:outputText value="Água" styleClass="columnBoleto" /></td>
+											<td align="right"><ice:outputText value="#{conta.vlAgua}" styleClass="columnBoleto" /></td>
+										</tr>
+										<tr>
+											<td><ice:outputText value="Esgoto" styleClass="columnBoleto" /></td>
+											<td align="right"><ice:outputText value="#{conta.vlEsgoto}" styleClass="columnBoleto" /></td>
+										</tr>
+										
+										<ice:panelGroup rendered="#{conta.renderedMulta}">
+										<tr>
+											<td><ice:outputText value="Multa" styleClass="columnBoleto" /></td>
+											<td align="right"><ice:outputText value="#{conta.contaNormal.vlMulta}" styleClass="columnBoleto" /></td>
+										</tr>
+										</ice:panelGroup>
+
+										<ice:panelGroup rendered="#{conta.renderedAtualizacaoMonetaria}">
+										<tr>
+											<td><ice:outputText value="At.Monetária" styleClass="columnBoleto" /></td>
+											<td align="right"><ice:outputText value="#{conta.contaReformada.vlAtualizacaoMonetaria}" styleClass="columnBoleto" /></td>
+										</tr>
+										</ice:panelGroup>
+
+										<ice:panelGroup rendered="#{conta.renderedJurosMora}">
+										<tr>
+											<td><ice:outputText value="Juros de Mora" styleClass="columnBoleto" /></td>
+											<td align="right"><ice:outputText value="#{conta.contaReformada.vlJurosMora}" styleClass="columnBoleto" /></td>
+										</tr>
+										</ice:panelGroup>
+
+										<ice:panelGroup rendered="#{conta.renderedDebito}">
+										<tr>
+											<td><ice:outputText value="Débito" styleClass="columnBoleto" /></td>
+											<td align="right"><ice:outputText value="#{conta.contaReformada.vlDebitos}" styleClass="columnBoleto" /></td>
+										</tr>
+										</ice:panelGroup>
+
+										<ice:panelGroup rendered="#{conta.renderedCredito}">
+										<tr>
+											<td><ice:outputText value="Crédito" styleClass="columnBoleto" /></td>
+											<td align="right"><ice:outputText value="#{conta.contaReformada.vlCreditos}" styleClass="columnBoleto" /></td>
+										</tr>
+										</ice:panelGroup>
+
+										<ice:panelGroup rendered="#{conta.renderedServico}">
+										<tr>
+											<td><ice:outputText value="Crédito" styleClass="columnBoleto" /></td>
+											<td align="right"><ice:outputText value="#{conta.contaReformada.vlServico}" styleClass="columnBoleto" /></td>
+										</tr>
+										</ice:panelGroup>
+
+										<ice:panelGroup rendered="#{conta.renderedRetencao}">
+										<tr>
+											<td><ice:outputText value="Crédito" styleClass="columnBoleto" /></td>
+											<td align="right"><ice:outputText value="#{conta.contaReformada.vlRetencao}" styleClass="columnBoleto" /></td>
+										</tr>
+										</ice:panelGroup>
+
+
+									</table>
+								</td>
+							</tr>
+						</table>
+					</ice:panelGroup>
+					<br />				
+
+					<!--  conta parcela -->
+					<ice:panelGroup rendered="#{conta.contaParcelada.exibir}">
+						<table width="595" style="tablesAlign" border="0">
+							<tr>
+								<td>
+									<ice:outputLabel value="PARCELA DE CONTA" styleClass="columnBoletoBold"/>
+								</td>
+								<td>
+									<ice:outputLabel value="#{msg['segundavia.txt.boleto.discr.faturamento']}" styleClass="columnBoleto" /> 
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<!-- panel informativo conta parcela -->
+									<ice:panelGrid id="painelInf" columns="2" width="380" columnClasses="tablesAlignMiddle" rendered="#{conta.contaParcelada.exibir}">
+										<ice:panelGroup id="painelInformativo1" style="padding-right: 30px; line-height: 12px;">
+											<ice:outputText value="#{msg['segundavia.txt.boleto.pagamento.parcela']}" styleClass="columnBoleto" escape="false"/>
+											<br /><br />
+											<ice:outputText value="#{msg['segundavia.txt.boleto.pagamento.parcela.inform1']}" styleClass="columnBoleto" escape="false"/>
+										</ice:panelGroup>
+									</ice:panelGrid>
+
+								</td>
+								<td valign="top">
+									<table border="0" width="100%">
+										<tr>
+											<td><ice:outputText value="Acordo Nº" styleClass="columnBoleto" /></td>
+											<td align="right"><ice:outputText value="#{conta.contaParcelada.acordo}" styleClass="columnBoleto" /></td>
+										</tr>
+										<tr>
+											<td><ice:outputText value="Parcela Nº" styleClass="columnBoleto" /></td>
+											<td align="right"><ice:outputText value="#{conta.nrSequenciaConta1}" styleClass="columnBoleto" /></td>
+										</tr>
+
+									</table>
+								</td>
+							</tr>
+						</table>
+					</ice:panelGroup>
+					<br />				
+
+					<!--  conta parcela unica -->
+					<ice:panelGroup rendered="#{conta.contaParcelaUnica.exibir}">
+						<table width="595" style="tablesAlign" border="0">
+							<tr>
+								<td>
+									<ice:outputLabel value="PARCELA DE CONTA" styleClass="columnBoletoBold"/>
+								</td>
+								<td>
+									<ice:outputLabel value="#{msg['segundavia.txt.boleto.discr.faturamento']}" styleClass="columnBoleto" /> 
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<!-- panel informativo conta parcela unica -->
+									<ice:panelGrid id="painelInf" columns="2" width="380" columnClasses="tablesAlignMiddle" rendered="#{conta.contaParcelaUnica.exibir}">
+										<ice:panelGroup id="painelInformativo1" style="padding-right: 30px; line-height: 12px;">
+											<ice:outputText value="#{msg['segundavia.txt.boleto.pagamento.parcelaunica']}" styleClass="columnBoleto" escape="false"/>
+											<br /><br />
+											<ice:outputText value="#{msg['segundavia.txt.boleto.pagamento.parcelaunica.inform1']}" styleClass="columnBoleto" escape="false"/>
+										</ice:panelGroup>
+									</ice:panelGrid>
+
+								</td>
+								<td valign="top">
+									<table border="0" width="100%">
+										<tr>
+											<td><ice:outputText value="Acordo Nº" styleClass="columnBoleto" /></td>
+											<td align="right"><ice:outputText value="#{conta.contaParcelaUnica.acordo}" styleClass="columnBoleto" /></td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+						</table>
+					</ice:panelGroup>
+					<br />				
+
+
+					<br />
+					<br />
+					<ice:panelGrid id="painelVencimento" columns="5" width="595"
+						columnClasses="columnBoletoBold" style="line-height: 36px;">
+						<ice:panelGroup style="width: 105px; text-align: right;">
+							<h:graphicImage url="/images/seta.JPG"/>
+						</ice:panelGroup>
+						<ice:panelGroup style="width: 110px;">
+							<ice:outputLabel value="#{msg['segundavia.txt.boleto.vencimento']}:" />
+						</ice:panelGroup>
+						<ice:panelGroup style="background-color: #cccccc; font-size: 16px; width: 110px;">
+							10/06/2009 //ARRUMAR
+						</ice:panelGroup>
+						<ice:panelGroup style="width: 110px;">
+							<ice:outputLabel value="#{msg['segundavia.txt.boleto.totalapagar']}:" />
+						</ice:panelGroup>
+						<ice:panelGroup style="background-color: #cccccc; font-size: 16px; width: 150px;">
+							<ice:outputText value="R$ #{conta.vlTotal}" />							 
+						</ice:panelGroup>
+					</ice:panelGrid>
+					<br />
+					<ice:panelGroup styleClass="columnBoletoLeft" style="width: 595;">
+						#{msg['segundavia.txt.boleto.agenciaatendimento']}:
+					</ice:panelGroup>
+					<br />
+					<ice:panelGroup styleClass="columnBoletoLeft" style="width: 595;">
+						<ice:outputText value="#{conta.imovel.agencia.endereco.enderecoCompletoAtendimento}" style="background-color: #cccccc;"/> 
+					</ice:panelGroup>
+					<br />
+					<ice:panelGroup styleClass="columnBoletoLeft" style="width: 595;">
+						#{msg['segundavia.txt.boleto.codigotransacao']}: {#{conta.codigoTransacao}}
+					</ice:panelGroup>
+					<br />
+					<ice:panelGrid id="painelTesoura" columns="2" width="595" columnClasses="tablesAlignMiddle">
+						<ice:graphicImage url="/images/tesoura.jpg" height="18" width="26" />
+						<ice:outputLabel value="---------------------------------------------------------------------------------------------" 
+							style="font-size: 16px;"/>
+					</ice:panelGrid>
+					<br />
+					<ice:panelGrid id="painelCodigoBarra" columns="1" width="595" style="text-align: center; line-height: 20px;">
+						<ice:outputText value="#{conta.codigoBarraDigitosControle}" styleClass="columnBoleto"/>
+
+						 <script type="text/javascript">
+						 /* <![CDATA[ */
+							  ImprimeBarras('#{conta.codigoBarBinario}');
+						  /* ]]> */
+						 </script>
+
+						<br />
+						<ice:outputText value="#{conta.codigoOCR}" styleClass="columnBoletoBold"/>
+						<ice:outputLabel value="#{msg['segundavia.txt.boleto.ipte']}" styleClass="columnBoleto"/>
+						<ice:outputText value="#{conta.numeroIPTEBoleto}" 
+							style="font-family: Arial, Helvetica, sans-serif; font-size: 13px; font-style: italic;"/>
+					</ice:panelGrid>
+					<br />
+					<ice:panelGrid id="painelResumo" columns="2" width="595" columnClasses="tablesAlignBottom">
+						<ice:panelGrid id="painelLogo" columns="1" width="140">
+							<ice:panelGroup style="text-align: center; padding-bottom: 10px;">
+								<ice:graphicImage url="/images/logo_sabe.gif" height="41" width="30"/>
+							</ice:panelGroup>
+							<ice:outputLabel value="#{msg['segundavia.txt.boleto.atencao']}" styleClass="labelTituloBoleto"/>
+							<ice:outputLabel value="#{msg['segundavia.txt.boleto.inform4']}" styleClass="columnBoleto"/>
+						</ice:panelGrid>
+						<ice:panelGrid id="painelDados" columns="3" width="450" columnClasses="columnBoletoLeft">
+							<ice:panelGroup style="background-color: #cccccc; line-height: 19px;">
+								<ice:outputLabel value="RGI"/>
+							</ice:panelGroup>
+							<ice:outputLabel value="#{msg['segundavia.txt.boleto.codificacao']}"/>
+							<ice:column />
+	
+							<ice:outputText value="#{conta.imovel.numeroRGIToBoleto}" />
+							<ice:outputText value="#{conta.cdSabesp}" />
+							<ice:column />
+	
+							<ice:outputLabel value="#{msg['segundavia.txt.boleto.mes']}"/>
+							<ice:outputLabel value="#{msg['segundavia.txt.boleto.vencimento']}"/>
+							<ice:outputLabel value="#{msg['segundavia.txt.boleto.totalapagar']}"/>
+	
+							<ice:panelGroup style="background-color: #cccccc; line-height: 25px;">
+								
+								<h:outputText value="#{conta.dtVencimento}" styleClass="labelTituloBoleto">
+									<f:convertDateTime pattern="MMMM/yyyy"/>
+								</h:outputText>
+
+							</ice:panelGroup>
+							<ice:panelGroup style="background-color: #cccccc; line-height: 25px;">
+								<h:outputText value="#{conta.dtVencimento}" styleClass="labelTituloBoleto">
+									<f:convertDateTime pattern="MMMM/yyyy"/>
+								</h:outputText>
+							</ice:panelGroup>
+							<ice:panelGroup style="background-color: #cccccc; font-size: 16px; line-height: 25px; text-align: center;" rendered="#{conta.contaNormal.exibir}">
+								<ice:outputText value="R$ #{conta.vlTotal}" style="font-weight: bold;"/>
+							</ice:panelGroup>
+						</ice:panelGrid>
+					</ice:panelGrid>
+					<br />
+					<ice:panelGroup styleClass="columnBoletoLeft" style="width: 595;">
+						#{msg['segundavia.txt.boleto.codigotransacao']}: {#{conta.codigoTransacao}}
+					</ice:panelGroup>
+					<ice:panelGroup style="width: 595; font-weight: bold; font-size: 16px; font-family: Arial;">
+						#{msg['segundavia.txt.boleto.viasabesp']}
+					</ice:panelGroup>
+					<ice:panelGrid id="painelRodape" columns="2" width="595" columnClasses="tablesAlign">
+						<ice:panelGroup styleClass="columnBoleto" style="text-align: left;">
+							<ice:outputLabel value="#{msg['segundavia.txt.boleto.autenticacao']}" />
+						</ice:panelGroup>
+						<ice:panelGroup styleClass="columnBoleto" style="text-align: right;">
+							<ice:outputLabel value="#{msg['segundavia.txt.boleto.carimbo']}" />
+						</ice:panelGroup>
+					</ice:panelGrid>
+	
+				</ice:panelGroup>
+			</ice:panelGroup>
+			<br/>
+			<br/>
+			<br/>
+		</ui:repeat>
+		</h:outputText>
+	</ice:form>
+</body>
+</html>

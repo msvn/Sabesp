@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ice="http://www.icesoft.com/icefaces/component"
+    xmlns:fn="http://www.primeinformatica.com.br/functions" template="../templates/template.jspx">
+
+	<ui:define name="content" >
+	
+		<form jsfc="h:form" styleClass="common" name="form" id="form">
+	        <ice:panelGroup>
+	            <h2>#{msg['av.pesquisa.cadastro']}</h2>
+
+				<ice:panelGroup rendered="${pesquisaBBean.existeMsgErro eq true}" style="border: 1px solid #D2D7D7; width: 95%; background-color: #EDF2F2; padding: 7px 7px 7px 7px; text-align: left; align: center; font: normal 8pt Verdana!important; height: auto;">
+					<ice:graphicImage style="float:left; border: 0px; padding-right: 10px;" url="#{pesquisaBBean.caminhoImagemErroSucesso}"/> 
+					<h:messages errorStyle="color: red; font: normal 8pt Verdana!important;" infoStyle="color: green; font: normal 8pt Verdana!important;" layout="table" 
+						showSummary="true" showDetail="false" globalOnly="true"/>
+				</ice:panelGroup>				
+				
+	            <ice:dataTable id="table" var="pesquisa" rows="5" 
+	            	style="width:100%" 
+	            	value="#{pesquisaBBean.listaPesquisas}" 
+	            	rendered="${not empty pesquisaBBean.listaPesquisas}" columnClasses="tableCol_nome,tableCol_tipo,tableCol_prioridade,tableCol_dataInicialVigencia,tableCol_dataFinalVigencia">
+	                <ice:column>
+						<ice:rowSelector id="selected"
+	                                 multiple="#{false}"
+	                                 enhancedMultiple="#{false}"                                 
+	                                 preStyleOnSelection="false" 
+									 selectionAction="#{pesquisaBBean.edit}"/>
+	                    <f:facet name="header">
+	                    	#{msg['abc.label.nome']}
+	                    </f:facet>
+	                    #{pesquisa.nmPesquisa}
+	                </ice:column>
+	                <ice:column>
+	                    <f:facet name="header">
+	                        #{msg['abc.label.tipo']}
+	                    </f:facet>
+	                    <ice:outputText rendered="#{pesquisa.tpPesquisa == 1}"
+	                    	value="#{msg['av.pesquisa.tipo.satisfacao']}" />
+						<ice:outputText rendered="#{pesquisa.tpPesquisa == 2}"
+	                    	value="#{msg['av.pesquisa.tipo.especifica']}" />
+	                </ice:column>
+	                <ice:column>
+	                    <f:facet name="header">
+	                        #{msg['abc.label.prioridade']}
+	                    </f:facet>
+	                    <ice:outputText rendered="#{pesquisa.nrPrioridade != null}"
+	                    	value="#{pesquisa.nrPrioridade}" />
+						<ice:outputText rendered="#{pesquisa.nrPrioridade == null}"
+	                    	value=" - " />
+	                </ice:column>
+					<ice:column>
+	                    <f:facet name="header">
+	                        #{msg['abc.label.data.inicial.vigencia']}
+	                    </f:facet>
+						<ice:outputText value="#{pesquisa.dtIniVigencia}">
+							<f:convertDateTime pattern="dd/MM/yyyy"	timeZone="#{pesquisaBBean.timeZone}"/>
+						</ice:outputText>
+	                </ice:column>
+					<ice:column>
+	                    <f:facet name="header">
+	                        #{msg['abc.label.data.final.vigencia']}
+	                    </f:facet>
+						<ice:outputText value="#{pesquisa.dtFimVigencia}">
+							<f:convertDateTime pattern="dd/MM/yyyy"	timeZone="#{pesquisaBBean.timeZone}"/>
+						</ice:outputText>	                    
+	                </ice:column>
+	            </ice:dataTable>
+
+				<br />
+
+				<!-- paginacao -->
+				<div class="center"> <!-- centraliza --> 
+	                <!-- Paginator with page controls -->
+	                <ice:dataPaginator id="dataScroll_3" for="table"
+	                    paginator="true" fastStep="3" paginatorMaxPages="4">
+	                    <f:facet name="first">
+	                        <ice:graphicImage
+	                            url="/css/xmlhttp/css/xp/css-images/arrow-first.gif"
+	                            style="border:none;"
+	                            title="#{msg['abc.table.first.page']}" width="14"
+	                            height="14" />
+	                    </f:facet>
+	                    <f:facet name="last">
+	                        <ice:graphicImage
+	                            url="/css/xmlhttp/css/xp/css-images/arrow-last.gif"
+	                            style="border:none;"
+	                            title="#{msg['abc.table.last.page']}" width="14"
+	                            height="14" />
+	                    </f:facet>
+	                    <f:facet name="previous">
+	                        <ice:graphicImage
+	                            url="/css/xmlhttp/css/xp/css-images/arrow-previous.gif"
+	                            style="border:none;"
+	                            title="#{msg['abc.table.previous.page']}" width="14"
+	                            height="14" />
+	                    </f:facet>
+	                    <f:facet name="next">
+	                        <ice:graphicImage
+	                            url="/css/xmlhttp/css/xp/css-images/arrow-next.gif"
+	                            style="border:none;"
+	                            title="#{msg['abc.table.next.page']}" width="14"
+	                            height="14" />
+	                    </f:facet>
+	                </ice:dataPaginator>
+			
+	                <!-- Display counts about the table and the currently displayed page -->
+	                <ice:dataPaginator id="dataScroll_2" for="table"
+	                    rowsCountVar="rowsCount"
+	                    displayedRowsCountVar="displayedRowsCount"
+	                    firstRowIndexVar="firstRowIndex"
+	                    lastRowIndexVar="lastRowIndex" pageCountVar="pageCount"
+	                    pageIndexVar="pageIndex" style="background-color: red;">
+	                    <ice:outputFormat
+	                        value="#{msg['abc.table.resume.datascroller']}"
+	                        styleClass="standard">
+	                        <f:param value="#{rowsCount}" />
+	                        <f:param value="#{displayedRowsCount}" />
+	                        <f:param value="#{firstRowIndex}" />
+	                        <f:param value="#{lastRowIndex}" />
+	                        <f:param value="#{pageIndex}" />
+	                        <f:param value="#{pageCount}" />
+	                    </ice:outputFormat>
+	                </ice:dataPaginator>
+				</div><!--  centraliza tabela -->
+	        </ice:panelGroup>
+
+			<br class="clear" />
+			<br class="clear" />
+			<div class="new_footer">			
+						<ice:commandButton action="#{pesquisaBBean.novaPesquisa}" styleClass="botaoSabesp"
+							value="#{msg['abc.button.nova.pesquisa']}" />
+			</div>
+		</form>      
+	</ui:define>
+</ui:composition>

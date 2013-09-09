@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns:jsp="http://java.sun.com/JSP/Page"
+    			xmlns:ui="http://java.sun.com/jsf/facelets"
+    			xmlns:h="http://java.sun.com/jsf/html"
+    			xmlns:f="http://java.sun.com/jsf/core"
+    			xmlns:ice="http://www.icesoft.com/icefaces/component"
+    			xmlns:fn="http://www.primeinformatica.com.br/functions" template="../templates/template.jspx">
+
+	<ui:define name="content" >
+
+		<ice:form styleClass="common" id="formConteudo">
+			<h2>#{msg['av.conteudo.title']}</h2>
+	
+			<ice:panelGroup rendered="#{conteudoBBean.exibeMensagemConclusao}" style="border: 1px solid #D2D7D7; width: 95%; background-color: #EDF2F2; padding: 7px 7px 7px 7px; text-align: left; align: center; font: normal 8pt Verdana!important; height: 28px;">
+				<ice:graphicImage style="float:left; border: 0px; padding-right: 10px;" url="#{conteudoBBean.caminhoImagemErroSucesso}"/> 
+				<h:messages errorStyle="color: red; font: normal 8pt Verdana!important;" infoStyle="color: green; font: normal 8pt Verdana!important;" layout="table" 
+						showSummary="true" showDetail="false" globalOnly="true"/>
+			</ice:panelGroup>
+			
+			
+	    	<ice:inputHidden id="itemSelecionadoSecaoPrincipal"
+							 value="#{conteudoBBean.itemSelecionadoSecaoPrincipal}" />
+	    	<ice:inputHidden id="itemSelecionadoSecaoSecundariaOne"
+							 value="#{conteudoBBean.itemSelecionadoSecaoSecundariaOne}" />
+	    	<ice:inputHidden id="itemSelecionadoSecaoSecundariaTwo"
+							 value="#{conteudoBBean.itemSelecionadoSecaoSecundariaTwo}" />
+	    	<ice:inputHidden id="itemSelecionadoBarraHorizontal"
+ 							 value="#{conteudoBBean.itemSelecionadoBarraHorizontal}" />
+	    	<ice:inputHidden id="itemSelecionadoSecaoInferiorDireita"
+							 value="#{conteudoBBean.itemSelecionadoSecaoInferiorDireita}" />
+							 
+	    	<div style="overflow: auto; height: 300px; ">
+				<div id="formulario">
+					<div class="obrigatorios">
+						<b class="asterisco">*</b>#{msg['abc.label.camposObrigatorios']}
+					</div>
+					<br class="clear" />
+
+					<div>#{msg['av.mensagem.alterar.contudoHome']}</div>
+
+					<br class="clear" />
+					<span class="titulo">#{msg['av.conteudo.subTitle.secaoPrincipal']}</span>
+					<ice:graphicImage style="border: 0px;" url="/images/ajuda.gif"/> 
+					<br class="clear" />
+
+					<br class="clear" />
+					<div class="divch"><b class="asterisco">*</b> #{msg['abc.label.titulo']}</div>
+					<input jsfc="h:inputText" id="secaoPrincipalTitulo" 
+						   onblur="desfocaliza(this);" onfocus="focaliza(this);"
+						   size="75" maxlength="50" class="texto" readonly="false"
+						   value="#{conteudoBBean.secaoPrincipal.secao.ttSecao}"/>
+					<h:message for="secaoPrincipalTitulo" errorClass="error" fatalClass="error" warnClass="error" />
+					<br class="clear" />
+
+					<br class="clear" />
+					<div class="divch"><b class="asterisco">*</b> #{msg['abc.label.qtdItens']}</div>
+		
+					<!-- APENAS: declara radio button -->
+					<ice:selectOneRadio 
+						id="rd" 
+						required="true" 
+						value="#{conteudoBBean.itemSelecionadoRadio}"
+						valueChangeListener="#{conteudoBBean.alterarQuantidadeItens}" 
+						layout="spread" partialSubmit="true">
+						<f:selectItem itemLabel=" 4 Itens " itemValue="4" />
+						<f:selectItem itemLabel=" 6 Itens " itemValue="6"/>
+					</ice:selectOneRadio>					
+					
+					<ice:radio for="rd" index="0" />
+					<ice:radio for="rd" index="1" />
+<!-- 					
+                   	<ice:selectOneRadio id="secaoPrincipalQuantidadeItens" partialSubmit="true"
+										valueChangeListener="#{conteudoBBean.alterarQuantidadeItens}"
+                           		        value="#{conteudoBBean.itemSelecionadoRadio}">
+                       <f:selectItems id="secaoPrincipalItens" value="#{conteudoBBean.listQtdItens}"/>
+                   	</ice:selectOneRadio>
+ -->                   	
+					<h:message for="secaoPrincipalQuantidadeItens" errorClass="error" fatalClass="error" warnClass="error" />
+ 					<br class="clear" />
+ 					<br class="clear" />
+					<div class="divch"><b class="asterisco">*</b> #{msg['abc.label.item']}</div>
+					<div style="float: left;">
+						<select jsfc="h:selectOneMenu" class="desfocaliza" id="secaoPrincipalCodItem"
+								onblur="desfocaliza(this);" onfocus="focaliza(this);" style="width: auto;"
+								value="#{conteudoBBean.secaoPrincipal.cdItem}">
+							<f:selectItems id="secaoPrincipalCodItens" value="#{conteudoBBean.listItensSecaoPrincipal}"/>
+						</select>
+						<ice:commandButton id="botaoAlterarComboSecaoPrincipal" image="/images/pesquisar_registro.gif" partialSubmit="true" title="Pesquisar" styleClass="btnPesquisar"
+							 			   actionListener="#{conteudoBBean.alterarComboSecaoPrincipal}"/>
+						<h:message for="botaoAlterarComboSecaoPrincipal" errorClass="error" fatalClass="error" warnClass="error" style="float:right;"/>
+					</div>
+					<br class="clear" />
+
+					<br class="clear" />
+					<div class="divch"><b class="asterisco">*</b> #{msg['abc.label.texto']}</div>
+					<input jsfc="h:inputText" id="secaoPrincipalTexto"
+						   onblur="desfocaliza(this);" onfocus="focaliza(this);"
+						   size="75" maxlength="40" class="texto"
+					       value="#{conteudoBBean.secaoPrincipal.dsItem}"/>
+					<h:message for="secaoPrincipalTexto" errorClass="error" fatalClass="error" warnClass="error" />
+					<br class="clear" />
+
+					<br class="clear" />
+					<div class="divch"><b class="asterisco">*</b> #{msg['abc.label.link']}</div>
+					<ice:inputTextarea 
+						id="secaoPrincipalLink"
+                        onblur="desfocaliza(this);" 
+                        onfocus="focaliza(this);" 
+	                    maxlength="200" 
+	                    styleClass="texto" 
+	                    style="width:450px;height:30px;"
+	                    value="#{conteudoBBean.secaoPrincipal.dsLink}"/>
+					<h:message for="secaoPrincipalLink" errorClass="error" fatalClass="error" warnClass="error" />
+					<br class="clear" />
+
+					<br class="clear" />
+					<div class="divch"><b class="asterisco">*</b> #{msg['abc.label.imagem']}</div>				     
+					<!-- upload file -->	
+				    <ice:inputFile style="background:#FFFFFF; " id="dsCaminhoImagem1" width="600" autoUpload="true"
+				                       progressListener="#{conteudoBBean.fileUploadProgress}"
+				                       actionListener="#{conteudoBBean.uploadFile}" />
+						
+
+					<br class="clear" />
+					<div style="padding-left: 200px;padding-top: 20px;">
+						<ice:outputProgress value="#{conteudoBBean.fileProgress}"/>
+					</div>
+					<br class="clear" />
+					
+					<!-- show uploaded file name -->
+					<ice:outputText style="background:#FFFFFF;padding-left:200px;" value="#{msg['abc.label.arquivo']}"/>
+					<ice:outputText id="secaoPrincipalImagem" style="background:#FFFFFF;text-align:left;" value="#{conteudoBBean.secaoPrincipal.dsCaminhoImagem}" />
+					<h:message for="secaoPrincipalImagem" errorClass="error" fatalClass="error" warnClass="error" />
+
+					<br class="clear" />	
+
+
+					<br class="clear" />
+
+					<br class="clear" />
+					<hr/>
+					<br class="clear" />
+					<span class="titulo">#{msg['av.conteudo.subTitle.secaoSecundariaOne']}</span>
+					<ice:graphicImage style="border: 0px;" url="/images/ajuda.gif"/> 
+					<br class="clear" />
+
+					<br class="clear" />
+					<div class="divch"><b class="asterisco">*</b> #{msg['abc.label.titulo']}</div>
+					<input jsfc="h:inputText" id="secaoSecundariaOneTitulo"
+						   onblur="desfocaliza(this);" onfocus="focaliza(this);"
+						   size="75" maxlength="50" class="texto" readonly="false"
+						   value="#{conteudoBBean.secaoSecundariaOne.secao.ttSecao}"/>
+					<h:message for="secaoSecundariaOneTitulo" errorClass="error" fatalClass="error" warnClass="error" />
+					<br class="clear" />
+
+					<br class="clear" />
+					<div class="divch"><b class="asterisco">*</b> #{msg['abc.label.item']}</div>
+					<div style="float: left;">
+						<select jsfc="h:selectOneMenu" class="desfocaliza" id="secaoSecundariaOneCodItem"
+							onblur="desfocaliza(this);" onfocus="focaliza(this);" style="width: auto;"
+							value="#{conteudoBBean.secaoSecundariaOne.cdItem}">
+							<f:selectItems id="secaoSecundariaOneCodItens" value="#{conteudoBBean.listItensSecaoSecundariaOne}"/>
+						</select>
+					
+						<ice:commandButton id="botaoAlterarComboSecaoSecundariaOne" image="/images/pesquisar_registro.gif" partialSubmit="true" title="Pesquisar"
+							 			   actionListener="#{conteudoBBean.alterarComboSecaoSecundariaOne}"/>
+						<h:message for="botaoAlterarComboSecaoSecundariaOne" errorClass="error" fatalClass="error" warnClass="error" style="float:right;"/>
+					</div>
+					<br class="clear" />
+
+					<br class="clear" />
+					<div class="divch"><b class="asterisco">*</b> #{msg['abc.label.texto']}</div>
+					<input jsfc="h:inputText" id="secaoSecundariaOneTexto"
+						   onblur="desfocaliza(this);" onfocus="focaliza(this);"
+						   size="75" maxlength="40" class="texto"
+						   value="#{conteudoBBean.secaoSecundariaOne.dsItem}"/>
+					<h:message for="secaoSecundariaOneTexto" errorClass="error" fatalClass="error" warnClass="error" />
+					<br class="clear" />
+
+					<br class="clear" />
+					<div class="divch"><b class="asterisco">*</b> #{msg['abc.label.link']}</div>
+					<ice:inputTextarea 
+						id="secaoSecundariaOneLink"
+                        onblur="desfocaliza(this);" 
+                        onfocus="focaliza(this);" 
+	                    maxlength="200" 
+	                    styleClass="texto" 
+	                    style="width:450px;height:30px;"
+	                    value="#{conteudoBBean.secaoSecundariaOne.dsLink}"/>
+
+					<h:message for="secaoSecundariaOneLink" errorClass="error" fatalClass="error" warnClass="error" />
+					<br class="clear" />
+
+					<br class="clear" />
+					<div class="divch"><b class="asterisco">*</b> #{msg['abc.label.imagem']}</div>
+					
+				   <ice:inputFile style="background:#FFFFFF; "  id="dsCaminhoImagem2" width="600" autoUpload="true"
+				                       progressListener="#{conteudoBBean.fileUploadProgress2}"
+				                       actionListener="#{conteudoBBean.uploadFileSecundario}" />
+
+					<br class="clear" />
+					<div style="padding-left: 200px;padding-top: 20px;">
+						<ice:outputProgress value="#{conteudoBBean.fileProgress}"/>
+					</div>
+					<br class="clear" />
+					<ice:outputText style="background:#FFFFFF;padding-left:200px;"  value="#{msg['abc.label.arquivo']}"/>
+
+					<ice:outputText id="secaoSecundariaOneImagem" style="background:#FFFFFF; text-align:left;" value="#{conteudoBBean.secaoSecundariaOne.dsCaminhoImagem}" />
+					<h:message for="secaoSecundariaOneImagem" errorClass="error" fatalClass="error" warnClass="error" />
+
+					<br class="clear" />	
+
+
+					<br class="clear" />
+
+					<br class="clear" />
+		
+					<hr/>
+					<br class="clear" />
+					<span class="titulo">#{msg['av.conteudo.subTitle.secaoSecundariaTwo']}</span>
+					<ice:graphicImage style="border: 0px;" url="/images/ajuda.gif"/>
+					<br class="clear" />
+
+					<br class="clear" />
+					<div class="divch"><b class="asterisco">*</b> #{msg['abc.label.titulo']}</div>
+					<input jsfc="h:inputText" id="secaoSecundariaTwoTitulo"
+                           onblur="desfocaliza(this);" onfocus="focaliza(this);"
+						   size="75" maxlength="50" class="texto" readonly="false"
+						   value="#{conteudoBBean.secaoSecundariaTwo.secao.ttSecao}"/>
+					<h:message for="secaoSecundariaTwoTitulo" errorClass="error" fatalClass="error" warnClass="error" />
+					<br class="clear" />
+
+					<br class="clear" />
+					<div class="divch"><b class="asterisco">*</b> #{msg['abc.label.item']}</div>
+					<div style="float: left;">
+						<select jsfc="h:selectOneMenu" class="desfocaliza" id="secaoSecundariaTwoCodItem"
+								onblur="desfocaliza(this);" onfocus="focaliza(this);" style="width: auto;"
+								value="#{conteudoBBean.secaoSecundariaTwo.cdItem}">
+							<f:selectItems id="secaoSecundariaTwoCodItens" value="#{conteudoBBean.listItensSecaoSecundariaTwo}"/>
+						</select>
+						<ice:commandButton id="botaoAlterarComboSecaoSecundariaTwo" image="/images/pesquisar_registro.gif" partialSubmit="true" title="Pesquisar"
+							 			   actionListener="#{conteudoBBean.alterarComboSecaoSecundariaTwo}"/>
+						<h:message for="botaoAlterarComboSecaoSecundariaTwo" errorClass="error" fatalClass="error" warnClass="error" style="float:right;"/>
+					</div>
+					<br class="clear" />
+
+					<br class="clear" />
+					<div class="divch"><b class="asterisco">*</b> #{msg['abc.label.texto']}</div>
+					<input jsfc="h:inputText" id="secaoSecundariaTwoTexto"
+						   onblur="desfocaliza(this);" onfocus="focaliza(this);"
+						   size="75" maxlength="40" class="texto"
+						   value="#{conteudoBBean.secaoSecundariaTwo.dsItem}"/>
+					<h:message for="secaoSecundariaTwoTexto" errorClass="error" fatalClass="error" warnClass="error" />
+					<br class="clear" />
+
+					<br class="clear" />
+					<div class="divch"><b class="asterisco">*</b> #{msg['abc.label.link']}</div>
+					<ice:inputTextarea 
+						id="secaoSecundariaTwoLink"
+                        onblur="desfocaliza(this);" 
+                        onfocus="focaliza(this);" 
+	                    maxlength="200" 
+	                    styleClass="texto" 
+	                    style="width:450px;height:30px;"
+	                    value="#{conteudoBBean.secaoSecundariaTwo.dsLink}"/>
+					<h:message for="secaoSecundariaTwoLink" errorClass="error" fatalClass="error" warnClass="error" />
+					<br class="clear" />
+
+					<br class="clear" />
+					<div class="divch"><b class="asterisco">*</b> #{msg['abc.label.imagem']}</div>
+				        				          
+			        <ice:inputFile style="background:#FFFFFF; " id="dsCaminhoImagem3" width="600" autoUpload="true"
+				                       progressListener="#{conteudoBBean.fileUploadProgress3}"
+				                       actionListener="#{conteudoBBean.uploadFileSecundarioTwo}" />
+
+
+					<br class="clear" />		
+					<div style="padding-left: 200px;padding-top: 20px;">
+						<ice:outputProgress value="#{conteudoBBean.fileProgress}"/>
+					</div>
+					<br class="clear" />
+					<ice:outputText style="background:#FFFFFF;padding-left:200px;" value="#{msg['abc.label.arquivo']}"/>
+						
+					<ice:outputText id="secaoSecundariaTwoImagem" style="background:#FFFFFF; text-align:left;" value="#{conteudoBBean.secaoSecundariaTwo.dsCaminhoImagem}" />
+					<h:message for="secaoSecundariaTwoImagem" errorClass="error" fatalClass="error" warnClass="error" />
+					<br class="clear" />	
+
+
+					<br class="clear" />
+
+					<br class="clear" />
+					<hr/>
+					<br class="clear" />
+					<span class="titulo">#{msg['av.conteudo.subTitle.barraHorizontal']}</span>
+					<ice:graphicImage style="border: 0px;" url="/images/ajuda.gif"/> 
+					<br class="clear" />
+
+					<br class="clear" />
+					<div class="divch"><b class="asterisco">*</b> #{msg['abc.label.titulo']}</div>
+					<input jsfc="h:inputText" id="barraHorizontalTitulo"
+						   onblur="desfocaliza(this);" onfocus="focaliza(this);"
+						   size="75" maxlength="50" class="texto" readonly="false"
+						   value="#{conteudoBBean.barraHorizontal.secao.ttSecao}"/>
+					<h:message for="barraHorizontalTitulo" errorClass="error" fatalClass="error" warnClass="error" />
+					<br class="clear" />
+
+					<br class="clear" />
+					<div style="float: left;">
+						<div class="divch"><b class="asterisco">*</b> #{msg['abc.label.item']}</div>
+						<select jsfc="h:selectOneMenu" class="desfocaliza" id="barraHorizontalCodItem"
+								onblur="desfocaliza(this);" onfocus="focaliza(this);" style="width: auto;"
+	                            value="#{conteudoBBean.barraHorizontal.cdItem}">
+							<f:selectItems id="barraHorizontalCodItens" value="#{conteudoBBean.listItensBarraHorizontal}"/>
+						</select>
+						<ice:commandButton id="botaoAlterarComboBarraHorizontal" image="/images/pesquisar_registro.gif" partialSubmit="true" title="Pesquisar"
+							 			   actionListener="#{conteudoBBean.alterarComboBarraHorizontal}"/>
+						<h:message for="botaoAlterarComboBarraHorizontal" errorClass="error" fatalClass="error" warnClass="error" style="float:right;"/>
+					</div>
+					<br class="clear" />
+
+					<br class="clear" />
+					<div class="divch"><b class="asterisco">*</b> #{msg['abc.label.texto']}</div>
+					<input jsfc="h:inputText" id="barraHorizontalTexto"
+						   onblur="desfocaliza(this);" onfocus="focaliza(this);"
+						   size="75" maxlength="40" class="texto"
+						   value="#{conteudoBBean.barraHorizontal.dsItem}"/>
+					<h:message for="barraHorizontalTexto" errorClass="error" fatalClass="error" warnClass="error" />
+					<br class="clear" />
+
+					<br class="clear" />
+					<div class="divch"><b class="asterisco">*</b> #{msg['abc.label.link']}</div>
+					<ice:inputTextarea 
+						id="barraHorizontalLink"
+                        onblur="desfocaliza(this);" 
+                        onfocus="focaliza(this);" 
+	                    maxlength="200" 
+	                    styleClass="texto" 
+	                    style="width:450px;height:30px;"
+	                    value="#{conteudoBBean.barraHorizontal.dsLink}"/>
+					<h:message for="barraHorizontalLink" errorClass="error" fatalClass="error" warnClass="error" />
+					<br class="clear" />
+
+					<br class="clear" />
+					<hr/>
+					<br class="clear" />
+					<span class="titulo">#{msg['av.conteudo.subTitle.secaoInferiorDireita']}</span>
+					<ice:graphicImage style="border: 0px;" url="/images/ajuda.gif"/> 
+					<br class="clear" />
+
+					<br class="clear" />
+					<div style="float: left;">
+						<div class="divch"><b class="asterisco">*</b> #{msg['abc.label.item']}</div>
+						<select jsfc="h:selectOneMenu" class="desfocaliza" id="secaoInferiorDireitaCodItem"
+								onblur="desfocaliza(this);" onfocus="focaliza(this);" style="width: auto;"
+								value="#{conteudoBBean.secaoInferiorDireita.cdItem}">
+							<f:selectItems id="secaoInferiorDireitaCodItens" value="#{conteudoBBean.listItensSecaoInferiorDireita}"/>
+						</select>
+						<ice:commandButton id="botaoAlterarComboSecaoInferiorDireita" image="/images/pesquisar_registro.gif" partialSubmit="true" title="Pesquisar"
+							 			   actionListener="#{conteudoBBean.alterarComboSecaoInferiorDireita}"/>
+						<h:message for="botaoAlterarComboSecaoInferiorDireita" errorClass="error" fatalClass="error" warnClass="error" style="float: right;"/>
+					</div>
+					<br class="clear" />
+
+					<br class="clear" />
+					<div class="divch"><b class="asterisco">*</b> #{msg['abc.label.texto']}</div>
+					<input jsfc="h:inputText" id="secaoInferiorDireitaTexto"
+						   onblur="desfocaliza(this);" onfocus="focaliza(this);"
+						   size="75" maxlength="40" class="texto"
+						   value="#{conteudoBBean.secaoInferiorDireita.dsItem}"/>
+					<h:message for="secaoInferiorDireitaTexto" errorClass="error" fatalClass="error" warnClass="error" />
+					<br class="clear" />
+
+					<br class="clear" />
+					<div class="divch"><b class="asterisco">*</b> #{msg['abc.label.link']}</div>
+					<ice:inputTextarea 
+						id="secaoInferiorDireitaLink"
+                        onblur="desfocaliza(this);" 
+                        onfocus="focaliza(this);" 
+	                    maxlength="200" 
+	                    styleClass="texto" 
+	                    style="width:450px;height:30px;"
+	                    value="#{conteudoBBean.secaoInferiorDireita.dsLink}"/>
+					<h:message for="secaoInferiorDireitaLink" errorClass="error" fatalClass="error" warnClass="error" />
+					<br class="clear" />
+
+					<br class="clear" />
+					<div class="divch"><b class="asterisco">*</b> #{msg['abc.label.breveDescricao']}</div>
+					<ice:inputTextarea 
+						id="secaoInferiorDireitaBreveDescricao"
+						onblur="desfocaliza(this);" 
+						onfocus="focaliza(this);" 
+	                    maxlength="200" 
+	                    styleClass="texto" 
+	                    style="width:450px;height:30px;"
+	                    value="#{conteudoBBean.secaoInferiorDireita.dsResumoItem}"/>
+					<h:message for="secaoInferiorDireitaBreveDescricao" errorClass="error" fatalClass="error" warnClass="error" />
+					<br class="clear" />
+
+					<br class="clear" />
+					<div class="divch"><b class="asterisco">*</b> #{msg['abc.label.imagem']}</div>
+
+				    <ice:inputFile style="background:#FFFFFF; " id="dsCaminhoImagem4" width="600" autoUpload="true"
+				                       progressListener="#{conteudoBBean.fileUploadProgress4}"
+				                       actionListener="#{conteudoBBean.uploadFileInferior}" />
+						
+					<br class="clear" />
+					<div style="padding-left: 200px;padding-top: 20px;">
+						<ice:outputProgress value="#{conteudoBBean.fileProgress}"/>
+					</div>
+					<br class="clear" />
+					<ice:outputText style="background:#FFFFFF;padding-left:200px;" value="#{msg['abc.label.arquivo']}"/>
+
+					<ice:outputText id="secaoInferiorDireitaImagem" style="background:#FFFFFF; text-align:left;" value="#{conteudoBBean.secaoInferiorDireita.dsCaminhoImagem}" />
+					<h:message for="secaoInferiorDireitaImagem" errorClass="error" fatalClass="error" warnClass="error" />
+					<br class="clear" />	
+				</div>
+			</div>
+
+			<br class="clear" />
+			<br class="clear" />
+			<div class="new_footer_form">			
+				<ice:commandButton styleClass="botaoSabesp" id="botaoSalvar" action="#{conteudoBBean.salvar}" value="#{msg['abc.button.save']}" />
+			</div>
+
+		</ice:form>
+	</ui:define>
+
+</ui:composition>

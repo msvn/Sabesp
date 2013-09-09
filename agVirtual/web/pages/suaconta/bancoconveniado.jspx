@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ice="http://www.icesoft.com/icefaces/component"
+    xmlns:fn="http://www.primeinformatica.com.br/functions" template="../template/template.jspx">
+
+	<ui:define name="conteudo">
+		<ice:panelGroup id="painelPrincipal" styleClass="wrapper">
+			<ice:panelGroup styleClass="contaContent">
+
+				<ice:panelGroup id="painelTitulo">
+					<h3 id="titulo">#{msg['suaconta.txt.bancoconveniado.titulo']}</h3>
+				</ice:panelGroup>
+				<br />
+				<ice:panelGrid id="painelTabela" columns="2" width="100%" columnClasses="tablesAlign">
+					<ice:dataTable
+							rows="100"
+					        var="banco"
+					        value="#{bancoConveniadoBBean.listaBancoConveniadoEsquerda}"
+							rowClasses="row1,row2"
+							width="95%"
+							id="tableLeft">
+		 				<ice:column style="padding: 10px 15px; text-align: left;">
+		                    <f:facet name="header">
+	                            #{msg['suaconta.txt.bancoconveniado.nome']}
+	                        </f:facet>
+								<h:outputText rendered="#{banco.linkPaginaBanco != null}"> 
+									<a href="#" class="linkCampoTable" onclick="javascript:window.open(''http://#{banco.linkPaginaBanco}' , '_blank', 'scrollbars=yes,width=860,menubar=no');">
+										#{banco.nmBancoConveniado} <h:outputText rendered="#{banco.debitoautomatico}"> *</h:outputText>
+									</a>
+								</h:outputText>
+								<h:outputText rendered="${banco.linkPaginaBanco eq null}">
+										#{banco.nmBancoConveniado} <h:outputText rendered="#{banco.debitoautomatico}"> *</h:outputText>
+								</h:outputText>
+						</ice:column>
+				        <ice:column style="padding: 10px 15px;">
+		                    <f:facet name="header">
+	                            #{msg['suaconta.txt.bancoconveniado.numero']}
+	                        </f:facet>
+							<ice:outputLabel value="#{banco.cdBancoConveniado}" />
+	                	</ice:column>
+					</ice:dataTable>
+
+					<ice:dataTable
+							rows="100"
+					        var="banco"
+					        value="#{bancoConveniadoBBean.listaBancoConveniadoDireita}"
+							rowClasses="row1,row2"
+							width="95%"
+							id="tableRight">
+		 				<ice:column style="padding: 10px 15px; text-align: left;">
+		                    <f:facet name="header">
+	                            #{msg['suaconta.txt.bancoconveniado.nome']}
+	                        </f:facet>
+							<h:outputText rendered="#{banco.linkPaginaBanco != null}"> 
+								<a  href="#" class="linkCampoTable" onclick="javascript:window.open('http://#{banco.linkPaginaBanco}' , '_blank', 'scrollbars=yes,width=860,menubar=no');">
+										#{banco.nmBancoConveniado} <h:outputText rendered="#{banco.debitoautomatico}"> *</h:outputText>
+								</a>
+							</h:outputText>
+							<h:outputText rendered="${banco.linkPaginaBanco eq null}">
+									#{banco.nmBancoConveniado} <h:outputText rendered="#{banco.debitoautomatico}"> *</h:outputText>
+							</h:outputText>
+						</ice:column>
+				        <ice:column style="padding: 10px 15px;">
+		                    <f:facet name="header">
+	                            #{msg['suaconta.txt.bancoconveniado.numero']}
+	                        </f:facet>
+                       		<ice:outputLabel value="#{banco.cdBancoConveniado}" />
+	                	</ice:column>
+					</ice:dataTable>
+				</ice:panelGrid>
+				<ice:outputLabel value="#{msg['suaconta.txt.bancoconveniado.informacao.debito']}" 
+					styleClass="labelInform"/>
+				
+			</ice:panelGroup>
+
+				<!-- exibe botoes -->
+				<ice:panelGroup styleClass="botoes">
+					<table border="0" width="90%">
+					<tr>
+						<td align="center">						
+							<ul>
+								<li class="claro">
+									<ice:commandLink action="#{auditoriaAcessoBBean.paginaInicial}" actionListener="#{migalhaPaoBBean.limpaCampos}">
+										<b><span>#{msg['cronogramaleitura.botao.continuaratendimento']}</span></b>
+									</ice:commandLink>
+								</li>
+								<li class="escuro">
+									<ice:commandLink action="#{auditoriaAcessoBBean.redirectConcluirAtendimento}" >
+										<b><span>#{msg['cronogramaleitura.botao.concluir']}</span></b>
+									</ice:commandLink>
+								</li>
+							</ul>
+						</td>
+					</tr>
+					</table>
+				</ice:panelGroup>
+
+		</ice:panelGroup>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ice="http://www.icesoft.com/icefaces/component">
+
+	<link href="#{facesContext.externalContext.requestContextPath}/css/agvt.css" rel="stylesheet" type="text/css" />
+
+
+			<h3><h:outputText value="#{msg['ligacoesaguaesgoto.txt.mudarlocalligacaoagua']}"/></h3>
+			
+			<p class="quadroOrcamento">
+				(*) A Sabesp adotou um novo padrão para suas ligaçãoes de água, a 
+				<BR />
+				<span class="margem"><b>UMA - Unidade de Medição de Água</b></span>
+			</p>
+			<div class="ilustracao">
+					<img src=".." alt="" width="375" height="235" onclick="exibirInfo();" />
+			</div>			
+			<p class="quadroOrcamento">
+				A <b> UMA</b> será fornecida gratuitamente pela Sabesp para novas ligações, porém é necessário
+				<BR />
+				<span class="margem">adquirir o dispositivo de medição.</span>
+			</p>
+			<p class="quadroOrcamento">
+				A UMA possui inúmeras vantagens:
+				<BR /><span class="margem"></span>. Dispensa a entrada do leiturista da sabesp no imóvel;
+				<BR /><span class="margem"></span>. Valoriza a fachada do imóvel;
+				<BR /><span class="margem"></span>. Instalação frontal sem perda de terreno;
+				<BR /><span class="margem"></span>. Dispensa o acompanhamento de serviços por estar em área externa;
+				<BR /><span class="margem"></span>. Reduz o número de conexões, diminuindo a incidência de vazamentos.
+			</p>
+			<p class="quadroOrcamento"> </p>
+			<p class="quadroOrcamento"> </p>
+			<p> </p>
+			
+			<div class="ilustracao">
+					<img src=".." alt="" width="375" height="235" onclick="exibirInfo();" />
+			</div>	
+			<p><span class="info"></span>
+				Você pode também optar pela ligação com cavalete que pode ser 
+				<BR />adquirido em lojas de material de construção.
+			</p>
+			
+			<p> </p>
+			<p> </p>
+			
+			<p><span class="info"></span>
+				Para continuar sua solicitação você poderá providenciar as instalações e voltar a este atendimento.
+				<BR />Se preferir obter mais informações, entre em contato com um de nossos canais de atendimento.
+			</p>
+			
+			<div class="identificacao">
+				<div class="formID">
+					<ul class="esquerda">
+						<div>
+							<li>
+								<label>
+									<b><ice:outputText value="#{backbean.agencia.nmAbrUnid}"/>:</b>
+								</label>
+								<span class="normal">
+									<h:outputText value="#{backbean.agencia.endereco.dsTipoLogradouro}#{backbean.agencia.endereco.dsHonorifico}#{backbean.agencia.endereco.dsPreposicao}#{backbean.agencia.endereco.dsEndereco}#{backbean.agencia.endereco.nrEndereco}#{backbean.agencia.endereco.nmBairro}#{backbean.agencia.endereco.nmMunicipio}#{backbean.agencia.endereco.dsUF}"/>
+									<h:outputText value="De segunda a sexta-feira, das #{backbean.agencia.horaInicio} às #{backbean.agencia.horaFim}"/>
+								</span>
+							</li>
+							<li>
+								<label><b>Telefone:</b></label><span class="normal">195</span>
+							</li>
+							<li>
+								<label><b>Internet:</b></label><span class="normal"><a href="#">Atendimento Online</a></span>
+							</li>							
+						</div>
+					</ul>
+					<div class="clearBoth"></div>
+				</div>	
+			</div>	
+			
+		<ice:panelGroup styleClass="botoes">
+			<table border="0" width="100%">
+				<tr>
+					<td align="center">
+				<br /><br />
+				<ul class="" style="float:center;">	
+					<li class="claro">
+						<ice:commandLink action="#{basicAgenciaBBean.paginaInicial}" >
+							<b><span>CONTINUAR NAVEGANDO</span></b>
+						</ice:commandLink>
+					</li>
+					<li class="escuro">
+						<ice:commandLink action="#{basicAgenciaBBean.redirectConcluirAtendimento}" >
+							<b><span>CONCLUIR</span></b>
+						</ice:commandLink>
+					</li>
+				</ul>			
+				</td>
+			</tr>
+			</table>
+		</ice:panelGroup>
+
+</ui:composition>			

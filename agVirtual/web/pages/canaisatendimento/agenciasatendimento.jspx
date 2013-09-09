@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ice="http://www.icesoft.com/icefaces/component"
+    xmlns:fn="http://www.primeinformatica.com.br/functions" template="../template/template.jspx">
+
+	<ui:define name="conteudo">
+
+		<ice:panelGroup styleClass="wrapper">
+			<ice:panelGroup styleClass="contaContent">
+
+				<h:panelGrid>
+					<!-- mensagem erro validacao -->
+					<ui:include src="../template/errovalidacao.jspx" >
+						<ui:param name="backbean" value="#{agenciasAtendimentoBBean}"/>
+					</ui:include>				   
+				</h:panelGrid>
+
+				<h3><h:outputText value="#{msg['agenciasatendimento.titulo']}"/></h3>
+				<p><h:outputText value="#{msg['agenciasatendimento.subtitulo']}" rendered="#{agenciasAtendimentoBBean.exibePainel4 != true}"/></p>
+
+				<!-- Grid 1 Início -->
+				<ice:panelGroup rendered="#{agenciasAtendimentoBBean.exibePainel1}">
+					<ice:panelGroup styleClass="panelForm">
+						<h:outputText value="#{msg['agenciasatendimento.label.municipio']}:" style="color:#4F575D; display:block; float:left; font-size:1.2em; padding:5px 10px 0 0; text-align:right; width:130px;"/>
+						
+						<ice:selectInputText id="AutoCmpTxtFace" required="false" style="margin-top: -10px;"
+				                             rows="5"
+				                             value="#{agenciasAtendimentoBBean.municipio.nome}"
+				                             valueChangeListener="#{agenciasAtendimentoBBean.selectInputValueChanged}"
+				                             listVar="municipio"
+											 autocomplete="true"
+				                             listValue="#{agenciasAtendimentoBBean.municipioMatchPossibilities}">
+				            <f:facet name="selectInputText">
+				                <h:panelGrid columns="1" columnClasses="cityCol" width="500px; cursor: pointer;">
+				                    <h:outputText style="color:gray; font-size: 12px;" id="AutoCmpCty" value="#{municipio.nome}"/>
+								</h:panelGrid>
+				            </f:facet>
+				        </ice:selectInputText>
+					</ice:panelGroup>
+
+					<table border="0" width="100%">
+					<tr>
+						<td align="center">
+							<ice:panelGroup styleClass="botoes" style="clear: both;">
+							<br />					
+							<ul>	
+								<li class="claro"><ice:commandLink actionListener="#{agenciasAtendimentoBBean.prosseguir}"><b><span>#{msg['agenciasatendimento.botao.prosseguir']}</span></b></ice:commandLink></li>
+							</ul>
+							</ice:panelGroup>
+						</td>
+					</tr>
+					</table>					
+				</ice:panelGroup>
+				<!-- Grid 1 Fim -->
+
+				<!-- Grid 2 Início -->
+				<ice:panelGroup rendered="#{agenciasAtendimentoBBean.exibePainel2}">
+					<ice:panelGroup styleClass="panelForm">
+						<h:outputText value="#{agenciasAtendimentoBBean.agencia.nmAbrUnid}:" style="color:#4F575D; display:block; float:left; font-size:1.2em; padding:5px 10px 0 0; text-align:right; width:200px; font-weight: bold;"/>
+						<h:panelGrid columns="1">
+							<h:outputText style="padding-top: 3px; vertical-align: bottom; color:#4F575D; float:left; font-size:12px; text-align:left;" value="#{agenciasAtendimentoBBean.agencia.endereco.dsTipoLogradouro}#{agenciasAtendimentoBBean.agencia.endereco.dsHonorifico}#{agenciasAtendimentoBBean.agencia.endereco.dsPreposicao}#{agenciasAtendimentoBBean.agencia.endereco.dsEndereco}#{agenciasAtendimentoBBean.agencia.endereco.nrEndereco}#{agenciasAtendimentoBBean.agencia.endereco.nmBairro}#{agenciasAtendimentoBBean.agencia.endereco.nmMunicipio}#{agenciasAtendimentoBBean.agencia.endereco.dsUF}"/>
+							<h:outputText style="padding-top: 3px; vertical-align: bottom; color:#4F575D; float:left; font-size:12px; text-align:left;" value="De segunda a sexta-feira, das #{agenciasAtendimentoBBean.agencia.horaInicio} às #{agenciasAtendimentoBBean.agencia.horaFim}"/>
+						</h:panelGrid>
+					</ice:panelGroup>
+					<ice:panelGroup styleClass="botoes" style="clear: both; padding-top: 40px;">
+						<ul style="float:center;">	
+							<li class="claro"><ice:commandLink action="#{agenciasAtendimentoBBean.limpar}"><b><span>#{msg['agenciasatendimento.botao.voltar']}</span></b></ice:commandLink></li>
+							<li class="escuro"><ice:commandLink action="RELATORIOATENDIMENTO" ><b><span>#{msg['agenciasatendimento.botao.concluir']}</span></b></ice:commandLink></li>
+						</ul>						
+					</ice:panelGroup>
+				</ice:panelGroup>
+				<!-- Grid 2 Fim -->
+
+				<!-- Grid 3 Início -->
+				<ice:panelGroup rendered="#{agenciasAtendimentoBBean.exibePainel3}">
+					<h:panelGrid id="panelForm" styleClass="panelForm" columns="2"
+								 columnClasses="colunaAgencia1, colunaAgencia2, colunaAgencia1, colunaAgencia3"
+								 cellspacing="5" cellpadding="2">
+						<ice:outputText value="#{msg['agenciasatendimento.label.municipio']}:"/>
+						<ice:outputText value="#{agenciasAtendimentoBBean.municipio.nome}"/>
+						<ice:outputText value="#{msg['agenciasatendimento.label.agencia']}:" />
+						<ice:selectOneMenu id="agenciaCodItem"
+								onblur="desfocaliza(this);" onfocus="focaliza(this);" styleClass="colunaAgencia3"
+								value="#{agenciasAtendimentoBBean.agenciaSelecionada}">
+							<f:selectItems id="agenciasCodItens" value="#{agenciasAtendimentoBBean.agenciasByMunicipio}"/>
+						</ice:selectOneMenu>
+					</h:panelGrid>
+					<ice:panelGroup styleClass="botoes" style="clear: both; padding-top: 40px;">
+						<ul style="float:center;">	
+							<li class="claro"><ice:commandLink action="#{agenciasAtendimentoBBean.limpar}"><b><span>#{msg['agenciasatendimento.botao.voltar']}</span></b></ice:commandLink></li>
+							<li class="claro"><ice:commandLink actionListener="#{agenciasAtendimentoBBean.exibirAgencias}" ><b><span>#{msg['agenciasatendimento.botao.prosseguir']}</span></b></ice:commandLink></li>
+						</ul>						
+					</ice:panelGroup>
+				</ice:panelGroup>
+				<!-- Grid 3 Fim -->
+
+				<!-- Grid 4 Início -->
+				<ice:panelGroup rendered="#{agenciasAtendimentoBBean.exibePainel4}">
+					<ice:dataTable width="100%" rowClasses="row1,row2" columnWidths="25%, 75%" var="agencia" value="#{agenciasAtendimentoBBean.listaAgencia}">
+						<ice:column style="padding: 10px 15px;">
+							<f:facet name="header">
+								<ice:outputText value="#{msg['agenciasatendimento.tabela.label.nome']}"/>
+							</f:facet>
+							<ice:outputText value="#{agencia.nmAbrUnid}"/>
+						</ice:column>
+						<ice:column style="text-align: left; padding: 10px 15px;">
+							<f:facet name="header">
+								<ice:outputText value="#{msg['agenciasatendimento.tabela.label.endereco']}"/>
+							</f:facet>
+							<h:panelGrid columns="1" columnClasses="colunasAgencia" style="padding-top: -10px; vertical-align: top;">
+								<h:outputText value="#{agencia.endereco.dsTipoLogradouro}#{agencia.endereco.dsHonorifico}#{agencia.endereco.dsPreposicao}#{agencia.endereco.dsEndereco}#{agencia.endereco.nrEndereco}#{agencia.endereco.nmBairro}#{agencia.endereco.nmMunicipio}#{agencia.endereco.dsUF}"/>
+								<h:outputText value="De segunda a sexta-feira, das #{agencia.horaInicio} às #{agencia.horaFim}"/>
+							</h:panelGrid>
+						</ice:column>
+					</ice:dataTable>
+					<ice:panelGroup styleClass="botoes" style="clear: both; padding-top: 40px;">
+						<ul style="float:center;">	
+							<li class="claro"><ice:commandLink action="#{agenciasAtendimentoBBean.limpar}"><b><span>#{msg['agenciasatendimento.botao.voltar']}</span></b></ice:commandLink></li>
+							<li class="escuro"><ice:commandLink action="RELATORIOATENDIMENTO" ><b><span>#{msg['agenciasatendimento.botao.concluir']}</span></b></ice:commandLink></li>
+						</ul>						
+					</ice:panelGroup>
+				</ice:panelGroup>
+				<!-- Grid 4 Fim -->
+
+			</ice:panelGroup>
+		</ice:panelGroup>
+	</ui:define>
+
+</ui:composition>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ice="http://www.icesoft.com/icefaces/component"
+    xmlns:fn="http://www.primeinformatica.com.br/functions" template="../templates/template.jspx">
+<ui:define name="content" >
+	
+	<div id="conteudo">
+	 <form jsfc="h:form" styleClass="common" action=""> 
+		        
+        <h:panelGroup>
+			<div style="display: block;" id="tituloAcesso">
+				<h2><span id="Titulo">#{msg['av.noticia.titulo']}</span></h2>
+			</div>
+			<ice:panelGroup rendered="${noticiasBBean.existeMsgErro eq true}" style="border: 1px solid #D2D7D7; width: 95%; background-color: #EDF2F2; padding: 7px 7px 7px 7px; text-align: left; align: center; font: normal 8pt Verdana!important; height: auto;">
+				<ice:graphicImage style="float:left; border: 0px; padding-right: 10px;" url="#{noticiasBBean.caminhoImagemErroSucesso}"/> 
+					<h:messages errorStyle="color: red; font: normal 8pt Verdana!important;" infoStyle="color: green; font: normal 8pt Verdana!important;" layout="table" 
+						showSummary="true" showDetail="false" globalOnly="true"/>
+			</ice:panelGroup>			
+			<p>			
+ 				<ice:dataTable id="table"
+                       var="row"
+                       value="#{noticiasBBean.noticias}"
+                       rows="5" 
+                       columnClasses="tableCol_titulo,tableCol_subtitulo,tableCol_datapublicacao" style="width:100%" >
+				<ice:column>
+	                <ice:rowSelector id="selected"
+	                                 multiple="#{false}"
+	                                 enhancedMultiple="#{false}"                                 
+	                                 preStyleOnSelection="false" 
+									 selectionAction="#{noticiasBBean.edit}"
+									 clickAction="#{noticiasBBean.edit}"/>
+                    	<f:facet name="header">
+                             #{msg['av.noticia.tabela.titulo']}
+                        </f:facet> 
+                      		  #{row.titulo}
+               </ice:column>
+
+               <ice:column>
+                    <f:facet name="header">
+                            #{msg['av.noticia.tabela.subtitulo']}
+                        </f:facet>
+                       #{row.subTitulo}
+                  </ice:column>
+
+				<ice:column>
+                    <f:facet name="header">
+                            #{msg['av.noticia.tabela.data']}
+                        </f:facet>
+						<ice:outputText value="#{row.dataPublicacao}">
+							<f:convertDateTime pattern="dd/MM/yyyy"	timeZone="#{noticiasBBean.timeZone}"/>
+						</ice:outputText>
+                       
+                  </ice:column>
+				</ice:dataTable>
+
+			<br />
+
+			<!-- paginacao -->
+			<div class="center"> <!-- centraliza -->
+                <!-- Paginator with page controls -->
+                <ice:dataPaginator id="dataScroll_3" for="table"
+                    paginator="true" fastStep="3" paginatorMaxPages="4">
+                    <f:facet name="first">
+                        <ice:graphicImage
+                            url="/css/xmlhttp/css/xp/css-images/arrow-first.gif"
+                            style="border:none;"
+                            title="#{msg['abc.table.first.page']}" width="14"
+                            height="14" />
+                    </f:facet>
+                    <f:facet name="last">
+                        <ice:graphicImage
+                            url="/css/xmlhttp/css/xp/css-images/arrow-last.gif"
+                            style="border:none;"
+                            title="#{msg['abc.table.last.page']}" width="14"
+                            height="14" />
+                    </f:facet>
+                    <f:facet name="previous">
+                        <ice:graphicImage
+                            url="/css/xmlhttp/css/xp/css-images/arrow-previous.gif"
+                            style="border:none;"
+                            title="#{msg['abc.table.previous.page']}" width="14"
+                            height="14" />
+                    </f:facet>
+                    <f:facet name="next">
+                        <ice:graphicImage
+                            url="/css/xmlhttp/css/xp/css-images/arrow-next.gif"
+                            style="border:none;"
+                            title="#{msg['abc.table.next.page']}" width="14"
+                            height="14" />
+                    </f:facet>
+                </ice:dataPaginator>
+                <!-- Display counts about the table and the currently displayed page -->
+                <ice:dataPaginator id="dataScroll_2" for="table"
+                    rowsCountVar="rowsCount"
+                    displayedRowsCountVar="displayedRowsCount"
+                    firstRowIndexVar="firstRowIndex"
+                    lastRowIndexVar="lastRowIndex" pageCountVar="pageCount"
+                    pageIndexVar="pageIndex">
+                    <ice:outputFormat
+                        value="#{msg['abc.table.resume.datascroller']}"
+                        styleClass="standard">
+                        <f:param value="#{rowsCount}" />
+                        <f:param value="#{displayedRowsCount}" />
+                        <f:param value="#{firstRowIndex}" />
+                        <f:param value="#{lastRowIndex}" />
+                        <f:param value="#{pageIndex}" />
+                        <f:param value="#{pageCount}" />
+                    </ice:outputFormat>
+                </ice:dataPaginator>
+            </div> <!-- fim centralizar -->
+					
+				</p>
+	        </h:panelGroup>
+
+			<br class="clear" />
+			<br class="clear" />
+			<div class="new_footer">			
+				<h:commandButton type="Button" styleClass="botaoSabesp" action="#{noticiasBBean.novaNoticia}" value="Nova Notícia" />
+			</div>
+
+		</form>	
+	</div>
+</ui:define>
+
+
+</ui:composition>

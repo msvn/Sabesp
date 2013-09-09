@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns:jsp="http://java.sun.com/JSP/Page"
+			    xmlns:ui="http://java.sun.com/jsf/facelets"
+			    xmlns:h="http://java.sun.com/jsf/html"
+			    xmlns:f="http://java.sun.com/jsf/core"
+			    xmlns:ice="http://www.icesoft.com/icefaces/component"
+			    xmlns:fn="http://www.primeinformatica.com.br/functions" template="../template/template.jspx">
+
+	<ui:define name="conteudo">
+		<ice:panelGroup styleClass="wrapper">
+			<ice:panelGroup styleClass="contaContent">
+				<!-- exibe titulo -->
+				<h:panelGroup>
+					<h3><h:outputText value="#{migalhaPaoBBean.dsSubMenu}"/></h3>
+				</h:panelGroup>
+
+				<!-- exibe msg / imagem cavalete -->
+				<h:panelGrid columns="2" columnClasses="tbConsertoCol1, tbConsertoCol2">
+					<!-- conteudo lado esquerdo -->
+					<h:panelGroup>
+						<p>#{msg['trocahidrometro.subtitulo']}</p>
+						<p>#{msg['trocahidrometro.info']}</p>
+
+						<p id="infoProblema" style="display: block;"><span class="info"></span>Descrição do problema:<br/> Registro</p>
+					</h:panelGroup>
+
+					<!-- exibe imagem cavalete do lado direito -->
+					<h:panelGroup>
+						<ui:include src="../consertos/mapimage.jspx" />
+					</h:panelGroup>
+				</h:panelGrid>
+
+				<ice:panelGroup styleClass="botoes">
+				<table border="0" width="100%">
+					<tr>
+						<td align="center">
+								<br />
+								<ul>
+									<li class="claro">
+										<h:commandLink action="#{consertoRegistroBBean.prosseguir}" actionListener="#{consertoRegistroBBean.inicializarConserto }">
+											<f:param name="outcomeparam" value="PROSSEGUIR_REGISTRO" />
+											<f:param name="cdSubMenu" value="26"/>
+											<f:param name="dsSubMenu" value="Troca do registro do cavalete"/>
+											<f:param name="outcomeSubMenu" value="CONSERTO_REGISTRO"/>
+											<b><span>#{msg['agenciasatendimento.botao.prosseguir']}</span></b>
+										</h:commandLink>
+									</li>
+								</ul>						
+						</td>
+					</tr>
+				</table>
+				</ice:panelGroup>
+			</ice:panelGroup>
+		</ice:panelGroup>
+	</ui:define>
+</ui:composition>				

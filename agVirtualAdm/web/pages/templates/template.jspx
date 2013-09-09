@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ice="http://www.icesoft.com/icefaces/component" version="2.0">
+<f:loadBundle basename="com.prime.app.agvirtual.message.default" var="msg" />
+<ice:outputDeclaration doctypeRoot="HTML" doctypePublic="-//W3C//DTD HTML 4.01//EN" doctypeSystem="http://www.w3.org/TR/html4/strict.dtd"/>
+
+<head>
+<title><ui:insert name="title">#{msg['agvirtualAdm.title']}</ui:insert></title>
+<meta http-equiv="X-UA-Compatible" content="IE=7.0; IE=8; IE=100"/>
+<!-- meta http-equiv="Content-Type" content="text/html; charset=UTF-8" / -->
+<meta name="Description" content="Information architecture, Web Design, Web Standards." />
+<meta name="Keywords" content="your, keywords" />
+<meta name="Distribution" content="Global" />
+<meta name="Author" content="Prime" />
+<meta name="Robots" content="index,follow" />
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+<script language="JavaScript" type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/js/script.js"></script>
+<script language="JavaScript" type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/scripts/wysiwyg-color.js"></script>
+<script language="JavaScript" type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/scripts/wysiwyg-popup.js"></script>
+<script language="JavaScript" type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/scripts/wysiwyg-settings.js"></script>
+<script language="JavaScript" type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/scripts/wysiwyg.js"></script>
+<!-- link
+    href="#{facesContext.externalContext.requestContextPath}/css/style.css"
+    rel="stylesheet" type="text/css" /-->  
+    
+
+
+<ice:outputStyle href="/css/style_ie7.css"/>
+
+    
+<link href="#{facesContext.externalContext.requestContextPath}/css/xmlhttp/css/rime/rime.css" rel="stylesheet" type="text/css"/>
+<link href="#{facesContext.externalContext.requestContextPath}/css/selectInputDate.css" rel="stylesheet" type="text/css" />
+<link href="#{facesContext.externalContext.requestContextPath}/css/default.css" rel="stylesheet" type="text/css" />
+</head>
+<body> 
+<div id="topobackground">
+	<div id="logosabesp" style="padding-top:2px;padding-left:2px;">
+		<img src="#{facesContext.externalContext.requestContextPath}/images/sabesp.gif" alt="Sabesp" class="floatLeft" border="0" width="21" height="21" style="border-width: 0px;"/>
+	</div>
+	<div id="agenciavirtualtxt">
+		<h1>Agência Virtual</h1>
+	</div>
+	<div id="loading">
+		<ice:outputConnectionStatus
+		    cautionLabel=""
+		    activeLabel=""
+		    disconnectedLabel="" 
+		    inactiveLabel=""
+			/> 
+	</div>
+	<a href="http://portal-intranet.ti.sabesp.com.br" class="floatRight" ><img src="#{facesContext.externalContext.requestContextPath}/images/portal_corporativo.gif"  style="border-width: 0px;" alt="Portal Corporativo" border="0" width="22" height="22"/> Portal Corporativo</a>
+</div>
+
+<!-- header starts here -->
+<h:form style="padding:0;margin:0;">
+<div id="wrap"><!-- header -->
+	<div id="menuSuperior">
+		<ul>
+
+		    <li id="current" class="normal" >
+				<ice:commandLink action="#{noticiasBBean.carregar}">
+					<b>
+						<span>#{msg['av.menu.noticias']}</span>
+					</b>
+				</ice:commandLink>
+			</li>
+
+		    <li  class="normal" >
+				<ice:commandLink action="#{conteudoBBean.carregar}">
+					<b>
+						<span>#{msg['av.menu.conteudo']}</span>
+					</b>
+				</ice:commandLink>
+			</li>
+
+		    <li  class="normal" >
+				<ice:commandLink action="SERVICO" actionListener="#{servicosBBean.carregarListener}">
+					<b>
+						<span>#{msg['av.menu.servicos']}</span>
+					</b>
+				</ice:commandLink>
+			</li>
+
+		    <li  class="normal" >
+				<ice:commandLink action="SUBSERVICO">
+					<b>
+						<span>#{msg['av.menu.sub.servicos']}</span>
+					</b>
+				</ice:commandLink>
+			</li>
+<!-- 
+		    <li  class="normal" >
+				<ice:commandLink action="CANAISATENDIMENTO">
+					<b>
+						<span>#{msg['av.menu.canais']}</span>
+					</b>
+				</ice:commandLink>
+			</li>
+
+			<li  class="normal" >
+				<ice:commandLink action="DOCUMENTOS">
+					<b>
+						<span>#{msg['av.menu.documentos']}</span>
+					</b>
+				</ice:commandLink>
+			</li>
+ -->
+			<li  class="normal" >
+				<ice:commandLink action="BLOQUEIO">
+					<b>
+						<span>#{msg['av.menu.bloqueios']}</span>
+					</b>
+				</ice:commandLink>
+			</li>
+
+			<li  class="normal" >
+
+				<ice:commandLink action="PESQUISA">
+					<b>
+				    	<span>#{msg['av.menu.pesquisa']}</span>
+					</b>
+				</ice:commandLink>
+
+			</li>
+
+			<li  class="normal" >
+				<ice:commandLink action="SERVICOSCORRELATOS">
+					<b>
+				    	<span>#{msg['av.menu.servico.correlatos']}</span>
+					</b>
+				</ice:commandLink>
+			</li>
+			<!-- <li class="ultimo"><a href="#"><img class="noborder" src="#{facesContext.externalContext.requestContextPath}/images/ajuda.gif" width="20" height="20" alt="ajuda" border="0" /></a></li>-->
+		</ul>
+	</div>
+	
+	<div id="versao" style="display: none;">091120101730</div>
+
+	<!-- help button --> 
+	<div id="help">
+		
+			<ice:commandLink title="Sair" actionListener="#{loginBBean.logOff}" ><img class="ultimo noborder" src="#{facesContext.externalContext.requestContextPath}/images/sair.gif" width="20" height="20" alt="ajuda" border="0"/></ice:commandLink>
+			<a href="#"><img class="ultimo noborder" src="#{facesContext.externalContext.requestContextPath}/images/ajuda.gif" width="20" height="20" alt="ajuda" border="0"/></a>
+		
+		<br class="clear" />
+	</div>
+<br class="clear" />
+</div>
+
+</h:form> 
+
+<!-- header ends here -->
+
+<ice:panelGroup styleClass="componentBox"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ice="http://www.icesoft.com/icefaces/component">
+    <ice:panelGroup styleClass="synopsisBox outputConnectionStatusContainer">
+        <ice:outputText
+                value="#{msgs['page.connectionStatus.synopsis']}"/>
+       <ice:outputText
+                value="#{msgs['page.connectionStatus.instructions']}"/>
+    </ice:panelGroup>
+
+    <ice:panelGroup styleClass="clearer" />
+   
+	</ice:panelGroup>
+
+<!-- body starts here -->
+<div align="left"><ui:insert name="content">Content</ui:insert></div>
+<!-- body ends here -->
+
+<!-- footer starts here -->
+<div class="footer">
+	<ui:insert name="footer">
+
+<!-- 		
+    <p>© 2010 &nbsp;<strong>#{msg['abc.footer.title.company']}</strong>
+    #{msg['abc.footer.designed.by']}: <a href="http://www.primeinformatica.com.br/">
+    primeinformatica </a> | Valid: <a href="http://validator.w3.org/check/referer">
+    XHTML </a> | <a href="http://jigsaw.w3.org/css-validator/check/referer"> CSS
+    </a> | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+ -->
+
+	</ui:insert>
+</div>
+<!-- footer ends here -->
+
+</body>
+</html>
+

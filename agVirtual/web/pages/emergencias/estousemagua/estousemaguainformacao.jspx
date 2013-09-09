@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ice="http://www.icesoft.com/icefaces/component"
+    xmlns:fn="http://www.primeinformatica.com.br/functions" template="../../template/template.jspx">
+
+	<ui:define name="conteudo">	
+		<ice:panelGroup styleClass="wrapper">
+				
+				<ice:panelGroup styleClass="contaContent" rendered="#{estouSemAguaBBean.validacaoRealizada}">
+					<h3><h:outputText value="#{migalhaPaoBBean.dsSubMenu}"/> </h3>
+					<br />
+					<p><span class="info"></span><h:outputText value="#{msg['estousemagua.aviso.info']}" /></p>
+					<ul class="duvidas">
+						<li><span><h:outputText value="#{msg['estousemagua.aviso.l1']}" /></span></li>
+						<li><span><h:outputText value="#{msg['estousemagua.aviso.l2']}" /></span><br/></li>
+						<li><span><h:outputText value="#{msg['estousemagua.aviso.l3']}" /><br/></span></li>
+					</ul>
+					<p>
+						<a href="#" onclick="javascript:window.open('http://site.sabesp.com.br/site/fique-por-dentro/noticias-Detalhes.aspx?secaoId=66&amp;id=502' , '_blank', 'scrollbars=yes,width=800,menubar=no');">
+							#{msg['estousemagua.aviso.l4']}
+						</a>
+					</p>
+
+					<table border="0" width="100%">
+					<tr>
+						<td align="center">
+							<ice:panelGroup styleClass="botoes" style="clear: both;">
+								<br />				
+	
+									<ul>
+										<li class="claro">
+											<ice:commandLink action="#{estouSemAguaBBean.prosseguir}" >
+												<f:param name="outcomeparam" value="EXIBIR_PERGUNTAS_SEM_AGUA" />
+												<b><span>PROSSEGUIR</span></b>
+											</ice:commandLink>
+										</li>
+									</ul>						
+	
+							</ice:panelGroup>
+						</td>
+					</tr>
+					</table>
+
+				</ice:panelGroup>	
+
+				<!-- ligacao inativa -->
+				<ice:panelGroup styleClass="contaContent" rendered="#{estouSemAguaBBean.exibirLigacaoInativa}">
+					<h3><h:outputText value="#{msg['emergencias.txt.estousemagua']}" /></h3>
+					<br />
+					<p><span class="info"></span>
+						Ligação Inativa! <br />
+						<!-- <h:commandLink>Não quero mais receber informações sobre a ligação inativa.</h:commandLink> --> 
+					</p>
+					<table border="0" width="100%">
+					<tr>
+						<td align="center">
+							<ice:panelGroup styleClass="botoes" style="clear: both;">
+								<br />				
+	
+									<ul>
+										<li class="claro">
+											<ice:commandLink action="#{estouSemAguaBBean.retornar}">
+												<f:param name="retornoparam" value="VOLTAR" />
+												<b><span>RETORNAR</span></b>
+											</ice:commandLink>
+										</li>
+									</ul>						
+	
+							</ice:panelGroup>
+						</td>
+					</tr>
+					</table>					
+				</ice:panelGroup>
+
+		</ice:panelGroup>
+	</ui:define>
+</ui:composition>	
+
+
+

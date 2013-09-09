@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ice="http://www.icesoft.com/icefaces/component"
+    xmlns:fn="http://www.primeinformatica.com.br/functions" template="../templates/template.jspx">
+	
+	<ui:define name="content" >
+		<form jsfc="h:form" styleClass="common" style="width:100%">
+	      
+	        <!-- ice:panelGroup id="conteudo" -->
+		        <div id="conteudo">
+		            <h2>#{msg['av.servico.correlato.alterar']}</h2>
+		        </div>    
+				<ice:panelGroup rendered="${servicosCorrelatosBBean.existeMsgErro eq true}" style="border: 1px solid #D2D7D7; width: 95%; background-color: #EDF2F2; padding: 7px 7px 7px 7px; text-align: left; align: center; font: normal 8pt Verdana!important; height: auto;">
+					<ice:graphicImage style="float:left; border: 0px; padding-right: 10px;" url="#{servicosCorrelatosBBean.caminhoImagemErroSucesso}"/> 
+					<h:messages errorStyle="color: red; font: normal 8pt Verdana!important;" infoStyle="color: green; font: normal 8pt Verdana!important;" layout="table" 
+						showSummary="true" showDetail="false" globalOnly="true"/>
+				</ice:panelGroup>	
+				 <div style="overflow: right; height: auto ; padding-left: 100px">
+				
+
+		            <ice:inputHidden id="codAutoAtendimento" value="#{servicosCorrelatosBBean.codAutoAtendimento}"/>
+		            
+						<ice:outputText style="font: bold 8pt Verdana!important;" value="#{msg['av.servico.correlato.auto']}: "/>
+						<ice:outputText style="font: bold 8pt Verdana!important;" value="#{servicosCorrelatosBBean.dsAutoAtendimento}" />
+						<br class="clear" />
+							<ice:outputText style="font: normal 8pt Verdana!important;" value="#{msg['av.servico.correlato.mensagem.relacionar']}" />
+						<br class="clear" />
+						<br class="clear" />
+						
+							<ice:selectOneMenu 
+								id="documentos"
+								styleClass="desfocaliza" 
+								onblur="desfocaliza(this);"
+								onfocus="focaliza(this);"
+								value="#{servicosCorrelatosBBean.codFuncionalidade}">
+								
+								<f:selectItems value="#{servicosCorrelatosBBean.listaFuncionalidades}"/>
+								
+							</ice:selectOneMenu>
+
+							<ice:commandButton image="/images/incluir_registro.gif"    
+								actionListener="#{servicosCorrelatosBBean.addFuncionalidade}" />
+							<br class="clear" />
+						<ice:outputText value="#{msgs['av.subservicos.form.listagem.documento']}"/>
+					        <ice:dataTable id="table" var="servicos" value="#{servicosCorrelatosBBean.listaFuncionalidadesAdicionadas}"
+					        	 style="width:65%" >
+					            <ice:column>
+					                <f:facet name="header">
+										#{msg['av.servico.correlato.title']}
+					                </f:facet>
+									<ice:outputText value="#{servicos.agvTabItemMenuAcesso.dsItemMenu}"/>
+					            </ice:column>
+					            <ice:column>
+					            	<ice:commandLink  style="text-align: center;"    
+										actionListener="#{servicosCorrelatosBBean.removeFuncionalidade}">
+										<ice:graphicImage style="border: 0px;" url="/images/excluir_registro.gif"></ice:graphicImage>
+					                    <f:param name="cdFuncionalidade" value="#{servicos.agvTabItemMenuAcesso.cdItemMenu}"/>
+					                </ice:commandLink>
+					            </ice:column>
+					        </ice:dataTable>	
+						<br/>
+						<br/>
+						<br/>
+
+				</div>
+				<div class="new_footer_form">			
+					<ice:commandButton styleClass="botaoSabesp" action="#{servicosCorrelatosBBean.atualizar}" value="#{msg['abc.label.voltar']}" />
+					<ice:commandButton styleClass="botaoSabesp" action="#{servicosCorrelatosBBean.salvar}" value="#{msg['abc.button.save']}" />
+				</div>
+		</form>
+	</ui:define>
+</ui:composition>

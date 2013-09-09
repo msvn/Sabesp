@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="1.0"
+	xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
+	<persistence-unit name="manager1" transaction-type="RESOURCE_LOCAL">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<class>com.prime.app.agvirtual.entity.AgvTabServico</class>
+		<class>com.prime.app.agvirtual.entity.AgvTabSubservico</class>
+		<class>com.prime.app.agvirtual.entity.AgvLogAcesso</class>
+		<class>com.prime.app.agvirtual.entity.AgvTabAtendimento</class>
+		<class>com.prime.app.agvirtual.entity.AgvTabAutoatendimento</class>
+		<class>com.prime.app.agvirtual.entity.AgvTabAutoatendimentoAcess</class>
+		<class>com.prime.app.agvirtual.entity.AgvTabBloqueio</class>
+		<class>com.prime.app.agvirtual.entity.AgvTabBloqueioDetalhe</class>
+		<class>com.prime.app.agvirtual.entity.AgvTabItemMenu</class>
+		<class>com.prime.app.agvirtual.entity.AgvTabItemMenuAcesso</class>
+		<class>com.prime.app.agvirtual.entity.AgvTabItemMenuGrupo</class>
+		<class>com.prime.app.agvirtual.entity.AgvTabItemPagIni</class>
+		<class>com.prime.app.agvirtual.entity.AgvTabMunicipio</class>
+		<class>com.prime.app.agvirtual.entity.AgvTabMunicipioUnidadeNegocio</class>
+		<class>com.prime.app.agvirtual.entity.AgvTabNoticia</class>
+		<class>com.prime.app.agvirtual.entity.AgvTabSecaoPagIni</class>
+		<class>com.prime.app.agvirtual.entity.BancoConveniadoPagEletronico</class>
+		<class>com.prime.app.agvirtual.entity.AgvTabCanalAtend</class>	
+		<class>com.prime.app.agvirtual.entity.AgvTabCorrelacao</class>	
+		<class>com.prime.app.agvirtual.entity.AgvTabDocumento</class>	
+		<class>com.prime.app.agvirtual.entity.AgvTabItemMenu</class>	
+		<class>com.prime.app.agvirtual.entity.AgvTabItemMenuAcesso</class>
+		<class>com.prime.app.agvirtual.entity.AgvTabItemMenuGrupo</class>		
+		<class>com.prime.app.agvirtual.entity.PerguntaAutoAtendimento</class>	
+		<class>com.prime.app.agvirtual.entity.PerguntaRespostaAutoAtendimento</class>
+		<class>com.prime.app.agvirtual.entity.RespostaAutoAtendimento</class>
+		<class>com.prime.app.agvirtual.entity.ConjuntoRespostaAutoAtendimento</class>
+		<class>com.prime.app.agvirtual.entity.AutoAtendimentoPergResp</class>
+		<class>com.prime.app.agvirtual.entity.AutoAtendimentoAcao</class>
+		<class>com.prime.app.agvirtual.entity.AcaoAutoAtendimento</class>		
+		<exclude-unlisted-classes>true</exclude-unlisted-classes>
+		<properties>
+			<property name="hibernate.connection.dialect" value="org.hibernate.dialect.Oracle9iDialect" />
+			<property name="hibernate.connection.driver_class" value="oracle.jdbc.OracleDriver"/>
+			<property name="hibernate.connection.url" value="jdbc:oracle:thin:@10.10.80.2:1521:prmora"/>
+			<property name="hibernate.connection.username" value="jab" />
+			<property name="hibernate.connection.password" value="jab" />
+			<!--
+				<property name="hibernate.cache.provider_class"
+				value="org.hibernate.cache.NoCacheProvider"/>
+			-->
+			<property name="hibernate.c3p0.max_size" value="5" />
+			<property name="hibernate.c3p0.min_size" value="1" />
+			<property name="hibernate.c3p0.timeout" value="5000" />
+			<property name="hibernate.c3p0.max_statements" value="100" />
+			<property name="hibernate.c3p0.idle_test_period" value="300" />
+			<property name="hibernate.c3p0.acquire_increment" value="2" />
+		</properties>
+	</persistence-unit>
+</persistence>

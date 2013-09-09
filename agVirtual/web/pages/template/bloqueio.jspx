@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ice="http://www.icesoft.com/icefaces/component"
+    xmlns:fn="http://www.primeinformatica.com.br/functions" template="template.jspx">
+
+<link href="#{facesContext.externalContext.requestContextPath}/css/agvt.css" rel="stylesheet" type="text/css" />
+
+<ui:define name="conteudo">
+<ice:panelGroup styleClass="wrapper">
+		<ice:panelGroup styleClass="contaContent">	
+<!-- panel Inicio -->
+			<ice:panelGroup>
+				<h3>Funcionalidade Bloqueada</h3>
+			</ice:panelGroup>
+
+			<p></p>
+				<!-- mensagem erro validacao -->
+				<ui:include src="../template/errovalidacao.jspx" >
+					<ui:param name="backbean" value="#{backbean}"/>
+				</ui:include>
+			<p></p>
+			
+			<div class="identificacao">
+				<div class="formID">
+					<ul class="esquerda">
+						<div>
+							<li>
+								<label>
+									<b><ice:outputText value="#{backbean.dadosImoveisTO.agencia.nmAbrUnid}"/>:</b>
+								</label>
+								<span class="normal">
+									<h:outputText value="#{backbean.dadosImoveisTO.agencia.endereco.dsTipoLogradouro}#{backbean.dadosImoveisTO.agencia.endereco.dsHonorifico}#{backbean.dadosImoveisTO.agencia.endereco.dsPreposicao}#{backbean.dadosImoveisTO.agencia.endereco.dsEndereco}#{backbean.dadosImoveisTO.agencia.endereco.nrEndereco}#{backbean.dadosImoveisTO.agencia.endereco.nmBairro}#{backbean.dadosImoveisTO.agencia.endereco.nmMunicipio}#{backbean.dadosImoveisTO.agencia.endereco.dsUF}"/>
+									<h:outputText value="De segunda a sexta-feira, das #{backbean.dadosImoveisTO.agencia.horaInicio} às #{backbean.dadosImoveisTO.agencia.horaFim}"/>
+								</span>
+							</li>
+							<li>
+								<label><b>Telefone:</b></label><span class="normal">195</span>
+							</li>
+							<li>
+								<label><b>Internet:</b></label><span class="normal"><a href="#">Atendimento Online</a></span>
+							</li>							
+						</div>
+					</ul>
+					<div class="clearBoth"></div>
+				</div>	
+			</div>	
+			
+		<ice:panelGroup styleClass="botoes">
+			<table border="0" width="100%">
+				<tr>
+					<td align="center">
+				<br /><br />
+				<ul class="" style="float:center;">	
+					<li class="claro">
+						<ice:commandLink action="#{auditoriaAcessoBBean.paginaInicial}" >
+							<b><span>Continuar Navegando</span></b>
+						</ice:commandLink>
+					</li>
+					<li class="escuro">
+						<ice:commandLink action="#{auditoriaAcessoBBean.redirectConcluirAtendimento}" >
+							<b><span>Concluir</span></b>
+						</ice:commandLink>
+					</li>
+				</ul>			
+				</td>
+			</tr>
+			</table>
+		</ice:panelGroup>
+			
+		</ice:panelGroup>
+</ice:panelGroup>
+</ui:define>
+
+</ui:composition>	

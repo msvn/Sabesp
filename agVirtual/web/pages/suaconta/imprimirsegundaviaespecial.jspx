@@ -1,0 +1,556 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:jsp="http://java.sun.com/JSP/Page"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ice="http://www.icesoft.com/icefaces/component"
+	  xmlns:fn="http://www.primeinformatica.com.br/functions">
+
+<f:loadBundle basename="com.prime.app.agvirtual.message.default" var="msg" />
+
+<head>
+	<script language="JavaScript" type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/js/DD_belatedPNG.js"></script>
+	<link href="#{facesContext.externalContext.requestContextPath}/css/media.css" rel="stylesheet" type="text/css" />
+	<link href="#{facesContext.externalContext.requestContextPath}/css/print.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="../js/default.js"></script>
+		 <script type="text/javascript">
+		 /* <![CDATA[ */
+		 function ImprimeBarras(cBarras)
+			{
+				var nContador;
+				cTexto = new String(cBarras);
+				for(nContador=0;nContador < cTexto.length ; nContador++)
+				{
+					
+					document.write("<img src='../../images/");
+					if((nContador % 2) == 1)
+					{document.write("b")}
+					else
+					{document.write("p")}
+			
+					document.write( ".gif' width=");
+					document.write(cTexto.charAt(nContador));
+					document.write(" height=50 border=0>");
+				}
+			}
+		  /* ]]> */
+	 </script>
+</head>
+
+<body>	
+	<ice:form id="frmSegundaVia">
+	
+	<h:outputText rendered="#{contaBBean.listaContasImpressaoSegundaVia != null}"> 
+	<c:forEach items="#{contaBBean.listaImpressao}" var="conta">
+
+<ice:panelGroup id="painelPrincipal" styleClass="" style="MARGIN:10px auto ;width: 800px !important;" >
+	<table border="0" cellpadding="0" cellspacing="0" align="center"  >
+	<!--Linha 1# ________________________________________________________-->
+	<tbody>
+	<tr> 
+		<td colspan="4" class="pontilhado"><!--<img src="../imagens/sp.gif" height="12" align="left" />--></td>
+	</tr>
+	<!--Linha 2# ________________________________________________________-->
+	<tr>
+		<td colspan="4" class="t b texto ct" style="font-size:20px; padding-top:8px; padding-bottom:8px;">
+	
+		2ª Via de Conta Simplificada Impressa pela Internet em  <h:outputText value="#{conta.novaData}"><f:convertDateTime pattern="dd/MM/yyyy"/></h:outputText>
+		</td>
+	</tr>
+	<!--Linha 3# ________________________________________________________-->
+	<tr valign="top">
+		<td colspan="3" class="b texto" style="font-size:13px; width:auto;height:32px;">
+		<!--<img src="../imagens/sabesp.gif" border="0" align="absmiddle" width="19" height="26" style="margin:2px; margin-right:15px;" /> -->
+	
+		<table border="0" cellpadding="0" cellspacing="0">
+		<tbody><tr>
+		<td align="center">
+		Companhia de saneamento básico do estado de são paulo
+	
+		</td>
+		<td>
+		<ice:graphicImage url="/images/logo_sabe.gif" align="absmiddle" width="19" height="26" style="margin:2px; margin-right:15px;" />
+		</td>
+		</tr>
+		</tbody></table>
+	
+		</td><td class="cinza l b" style="font-size:13px; width:220px;">
+		<div >Mês de referência</div>
+		<div class="texto rt">
+			<ice:panelGroup style="background-color: #cccccc;">
+			<h:outputText value="#{conta.dtReferencia}">
+				<f:convertDateTime pattern="MMMM/yyyy"/>
+			</h:outputText>
+			</ice:panelGroup>
+		</div>
+		</td>
+	</tr>
+<!--Linha 4# ________________________________________________________-->
+<tr valign="top">
+	<td colspan="3" class="b">
+	<div class="texto">
+						Nome do Cliente</div>
+	<div class="texto"><h:outputText value="#{conta.clienteConta.nmCLiente}" /></div>
+	</td>
+	
+	<td class="l b">
+	<div class="texto">Emissão</div>
+	<div class="texto rt"> <h:outputText value="#{conta.dtEmissao}">
+								<f:convertDateTime pattern="dd/MM/yyyy"/>
+							</h:outputText> </div>
+	</td>
+</tr>
+<!--Linha 5# ________________________________________________________-->
+<tr valign="top">
+	<td class="b" style="width:190px;">
+	<div class="texto">
+						Código do Cliente</div>
+	<div class="texto"><h:outputText value="#{conta.clienteConta.cdCliente}" /></div>
+	</td>
+	
+	<td class="l b" style="width:190px;">
+	<div class="texto">
+						Inscrição Estadual do Cliente</div>
+	<div class="texto rt"><h:outputText value="#{conta.clienteConta.cdCliente}" /></div>
+	</td>
+
+	<td class="l b" style="width:190px;">
+	<div class="texto">
+						C.N.P.J/C.P.F. do Cliente</div>
+	<div class="texto"><h:outputText value="#{conta.clienteConta.cpf}" ></h:outputText> /<h:outputText value="#{conta.clienteConta.cnpj}" /></div>
+	</td>
+	
+	<td class="l b cinza" rowspan="2">
+	<div class="texto" style="margin-top:5px;">Vencimento</div>
+	<div class="texto rt">
+		<h:outputText value="#{conta.dtVencimento}">
+			<f:convertDateTime pattern="dd/MM/yyyy"/>
+		</h:outputText>
+	</div>
+	</td>
+</tr>
+<!--Linha 6# ________________________________________________________-->
+<tr valign="top">
+	<td class="b">
+	<div class="texto">Código do RGI</div>
+	<div class="texto">
+		<ice:outputText value="#{conta.imovel.numeroRGIToBoleto}" />
+	</div>
+	</td>
+	
+	<td class="l b">
+	<div class="texto">
+						Nº da Conta</div>
+	<div class="texto rt"><ice:outputText value="#{conta.numeroConta}" /></div>
+	</td>
+
+	<td class="l b" colspan="2">
+	<div >Data da Leitura</div>
+	<div class="texto"><ice:outputText value="#{conta.dtLeitura}" > <f:convertDateTime pattern="dd/MM/yyyy"/>
+		</ice:outputText></div>
+	</td>
+</tr>
+<!--Linha 7# ________________________________________________________-->
+<tr valign="top">
+	<td class="b">
+	<div class="texto">Período da Medição</div>
+	<div class="texto"> <ice:outputText value="#{conta.dsperiodoMedicao}" /> </div>
+	</td>
+	
+	<td class="l b">
+	<div class="texto">Categoria</div>
+	<div class="texto rt"><ice:outputText value="#{conta.dscategoria}" /></div>
+	</td>
+
+	<td class="l b cinza ct">
+		<ice:panelGroup style="background-color: #cccccc;">
+			<div class="texto_menor" style="margin-top:6px;">VOLUME FATURADO NO MÊS</div>
+		</ice:panelGroup>
+	</td>
+	
+	<td class="l b cinza ct">
+	<ice:panelGroup style="background-color: #cccccc;">
+	<div class="texto" style="margin-top:6px;">VALORES</div>
+	</ice:panelGroup>
+	</td>
+</tr>
+<!--Linha 8# ________________________________________________________-->
+<tr valign="top">
+	<td colspan="2" class="b">
+	<div class="texto">AGENCIA DE ATENDIMENTO SABESP:
+		<br/>
+		<ice:outputText value="#{conta.imovel.agencia.endereco.enderecoCompletoAtendimento}" />
+		<br/>CEP: <h:outputText value="#{conta.imovel.agencia.endereco.cdCep}" />
+		<br/>Telefone: <h:outputText value="#{conta.imovel.agencia.endereco.nrTelefone }" />
+
+		<!--  conta parcela -->
+		<ice:panelGroup rendered="#{conta.contaParcelada.exibir}">
+			<table width="595" style="tablesAlign" border="0">
+				<tr>
+					<td valign="top">
+						<table border="0" width="100%">
+							<tr>
+								<td><ice:outputText value="Parcelamento ref. acordo:" styleClass="columnBoleto" /></td>
+								<td align="right"><ice:outputText value="#{conta.contaParcelada.acordo}" styleClass="columnBoleto" />.</td>
+								<td><ice:outputText value="Parcela:" styleClass="columnBoleto" /></td>
+								<td align="right"><ice:outputText value="#{conta.nrSequenciaConta1}" styleClass="columnBoleto" /> / <ice:outputText value="#{conta.quantidadeParcelas}" styleClass="columnBoleto" /> </td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</ice:panelGroup>
+		<br />				
+
+		<!--  conta parcela unica -->
+		<ice:panelGroup rendered="#{conta.contaParcelaUnica.exibir}">
+			<table width="595" style="tablesAlign" border="0">
+				<tr>
+					<td valign="top">
+						<table border="0" width="100%">
+							<tr>
+								<td><ice:outputText value="Parcelamento ref. acordo:" styleClass="columnBoleto" /></td>
+								<td align="right"><ice:outputText value="#{conta.contaParcelaUnica.acordo}" styleClass="columnBoleto" /></td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</ice:panelGroup>
+	</div>
+	</td> 
+	
+	<td class="b">
+		<!--Volumes e valores faturados no mes __________________________-->
+		<table border="0" cellpadding="0" cellspacing="0" class="volumes_valores">
+		<tbody><tr>
+			<td width="35%" class="l">
+			<div class="texto t_b_margim" style="padding-top:0px;padding-bottom:0px;">ÁGUA</div>
+			</td>
+			<td width="65%" class="">
+			<div class="texto rt t_b_margim" style="padding-top:0px;padding-bottom:0px;"><ice:outputText value="#{conta.volumeAgua}" /></div>
+			</td>
+		</tr>
+
+		<tr>
+			<td class="l">
+			<div class="texto t_b_margim">ESGOTOS</div>
+			</td>
+			<td class="">
+			<div class="texto rt t_b_margim"><ice:outputText value="#{conta.volumeEsgoto}" /></div>
+			</td>
+		</tr>
+
+		<tr>
+			<td class="l b">
+			<div class="texto t_b_margim">ESG. NÃO DOMEST.</div>
+			</td>
+			<td class="b">
+			<div class="texto rt t_b_margim"><ice:outputText value="#{conta.volumeEsgotoNaoDomes}" /></div>
+			</td>
+		</tr>
+
+		<tr>
+			<td class="l b cinza ct" colspan="2">
+			<ice:panelGroup style="background-color: #cccccc;">
+				<div class="texto t_b_margim" style="font-size:11px; padding:0px; margin-top:0px; margin-bottom:0px;">ECONOMIAS</div>
+			</ice:panelGroup>
+			</td>
+		</tr>
+
+		<tr>
+			<td class="l">
+			<div class="texto t_b_margim">RESIDENCIAL</div>
+			</td>
+			<td class="">
+			<div class="texto rt t_b_margim"><ice:outputText value="#{conta.economiaResidencial}" /></div>
+			</td>
+		</tr>
+
+		<tr>
+			<td class="l">
+			<div class="texto t_b_margim">COMERCIAL</div>
+			</td>
+			<td class="">
+			<div class="texto rt t_b_margim"><ice:outputText value="#{conta.economiaComercial}" /></div>
+			</td>
+		</tr>
+
+		<tr>
+			<td class="l">
+			<div class="texto t_b_margim">INDUSTRIAL</div>
+			</td>
+			<td class="">
+			<div class="texto rt t_b_margim"><ice:outputText value="#{conta.economiaIndustrial}" /></div>
+			</td>
+		</tr>
+
+		<tr>
+			<td class="l">
+			<div class="texto t_b_margim">PÚBLICA</div>
+			</td>
+			<td class="">
+			<div class="texto rt t_b_margim"><ice:outputText value="#{conta.economiaPublica}" /></div>
+			</td>
+		</tr>
+
+		<tr>
+			<td class="l b">
+			<div class="texto t_b_margim">VÁLVULA</div>
+			</td>
+			<td class="b">
+			<div class="texto rt t_b_margim">0</div>
+			</td>
+		</tr>
+
+		</tbody></table>
+	</td>
+
+	
+	<td>
+		<table border="0" cellpadding="0" cellspacing="0" class="volumes_valores">
+		<tbody><tr>
+			<td width="35%" class="l">
+			<div class="texto t_b_margim">ÁGUA</div>
+			</td>
+			<td width="65%" class="">
+			<div class="texto rt t_b_margim"><ice:outputText value="#{conta.vlAgua}" /></div>
+			</td>
+		</tr>
+
+		<tr>
+			<td class="l">
+			<div class="texto t_b_margim">ESGOTOS</div>
+			</td>
+			<td class="">
+			<div class="texto rt t_b_margim"><ice:outputText value="#{conta.vlEsgoto}" /></div>
+			</td>
+		</tr>
+
+		<tr>
+			<td class="l">
+			<div class="texto t_b_margim">
+			ESG. NÃO DOMEST.</div>
+			</td>
+			<td class="">
+			<div class="texto rt t_b_margim"><ice:outputText value="#{conta.vlEsgotoNaoDom}" /></div>
+			</td>
+		</tr>
+
+		<tr>
+			<td class="l">
+			<div class="texto t_b_margim">SERVIÇOS</div>
+			</td>
+			<td class="">
+			<h:panelGrid styleClass="texto rt t_b_margim" rendered="${conta.vlDebitos != null}"><ice:outputText value="#{conta.vlDebitos}" /></h:panelGrid>
+			</td>
+		</tr>
+
+		<tr>
+			<td class="l">
+			<div class="texto t_b_margim">DÉBITOS</div>
+			</td>
+			<td class="">
+			<h:panelGrid styleClass="texto rt t_b_margim" rendered="${conta.vlDebitos != null}"><ice:outputText value="#{conta.vlDebitos}" /></h:panelGrid>
+			</td>
+		</tr>
+
+		<tr>
+			<td class="l">
+			<div class="texto t_b_margim">CRÉDITOS</div>
+			</td>
+			<td class="">
+			<h:panelGrid styleClass="texto rt t_b_margim" rendered="${conta.vlCreditos != null}"><ice:outputText value="#{conta.vlCreditos}" /></h:panelGrid>
+			</td>
+		</tr>
+
+		<tr>
+			<td class="l">
+			<div class="texto t_b_margim">RETENÇÃO</div>
+			</td>
+			<td class="">
+			<h:panelGrid styleClass="texto rt t_b_margim" rendered="${conta.vlRetencao != null}"><ice:outputText value="#{conta.vlRetencao}" /></h:panelGrid>
+			</td>
+		</tr>
+
+		<tr>
+			<td class="l">
+			<div class="texto t_b_margim">MULTA/ACRÉSCIMO</div>
+			</td>
+			<td class="">
+			<h:panelGrid styleClass="texto rt t_b_margim" rendered="${conta.vlMulta != null}"> <ice:outputText value="#{conta.vlMulta}" /></h:panelGrid>
+			</td>
+		</tr>
+
+		<tr>
+			<td class="l b">
+			<div class="texto t_b_margim">PARCELAMENTO</div>
+			</td>
+			<td class="rt b">
+			<h:panelGrid rendered="${conta.vlParcelamento != null}"><ice:outputText value="#{conta.vlParcelamento}" /> <ice:outputText value=" " /> </h:panelGrid>
+			</td>
+		</tr>
+
+		<tr valign="middle">
+			<ice:panelGroup style="background-color: #cccccc;">
+			<td class="b l cinza">
+			<div class="texto t_b_margim">VALOR<br/>TOTAL</div>
+			</td>
+			<td class="rt b cinza">
+			<div class="texto t_b_margim"><ice:outputText value="R$ #{conta.vlTotal}" /></div>
+			</td>
+			</ice:panelGroup>
+		</tr>
+
+		</tbody></table>
+	</td>
+
+</tr>
+<!--Linha 9# ________________________________________________________-->
+<tr valign="top" style="height:80">
+	<td colspan="4" class="b">
+	<div class="label ct" style="font-size:7px;"><b>
+	CADASTRO DE LIGAÇÕES (R.G.I. / ENDEREÇO / HIDRÔMETRO / LEITURA ATUAL / CONSUMO M³ / CÓDIGO CONSUMO) 
+	</b></div>
+	<div >
+		<h:outputText rendered="#{conta.listaRgisFilhosContaRolEspecial != null}">
+			<ui:repeat items="#{conta.listaRgisFilhosContaRolEspecial}" var="rgisFilho">
+				<div style="font-size:9px; width:99%;float:left;padding-left:4px;">
+					<ui:repeat value="#{rgisFilho}" var="iter">		
+						<h:outputText value="#{iter}"/> /
+					</ui:repeat>
+					<br/>
+				</div>
+			</ui:repeat>
+		</h:outputText>
+	</div>
+	</td>
+</tr>
+
+<!--Linha 10# ________________________________________________________-->
+<tr valign="top">
+	<td colspan="4" class="rt" style="padding-right:55px;">
+	<div >Autenticação Mecânica</div>
+	</td>
+</tr>
+
+<!--Linha 11# ________________________________________________________-->
+<tr valign="top" style="height:45px;background-color:#F2F2F2;">
+	<td colspan="4">
+	</td>
+</tr>
+<!--Linha 12# ________________________________________________________-->
+<tr>
+	<td class="pontilhado" colspan="4">
+	</td>
+</tr>
+
+</tbody></table>
+</ice:panelGroup>
+<!--Fim da Parte Superior ================================================================================================================-->
+<!--======================================================================================================================================-->
+
+<!--======================================================================================================================================-->
+<!--Inicio da Parte Inferior-->
+<br/>
+<ice:panelGroup id="painelPrincipal" style="MARGIN:10px auto ;width: 800px;"  >
+<div id="conteudo">
+	<div id="linhaCabec" class="contido l r b t"> 
+		<p style="line-height:35px;font-size:13px;" class="texto">Companhia de saneamento básico do estado de são paulo</p>
+	</div>
+	<div id="logoSabesp" class="contido r b t">
+		<ice:graphicImage url="/images/logo_sabe.gif" align="absmiddle" width="19" height="26" style="margin:2px; margin-right:15px;" />
+	</div>
+	<div id="OCR" class="contido l r b"><span class="texto_destaque"><ice:outputText value="#{conta.codigoOCR}" /></span></div>
+	<div id="mesref" class="contido r b">
+		<span class="texto" style="margin-top:0px;padding-top:0px;">Mês de referência</span>
+		<p class="texto" style="text-align:right;margin:0px;padding:0px;">
+			<h:outputText value="#{conta.dtReferencia}">
+				<f:convertDateTime pattern="MMMM/yyyy"/>
+			</h:outputText>
+		</p>
+	</div>
+	<div id="codrgi" class="contido l r b">
+		<span class="texto">RGI</span>
+		<p class="texto" style="text-align:right;margin:0px;padding:0px;">
+		<ice:panelGroup>
+				<ice:outputText value="#{conta.imovel.numeroRGIToBoleto}" />
+		</ice:panelGroup>
+		</p>
+	</div>
+	<div id="codcliente" class="contido r b">
+		<span class="texto">Código do Cliente</span>
+		<p class="texto" style="text-align:right;margin:0px;padding:0px;">
+			<h:outputText value="#{conta.clienteConta.cdCliente}" />
+		</p>
+	</div>
+	<div id="nrconta" class="contido r b">
+		<span class="texto">Nº da conta</span>
+		<p class="texto" style="text-align:right;margin:0px;padding:0px;"><ice:outputText value="#{conta.numeroConta}" /></p>
+	</div>
+	<div id="atencao" class="contido l r b">
+		<p class="b texto" style="line-height:25px;text-align:center;">ATENÇÃO</p>
+		<p id="textoatencao" style="padding-top:5px;">NÃO RASURE OU PERFURE ESTE CANHOTO. SERÁ USADO NA LEITORA ÓTICA.</p>
+	</div>
+	<div id="obs" class="contido r b">
+		<p style="padding-left:10px;padding-right:0px;margin-top:5px;" class="texto">
+			<ui:repeat items="#{conta.intrucoesBoleto}" var="obs">		
+				<p class="texto"><h:outputText value="#{obs}"/> </p>
+			</ui:repeat>
+		</p>
+	</div>
+	<div id="viaSabesp" class="contido l r b">
+		<p class="texto" style="line-height:35px;">VIA SABESP</p>
+	</div>
+	<div id="vencto" class="contido r b">
+		<span class="texto">Vencimento</span>
+		<ice:panelGroup style="background-color: #cccccc;">
+		<p class="texto" style="text-align:right;margin:0px;padding:0px;">
+			<h:outputText value="#{conta.dtVencimento}">
+				<f:convertDateTime pattern="dd/MM/yyyy"/>
+			</h:outputText></p>
+		</ice:panelGroup>
+	</div>
+	<div id="valor" class="contido r b">
+		
+		<span class="texto">Valor Total</span>
+		<ice:panelGroup style="background-color: #cccccc;">
+		<p class="texto" style="text-align:right;margin:0px;padding:0px;"><ice:outputText value="R$ #{conta.vlTotal}" /></p>
+		</ice:panelGroup>
+	</div>
+	<div id="trans" class="contido label">Código da Transação:&nbsp;{2B1BFB59-346F-4BF8-802A-15884AC2EBA4}</div>
+	<div id="barras" class="contido">
+		<p align="center" class="texto_destaque" style="margin-top:0px;padding-top:0px;padding-bottom:0px;margin-bottom:0px;"><ice:outputText value="#{conta.codigoBarraDigitosControle}" styleClass="columnBoleto"/></p>
+		
+			<p align="center" style="margin-top:0px;padding-top:0px;"/>
+			 <script type="text/javascript">
+			 /* <![CDATA[ */
+				  ImprimeBarras('#{conta.codigoBarBinario}');
+			  /* ]]> */
+			 </script>
+			<br />
+	</div>
+</div>
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+
+</ice:panelGroup>
+
+</c:forEach>
+</h:outputText>
+</ice:form>
+</body>
+</html>
+
+
+
+
